@@ -1,0 +1,24 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/godot_states/MultipleStateMachine.gd" type="Script" id=1]
+[ext_resource path="res://src/goos/body/BaseGooBody.gd" type="Script" id=2]
+[ext_resource path="res://addons/godot_states/SwitchableStateMachine.gd" type="Script" id=3]
+
+[sub_resource type="CircleShape2D" id=1]
+radius = 12.0
+
+[node name="BaseGooBody" type="RigidBody2D" groups=["goo"]]
+input_pickable = true
+contacts_reported = 1
+contact_monitor = true
+can_sleep = false
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="States" type="Node" parent="."]
+script = ExtResource( 3 )
+
+[node name="Idle" type="Node" parent="States"]
+script = ExtResource( 1 )

@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://src/camera/Camera2D.gd" type="Script" id=2]
+[ext_resource path="res://src/Main.gd" type="Script" id=3]
+
+[sub_resource type="Environment" id=1]
+background_mode = 4
+glow_enabled = true
+glow_intensity = 1.0
+glow_strength = 0.95
+glow_blend_mode = 0
+
+[node name="Main" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.486275, 0.486275, 0.486275, 1 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+color = Color( 0.121569, 0.121569, 0.121569, 1 )
+polygon = PoolVector2Array( 114, 187, 263, 212, 380, 170, 462, 122, 474, 331, 448, 407, 284, 486, 144, 445, 24, 363, -18, 230, 22, 151 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 114, 187, 263, 212, 380, 170, 462, 122, 474, 331, 448, 407, 284, 486, 144, 445, 24, 363, -18, 230, 22, 151 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 234, 171 )
+current = true
+zoom = Vector2( 0.75, 0.75 )
+smoothing_enabled = true
+script = ExtResource( 2 )
+zoom_min = 0.15
+zoom_max = 3.0
+zoom_speed = 0.1
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource( 1 )

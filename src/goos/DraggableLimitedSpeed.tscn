@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/godot_states/MultipleStateMachine.gd" type="Script" id=1]
+[ext_resource path="res://src/goos/DraggableLimitedSpeed.gd" type="Script" id=2]
+[ext_resource path="res://src/goos/LimitSpeed.gd" type="Script" id=3]
+[ext_resource path="res://src/states/draggable/Dragged.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/states/Touchable.tscn" type="PackedScene" id=5]
+
+[node name="DraggableLimitedSpeed" type="Node"]
+script = ExtResource( 2 )
+
+[node name="TouchableLimitedSpeed" type="Node" parent="."]
+script = ExtResource( 1 )
+
+[node name="Touchable" parent="TouchableLimitedSpeed" instance=ExtResource( 5 )]
+
+[node name="LimitSpeed" type="Node" parent="TouchableLimitedSpeed"]
+script = ExtResource( 3 )
+
+[node name="Dragged" parent="." instance=ExtResource( 4 )]
+
+[connection signal="touched" from="TouchableLimitedSpeed/Touchable" to="." method="_on_Touchable_touched"]
+[connection signal="drag_ended" from="Dragged" to="." method="_on_Dragged_drag_ended"]
+[connection signal="drag_started" from="Dragged" to="." method="_on_Dragged_drag_started"]
