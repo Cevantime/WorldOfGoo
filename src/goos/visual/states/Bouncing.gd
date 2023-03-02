@@ -2,7 +2,7 @@ extends StateMachine
 
 signal contact_lost
 
-var Goo = preload("res://src/goos/Goo.gd")
+var Goo = preload("res://src/goos/visual/BaseGoo.gd")
 var deformation = Vector2.ZERO
 
 onready var sinus = Utils.create_sinus(referer.DEFORMATION_AMPLITUDE * 0.4, referer.BOUNCING_SPEED)
@@ -18,6 +18,7 @@ func _process(_delta):
 	if body.contact_count == 0:
 		emit_signal("contact_lost")
 		return
+		
 	var deformation_factor = sinus.get_value()
 	deformation = referer.body.contact_normal.rotated(-PI/2).normalized() * deformation_factor
 	referer.deformation = deformation

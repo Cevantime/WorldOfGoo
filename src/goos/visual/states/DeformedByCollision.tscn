@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/goos/Colliding.gd" type="Script" id=1]
+[ext_resource path="res://src/goos/visual/states/DeformedByCollision.gd" type="Script" id=1]
 
 [node name="DeformedByCollision" type="Node"]
 script = ExtResource( 1 )

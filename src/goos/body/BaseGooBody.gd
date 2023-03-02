@@ -17,6 +17,6 @@ func _integrate_forces(state):
 			contact_position = state.get_contact_local_position(i)
 			contact_normal = state.get_contact_local_normal(i)
 			break
-		
+	
 	emit_signal("_forces_integrated", state)
 

@@ -1,5 +1,7 @@
 extends StateMachine
 
+signal contact_lost
+
 var Goo = preload("res://src/goos/visual/BaseGoo.gd")
 
 func _supports(node):
@@ -11,11 +13,11 @@ func _enter_state(_previous, _params = []):
 func _process(_delta):
 	var body = referer.body
 	if body.contact_count == 0:
-		change_state("Free")
+		emit_signal("contact_lost")
 		return
 	
 	var diff_pos = referer.get_global_mouse_position() - body.global_position
 	var deformation_dir = body.contact_normal.rotated(PI/2).normalized()
 	
-	referer.deformation = min(referer.DEFORMATION_FACTOR * diff_pos.length() * 0.01, referer.DEFORMATION_AMPLITUDE) * deformation_dir
+	referer.deformation =referer.DEFORMATION_FACTOR * diff_pos.length() * 0.01 * deformation_dir
 	

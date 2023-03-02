@@ -22,6 +22,4 @@ func _process(_delta):
 	var linear_velocity_length = linear_velocity.length()
 	referer.deformation = min(referer.DEFORMATION_FACTOR * linear_velocity_length * 0.001, referer.DEFORMATION_AMPLITUDE) * linear_velocity.normalized()
 	
-	var s = sinus.get_value()
-	referer.deformation += Vector2(s, s)
 	
