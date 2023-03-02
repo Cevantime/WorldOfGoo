@@ -38,7 +38,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="World Of goo"
+config/name="World Of Goo"
 run/main_scene="res://src/Main.tscn"
 config/icon="res://icon.png"
 

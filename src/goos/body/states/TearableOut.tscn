@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/goos/body/states/TearableOut.gd" type="Script" id=1]
+[ext_resource path="res://src/goos/body/states/DraggableLimitedSpeed.tscn" type="PackedScene" id=2]
+
+[node name="TearableOut" type="Node"]
+script = ExtResource( 1 )
+
+[node name="DraggableLimitedSpeed" parent="." instance=ExtResource( 2 )]
+
+[connection signal="drag_ended" from="DraggableLimitedSpeed" to="." method="_on_DraggableLimitedSpeed_drag_ended"]
+[connection signal="drag_started" from="DraggableLimitedSpeed" to="." method="_on_DraggableLimitedSpeed_drag_started"]

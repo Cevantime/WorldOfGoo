@@ -1,12 +1,14 @@
 extends Node2D
 
 
-var goo_packed = preload("res://src/goos/Goo.tscn")
+var goo_packed = preload("res://src/goos/visual/black_goo/BlackGoo.tscn")
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$GreyGoo.connect_to($GreyGoo2)
+	$GreyGoo2.connect_to($GreyGoo3)
+	$GreyGoo3.connect_to($GreyGoo4)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

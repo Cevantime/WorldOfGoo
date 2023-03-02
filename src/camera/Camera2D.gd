@@ -39,4 +39,4 @@ func _input(event):
 		zoom_target = Vector2(z,z)
 		
 	elif event is InputEventMouseMotion and Input.is_action_pressed("drag_cam"):
-		position = clamp_position(position - event.relative)
+		position = clamp_position(position - event.relative * zoom * CAMERA_SPEED)

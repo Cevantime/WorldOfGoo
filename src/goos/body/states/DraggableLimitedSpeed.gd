@@ -16,3 +16,4 @@ func _on_Dragged_drag_ended():
 
 func _on_Touchable_touched():
 	change_state("Dragged")
+	

@@ -38,3 +38,4 @@ func _exit_state(next):
 	if selected_state != null :
 		selected_state.enabled = false
 		selected_state._exit_state(next)
+		selected_state = null

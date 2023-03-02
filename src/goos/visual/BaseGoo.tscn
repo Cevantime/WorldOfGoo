@@ -1,8 +1,7 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://addons/godot_states/SwitchableStateMachine.gd" type="Script" id=1]
 [ext_resource path="res://assets/images/goo.png" type="Texture" id=5]
-[ext_resource path="res://Eye1.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/goos/body/BaseGooBody.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/goos/visual/BaseGoo.gd" type="Script" id=9]
 
@@ -25,15 +24,9 @@ position = Vector2( -1.49012e-08, -2.38419e-07 )
 [node name="SpriteRotation" type="Node2D" parent="SpritePosition"]
 
 [node name="Face" type="Sprite" parent="SpritePosition/SpriteRotation"]
-modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 0, -0.747 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 5 )
-
-[node name="Eye1" parent="SpritePosition/SpriteRotation" instance=ExtResource( 7 )]
-
-[node name="Eye2" parent="SpritePosition/SpriteRotation" instance=ExtResource( 7 )]
-position = Vector2( 6, -7 )
 
 [node name="States" type="Node" parent="."]
 script = ExtResource( 1 )

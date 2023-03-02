@@ -38,7 +38,7 @@ func set_enabled(value):
 		
 func should_be_enabled_by_default():
 	var parent: Node = get_parent()
-	return (not(parent.has_method("change_state")) and _supports(parent) or (parent.has_method("_dummy_multiple_state_machine") and parent.enabled and _supports(referer)))
+	return (not(parent.has_method("change_state")) and _supports(parent)) or (parent.has_method("_dummy_multiple_state_machine") and parent.enabled and _supports(referer))
 		
 func _enter_tree():
 	var parent = get_parent()
@@ -72,6 +72,9 @@ func get_referer_states_in_group(group_name: String):
 func disable_group(group_name: String, disabled: bool = true):
 	for n in get_referer_states_in_group(group_name):
 		n.disabled = disabled
+		
+func enable_group(group_name: String):
+	disable_group(group_name, false)
 
 func _supports(node: Node):
 	return false

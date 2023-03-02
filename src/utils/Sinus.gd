@@ -1,17 +1,27 @@
 extends Node
 
-var time_acc = randi()
-var amplitude
-var speed
+export(float) var amplitude = 1.0
+export(float) var speed = 1.0
+
+var time_acc_process = randi()
+var time_acc_physics_process = randi()
 var value = 0
 
 func _process(delta):
-	increment(delta)
+	increment_process(delta)
+	
+func _physics_process(delta):
+	increment_physics_process(delta)
 	
 func get_value():
 	return value
 	
-func increment(delta):
-	time_acc += delta * speed
-	time_acc = wrapf(time_acc, 0, 2 * PI)
-	value = sin(time_acc) * amplitude
+func increment_process(delta):
+	time_acc_process += delta * speed
+	time_acc_process = wrapf(time_acc_process, 0, 2 * PI)
+	value = sin(time_acc_process) * amplitude
+
+func increment_physics_process(delta):
+	time_acc_physics_process += delta * speed
+	time_acc_physics_process = wrapf(time_acc_physics_process, 0, 2 * PI)
+	value = sin(time_acc_physics_process) * amplitude
