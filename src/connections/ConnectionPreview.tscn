@@ -8,6 +8,6 @@ shader_param/color = Color( 1, 1, 1, 0.243137 )
 
 [node name="ConnectionPreview" type="Line2D"]
 material = SubResource( 2 )
-points = PoolVector2Array( 0, 0, 129, 31 )
+points = PackedVector2Array( 0, 0, 129, 31 )
 width = 15.0
 texture_mode = 2

@@ -1,12 +1,12 @@
 extends StateMachine
 
-var black_goo = preload("res://src/goos/visual/black_goo/BlackGoo.gd")
+const BlackGoo = preload("res://src/goos/visual/black_goo/BlackGoo.gd")
 
-onready var animation_player: AnimationPlayer = referer.get_node("AnimationPlayer")
-onready var event_spawner = $RandomEventSpawner
+@onready var animation_player: AnimationPlayer = referer.get_node("AnimationPlayer")
+@onready var event_spawner = $RandomEventSpawner
 
 func _supports(node):
-	return node is black_goo
+	return node is BlackGoo
 	
 func _enter_state(_previous, _params = []):
 	event_spawner.start()

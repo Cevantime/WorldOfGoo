@@ -1,9 +1,9 @@
 extends StateMachine
 
-var Goo = preload("res://src/goos/visual/BaseGoo.gd")
+const Goo = preload("res://src/goos/visual/BaseGoo.gd")
 var referer_connectable
 
-onready var connection_renderer = $ConnectionsRenderer
+@onready var connection_renderer = $ConnectionsRenderer
 
 func _supports(node):
 	return node is Goo and get_connectable(node.body)

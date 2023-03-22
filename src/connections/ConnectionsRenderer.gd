@@ -1,6 +1,6 @@
 extends Node
 
-export(PackedScene) var connection_preview_packed = preload("res://src/connections/ConnectionPreview.tscn")
+@export var connection_preview_packed: PackedScene = preload("res://src/connections/ConnectionPreview.tscn")
 var connections_preview_pool = []
 
 func show_connection(connection, n1, n2):
@@ -19,6 +19,6 @@ func get_connection(index):
 	return connections_preview_pool[index]
 
 func instantiate_connection():
-	var connection = connection_preview_packed.instance()
+	var connection = connection_preview_packed.instantiate()
 	get_tree().get_root().add_child(connection)
 	return connection

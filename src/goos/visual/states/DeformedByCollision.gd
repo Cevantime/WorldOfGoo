@@ -2,7 +2,7 @@ extends StateMachine
 
 signal contact_lost
 
-var Goo = preload("res://src/goos/visual/BaseGoo.gd")
+const Goo = preload("res://src/goos/visual/BaseGoo.gd")
 
 func _supports(node):
 	return node is Goo

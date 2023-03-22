@@ -1,7 +1,7 @@
 extends "res://src/goos/visual/BaseGoo.gd"
 
 
-onready var connectable_state = $GooBody/Connectable
+@onready var connectable_state = $GooBody/Connectable
 
 
 func _on_DraggableLimitedSpeed_drag_started():

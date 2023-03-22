@@ -1,5 +1,6 @@
+@icon("res://addons/godot_states/switchablestate_opt.svg")
 extends StateMachine
-class_name SwitchableStateMachine, "res://addons/godot_states/switchablestate_opt.svg"
+class_name SwitchableStateMachine
 
 var selected_state
 
@@ -20,7 +21,7 @@ func _enter_state(previous, params = []):
 		selected_state._enter_state(previous)
 
 func change_state(state_name, params = []):
-	var next = get_node(state_name)
+	var next = get_node(NodePath(state_name))
 	if selected_state != null:
 		if selected_state == next or selected_state.disabled:
 			return

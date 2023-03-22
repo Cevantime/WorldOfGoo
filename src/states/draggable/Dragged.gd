@@ -6,7 +6,7 @@ signal drag_ended
 func _supports(node: Node):
 	return node is RigidBody2D
 
-func _integrate_forces(state: Physics2DDirectBodyState):
+func _integrate_forces(state: PhysicsDirectBodyState2D):
 	var r = referer as RigidBody2D
 	var mouse_pos = r.get_global_mouse_position()
 	var diff_pos = mouse_pos - r.global_position

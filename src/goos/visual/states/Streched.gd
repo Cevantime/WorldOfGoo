@@ -1,6 +1,6 @@
 extends StateMachine
 
-var Goo = preload("res://src/goos/visual/BaseGoo.gd")
+const Goo = preload("res://src/goos/visual/BaseGoo.gd")
 
 var connectable
 var initial_neighbours_diff

@@ -14,6 +14,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if Input.is_action_just_pressed("spawn_goo"):
-		var goo = goo_packed.instance()
+		var goo = goo_packed.instantiate()
 		goo.global_position = get_global_mouse_position()
 		get_tree().get_root().add_child(goo)

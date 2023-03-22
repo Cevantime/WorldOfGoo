@@ -1,6 +1,6 @@
 extends StateMachine
 
-var GooBody = preload("res://src/goos/body/BaseGooBody.gd")
+const GooBody = preload("res://src/goos/body/BaseGooBody.gd")
 
 func _supports(node: Node):
 	return node is GooBody

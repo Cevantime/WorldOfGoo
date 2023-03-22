@@ -1,17 +1,17 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://b1b0qdcsnsw4a"]
 
-[ext_resource path="res://addons/godot_states/SwitchableStateMachine.gd" type="Script" id=1]
-[ext_resource path="res://assets/images/goo.png" type="Texture" id=5]
-[ext_resource path="res://src/goos/body/BaseGooBody.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/goos/visual/BaseGoo.gd" type="Script" id=9]
+[ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://lgytc2b4wbrh" path="res://assets/images/goo.png" id="5"]
+[ext_resource type="PackedScene" path="res://src/goos/body/BaseGooBody.tscn" id="8"]
+[ext_resource type="Script" path="res://src/goos/visual/BaseGoo.gd" id="9"]
 
 [node name="BaseGoo" type="Node2D"]
 z_index = 10
-script = ExtResource( 9 )
+script = ExtResource("9")
 BOUNCING_SPEED = 15.0
 
-[node name="GooBody" parent="." instance=ExtResource( 8 )]
-position = Vector2( -1.49012e-08, -2.38419e-07 )
+[node name="GooBody" parent="." instance=ExtResource("8")]
+position = Vector2(-1.49012e-08, -2.38419e-07)
 
 [node name="RemoteTransformPosition" type="RemoteTransform2D" parent="GooBody"]
 remote_path = NodePath("../../SpritePosition")
@@ -19,14 +19,14 @@ update_rotation = false
 update_scale = false
 
 [node name="SpritePosition" type="Node2D" parent="."]
-position = Vector2( -1.49012e-08, -2.38419e-07 )
+position = Vector2(-1.49012e-08, -2.38419e-07)
 
 [node name="SpriteRotation" type="Node2D" parent="SpritePosition"]
 
-[node name="Face" type="Sprite" parent="SpritePosition/SpriteRotation"]
-position = Vector2( 0, -0.747 )
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 5 )
+[node name="Face" type="Sprite2D" parent="SpritePosition/SpriteRotation"]
+position = Vector2(0, -0.747)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("5")
 
 [node name="States" type="Node" parent="."]
-script = ExtResource( 1 )
+script = ExtResource("1")

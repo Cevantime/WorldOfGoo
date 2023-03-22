@@ -1,7 +1,7 @@
 extends Node
 
-export(float) var amplitude = 1.0
-export(float) var speed = 1.0
+@export var amplitude: float = 1.0
+@export var speed: float = 1.0
 
 var time_acc_process = randi()
 var time_acc_physics_process = randi()

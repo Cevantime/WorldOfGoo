@@ -1,3 +1,3 @@
 extends Node
 
-export(float) var MAXIMUM_DISTANCE_GOO_CONNECTION = 100.0
+@export var MAXIMUM_DISTANCE_GOO_CONNECTION: float = 100.0

@@ -1,10 +1,11 @@
+@icon("res://addons/godot_states/state_opt.svg")
 extends Node
-class_name StateMachine, "res://addons/godot_states/state_opt.svg"
+class_name StateMachine
 
 var referer: Node
-var enabled: bool setget set_enabled
+var enabled: bool: set = set_enabled
 
-export(bool) var disabled setget set_disabled
+@export var disabled: bool: set = set_disabled
 
 func set_disabled(value):
 	disabled = value
@@ -30,10 +31,10 @@ func set_enabled(value):
 	set_process_input(enabled)
 	set_process_unhandled_input(enabled)
 	if referer != null && referer.has_signal("_forces_integrated"):
-		if enabled and not referer.is_connected("_forces_integrated", self, "_integrate_forces"):
-			referer.connect("_forces_integrated", self, "_integrate_forces")
-		elif referer.is_connected("_forces_integrated", self, "_integrate_forces"):
-			referer.disconnect("_forces_integrated", self, "_integrate_forces")
+		if enabled and not referer.is_connected("_forces_integrated", Callable(self, "_integrate_forces")):
+			referer.connect("_forces_integrated", Callable(self, "_integrate_forces"))
+		elif referer.is_connected("_forces_integrated", Callable(self, "_integrate_forces")):
+			referer.disconnect("_forces_integrated", Callable(self, "_integrate_forces"))
 
 		
 func should_be_enabled_by_default():

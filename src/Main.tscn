@@ -1,11 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=6 format=3 uid="uid://bhgp2i6wenokx"]
 
-[ext_resource path="res://src/ground/Ground.tscn" type="PackedScene" id=1]
-[ext_resource path="res://src/camera/Camera2D.gd" type="Script" id=2]
-[ext_resource path="res://src/Main.gd" type="Script" id=3]
-[ext_resource path="res://src/goos/visual/grey_goo/GreyGoo.tscn" type="PackedScene" id=4]
+[ext_resource type="PackedScene" path="res://src/ground/Ground.tscn" id="1"]
+[ext_resource type="Script" path="res://src/camera/Camera2D.gd" id="2"]
+[ext_resource type="Script" path="res://src/Main.gd" id="3"]
+[ext_resource type="PackedScene" path="res://src/goos/visual/grey_goo/GreyGoo.tscn" id="4"]
 
-[sub_resource type="Environment" id=1]
+[sub_resource type="Environment" id="1"]
 background_mode = 4
 glow_enabled = true
 glow_intensity = 1.0
@@ -13,49 +13,49 @@ glow_strength = 0.95
 glow_blend_mode = 0
 
 [node name="Main" type="Node2D"]
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = -1
 
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color( 0.470588, 0.470588, 0.470588, 1 )
+color = Color(0.470588, 0.470588, 0.470588, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 234, 171 )
-current = true
-zoom = Vector2( 0.75, 0.75 )
-smoothing_enabled = true
-smoothing_speed = 10.0
-script = ExtResource( 2 )
+position = Vector2(234, 171)
+zoom = Vector2(0.75, 0.75)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("2")
 zoom_min = 0.15
 zoom_max = 3.0
 zoom_speed = 0.1
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource( 1 )
+environment = SubResource("1")
 
-[node name="Ground" parent="." instance=ExtResource( 1 )]
-position = Vector2( -111, -76 )
-color = Color( 0.317647, 0.0901961, 0.0901961, 1 )
-polygon = PoolVector2Array( 128, 241, 242, 266, 364, 269, 464, 245, 532, 210, 512, 476, 114, 481 )
+[node name="Ground" parent="." instance=ExtResource("1")]
+position = Vector2(-111, -76)
+color = Color(0.317647, 0.0901961, 0.0901961, 1)
+polygon = PackedVector2Array(128, 241, 242, 266, 364, 269, 464, 245, 532, 210, 512, 476, 114, 481)
 
-[node name="GreyGoo" parent="." instance=ExtResource( 4 )]
-position = Vector2( 114, 173 )
+[node name="GreyGoo" parent="." instance=ExtResource("4")]
+position = Vector2(114, 173)
 rotation = 5.11522
 report_angle = true
 
-[node name="GreyGoo2" parent="." instance=ExtResource( 4 )]
-position = Vector2( 184, 179 )
+[node name="GreyGoo2" parent="." instance=ExtResource("4")]
+position = Vector2(184, 179)
 rotation = -1.22522
 
-[node name="GreyGoo3" parent="." instance=ExtResource( 4 )]
-position = Vector2( 254, 180 )
+[node name="GreyGoo3" parent="." instance=ExtResource("4")]
+position = Vector2(254, 180)
 rotation = 1.34914
 
-[node name="GreyGoo4" parent="." instance=ExtResource( 4 )]
-position = Vector2( 328, 163 )
+[node name="GreyGoo4" parent="." instance=ExtResource("4")]
+position = Vector2(328, 163)
 rotation = 2.88154

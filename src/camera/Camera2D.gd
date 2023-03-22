@@ -3,12 +3,12 @@ extends Camera2D
 var drag_cam = false
 var old_mouse_pos
 
-export(int) var CAMERA_SPEED = 2
-export(float, 0.01, 10) var zoom_min = 1.0
-export(float, 0.02, 20) var zoom_max = 2.0
-export(float, 0.01, 10) var zoom_speed = 0.2
+@export var CAMERA_SPEED: int = 2
+@export var zoom_min = 1.0 # (float, 0.01, 10)
+@export var zoom_max = 2.0 # (float, 0.02, 20)
+@export var zoom_speed = 0.2 # (float, 0.01, 10)
 
-onready var zoom_target = zoom
+@onready var zoom_target = zoom
 
 func _ready():
 	# Called every time the node is added to the scene.

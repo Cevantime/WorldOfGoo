@@ -1,5 +1,6 @@
+@icon("res://addons/godot_states/multistate_opt.svg")
 extends StateMachine
-class_name MultipleStateMachine, "res://addons/godot_states/multistate_opt.svg"
+class_name MultipleStateMachine
 
 func _supports(node: Node):
 	return true

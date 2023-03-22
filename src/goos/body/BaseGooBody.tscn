@@ -9,7 +9,7 @@ radius = 12.0
 
 [node name="BaseGooBody" type="RigidBody2D" groups=["goo_bodies"]]
 input_pickable = true
-contacts_reported = 1
+max_contacts_reported = 1
 contact_monitor = true
 can_sleep = false
 script = ExtResource( 2 )

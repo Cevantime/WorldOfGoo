@@ -1,15 +1,15 @@
 extends Node
 
-onready var timer = $Timer
+@onready var timer = $Timer
 
-export(float) var MAXIMUM_FREQUENCY = 3.0
-export(float) var MINIMUM_FREQUENCY = 7.0
+@export var MAXIMUM_FREQUENCY: float = 3.0
+@export var MINIMUM_FREQUENCY: float = 7.0
 
 signal event_generated
 
 
 func compute_next_wait_time() -> float:
-	return rand_range(MINIMUM_FREQUENCY, MAXIMUM_FREQUENCY)
+	return randf_range(MINIMUM_FREQUENCY, MAXIMUM_FREQUENCY)
 
 
 func stop():

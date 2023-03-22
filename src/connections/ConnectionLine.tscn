@@ -9,7 +9,7 @@ shader_param/color = Color( 0.219608, 0.219608, 0.219608, 1 )
 
 [node name="ConnectionLine" type="Line2D"]
 material = SubResource( 1 )
-points = PoolVector2Array( 0, 0, 28, 21 )
+points = PackedVector2Array( 0, 0, 28, 21 )
 width = 13.0
 texture_mode = 2
 script = ExtResource( 2 )

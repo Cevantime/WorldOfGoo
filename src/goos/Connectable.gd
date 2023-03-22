@@ -6,7 +6,7 @@ signal connected(other)
 signal connection_refused
 signal disconnected(other)
 
-var GooBody = preload("res://src/goos/body/BaseGooBody.gd")
+const GooBody = preload("res://src/goos/body/BaseGooBody.gd")
 
 var neighbours = []
 

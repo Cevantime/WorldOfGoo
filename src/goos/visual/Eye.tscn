@@ -1,8 +1,8 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://assets/images/goo_eye.png" type="Texture" id=1]
+[ext_resource path="res://assets/images/goo_eye.png" type="Texture2D" id=1]
 
-[node name="Eye1" type="Sprite"]
+[node name="Eye1" type="Sprite2D"]
 modulate = Color( 1.5, 1.5, 1.5, 1 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 1 )

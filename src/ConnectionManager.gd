@@ -4,12 +4,12 @@ var joint_packed = preload("res://src/connections/Connection.tscn")
 var GooBody = preload("res://src/goos/body/BaseGooBody.gd")
 var Goo = preload("res://src/goos/visual/BaseGoo.gd")
 
-onready var connection_renderer = $ConnectionsRenderer
-onready var connections = []
+@onready var connection_renderer = $ConnectionsRenderer
+@onready var connections = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	var _c = get_tree().connect("node_added", self, "_on_node_added")
+	var _c = get_tree().connect("node_added", Callable(self, "_on_node_added"))
 	for connectable_state in get_tree().get_nodes_in_group(Groups.CONNECTABLE_STATE):
 		listen_to_connectable(connectable_state)
 
@@ -27,8 +27,8 @@ func _on_node_added(node: Node):
 		listen_to_connectable(node)
 
 func listen_to_connectable(connectable):
-	connectable.connect("connection_requested", self, "_on_connectable_connection_requested", [connectable])
-	connectable.connect("disconnection_requested", self, "_on_connectable_disconnection_requested", [connectable])
+	connectable.connect("connection_requested", Callable(self, "_on_connectable_connection_requested").bind(connectable))
+	connectable.connect("disconnection_requested", Callable(self, "_on_connectable_disconnection_requested").bind(connectable))
 	
 func _on_connectable_connection_requested(connectable):
 	var linkable_connectables = get_linkable_connectables(connectable)
@@ -66,7 +66,7 @@ func check_connectables_are_linkable(c1, c2):
 	return c1 != c2 and not c1 in c2.neighbours and g1.global_position.distance_to(g2.global_position) < GameManager.MAXIMUM_DISTANCE_GOO_CONNECTION
 
 func connect_connectables(c1, c2):
-	var joint = joint_packed.instance()
+	var joint = joint_packed.instantiate()
 	var g1 = c1.referer
 	var g2 = c2.referer
 	joint.global_position = g1.global_position

@@ -2,7 +2,7 @@ extends RigidBody2D
 
 signal _forces_integrated
 
-export var contact_normal = Vector2.UP
+@export var contact_normal = Vector2.UP
 
 var contact_count = 0
 var contact_position
