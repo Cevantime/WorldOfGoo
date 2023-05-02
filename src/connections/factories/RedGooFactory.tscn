@@ -1,0 +1,9 @@
+[gd_scene load_steps=4 format=3 uid="uid://c36ksl7srsodh"]
+
+[ext_resource type="PackedScene" uid="uid://cptajylaj5gak" path="res://src/connections/factories/BaseFactory.tscn" id="1_0ti56"]
+[ext_resource type="Script" path="res://src/connections/factories/RedGooFactory.gd" id="2_mv80i"]
+[ext_resource type="PackedScene" uid="uid://cta6xnn7rh81g" path="res://src/connections/SolidConnection.tscn" id="3_6t62p"]
+
+[node name="RedGooFactory" instance=ExtResource("1_0ti56")]
+script = ExtResource("2_mv80i")
+packed_solid_connection = ExtResource("3_6t62p")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bbwshucn0vxaf"]
+
+[ext_resource type="Script" path="res://src/goos/body/states/DetectOverstretch.gd" id="1_upt50"]
+
+[node name="DetectOverstretch" type="Node"]
+script = ExtResource("1_upt50")

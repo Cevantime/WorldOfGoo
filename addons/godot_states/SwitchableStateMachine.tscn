@@ -1,7 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=3 format=3 uid="uid://dyc8vl482nlgn"]
 
-[ext_resource path="res://addons/godot_states/StateMachine.tscn" type="PackedScene" id=1]
-[ext_resource path="res://addons/godot_states/SwitchableStateMachine.gd" type="Script" id=2]
+[ext_resource type="PackedScene" path="res://addons/godot_states/StateMachine.tscn" id="1"]
+[ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="2"]
 
-[node name="SwitchableStateMachine" instance=ExtResource( 1 )]
-script = ExtResource( 2 )
+[node name="SwitchableStateMachine" instance=ExtResource("1")]
+script = ExtResource("2")

@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://di42xm0mvi5a8"]
+
+[ext_resource type="PackedScene" uid="uid://c3caoc4805h0a" path="res://src/connections/ConnectionPreview.tscn" id="1_li6g2"]
+[ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="2_3ydg3"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6g073"]
+shader = ExtResource("2_3ydg3")
+shader_parameter/color = Color(0.878431, 0, 0.027451, 0.266667)
+
+[node name="ConnectionPreview" instance=ExtResource("1_li6g2")]
+material = SubResource("ShaderMaterial_6g073")

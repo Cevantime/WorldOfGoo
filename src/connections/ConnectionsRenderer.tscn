@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://cvw8exp2ri3vn"]
 
-[ext_resource path="res://src/connections/ConnectionsRenderer.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://src/connections/ConnectionsRenderer.gd" id="1"]
 
 [node name="ConnectionsRenderer" type="Node"]
-script = ExtResource( 1 )
+process_mode = 3
+script = ExtResource("1")

@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cta6xnn7rh81g"]
+
+[ext_resource type="Script" path="res://src/connections/SolidConnection.gd" id="1_36q0p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uhxvg"]
+size = Vector2(100, 5)
+
+[node name="SolidConnection" type="RigidBody2D"]
+collision_mask = 0
+script = ExtResource("1_36q0p")
+length = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_uhxvg")

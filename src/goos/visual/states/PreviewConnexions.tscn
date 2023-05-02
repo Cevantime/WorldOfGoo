@@ -1,9 +1,6 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://bngpvsvjqyhdj"]
 
-[ext_resource path="res://src/goos/visual/states/PreviewConnexions.gd" type="Script" id=2]
-[ext_resource path="res://src/connections/ConnectionsRenderer.tscn" type="PackedScene" id=3]
+[ext_resource type="Script" path="res://src/goos/visual/states/PreviewConnexions.gd" id="2"]
 
 [node name="PreviewConnexions" type="Node" groups=["preview_connections"]]
-script = ExtResource( 2 )
-
-[node name="ConnectionsRenderer" parent="." instance=ExtResource( 3 )]
+script = ExtResource("2")

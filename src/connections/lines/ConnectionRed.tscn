@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://w46vcyjc0em4"]
+
+[ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="1_bq8k3"]
+[ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="2_qbd3b"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_367s0"]
+shader = ExtResource("2_qbd3b")
+shader_parameter/color = Color(0.498697, 0, 0.0241411, 1)
+
+[node name="ConnectionRed" instance=ExtResource("1_bq8k3")]
+material = SubResource("ShaderMaterial_367s0")

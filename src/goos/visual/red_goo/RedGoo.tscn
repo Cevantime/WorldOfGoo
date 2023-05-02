@@ -1,0 +1,12 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgofcbwjd68i1"]
+
+[ext_resource type="PackedScene" uid="uid://b4gtw38cowsn3" path="res://src/goos/visual/black_goo/BlackGoo.tscn" id="1_m83nv"]
+
+[node name="RedGoo" instance=ExtResource("1_m83nv")]
+
+[node name="GooBody" parent="." index="0" groups=["red_goos"]]
+
+[node name="Face" parent="SpritePosition/SpriteRotation" index="0"]
+self_modulate = Color(0.603922, 0, 0, 1)
+
+[editable path="GooBody"]

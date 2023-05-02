@@ -1,0 +1,10 @@
+Node
+Node2D
+CollisionShape2D
+RigidBody2D
+MultipleStateMachine
+StateMachine
+AnimationPlayer
+Sprite2D
+GPUParticles2D
+WorldEnvironment

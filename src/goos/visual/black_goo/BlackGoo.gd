@@ -15,7 +15,6 @@ func _on_DraggableLimitedSpeed_drag_ended():
 func _on_Connectable_connected(_other):
 	body_states.change_state("Connected")
 	states.change_state("Free")
-	states.disable_group(Groups.PREVIEW_CONNECTIONS)
 
 
 func _on_Connectable_connection_refused():
@@ -25,7 +24,6 @@ func _on_Connectable_connection_refused():
 
 func _on_Connectable_disconnected(_other):
 	if connectable_state.neighbours.size() == 0:
-		states.enable_group(Groups.PREVIEW_CONNECTIONS)
 		body_states.change_state("Dragged")
 
 

@@ -1,0 +1,201 @@
+[gd_scene load_steps=27 format=3 uid="uid://taniprq6a8fe"]
+
+[ext_resource type="PackedScene" uid="uid://b1b0qdcsnsw4a" path="res://src/goos/visual/BaseGoo.tscn" id="1_6uwrr"]
+[ext_resource type="Script" path="res://src/goos/visual/green_goo/GreenGoo.gd" id="2_7ovds"]
+[ext_resource type="Texture2D" uid="uid://b1ase3aradegg" path="res://assets/images/goo_eye.png" id="2_ecpi1"]
+[ext_resource type="PackedScene" uid="uid://b8066cqy2v4uh" path="res://src/goos/body/states/DraggableLimitedSpeed.tscn" id="3_h4oe8"]
+[ext_resource type="Shader" path="res://assets/shaders/blast.gdshader" id="3_i85kw"]
+[ext_resource type="PackedScene" path="res://src/goos/visual/states/Bouncing.tscn" id="3_n8po5"]
+[ext_resource type="PackedScene" path="res://src/goos/Connectable.tscn" id="3_vcdu4"]
+[ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="4_pkc24"]
+[ext_resource type="Script" path="res://src/goos/body/states/RotateToCursor.gd" id="5_a02w8"]
+[ext_resource type="Script" path="res://src/goos/states/SetDirection.gd" id="6_c6c72"]
+[ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="6_m0ofl"]
+[ext_resource type="Script" path="res://src/goos/body/states/MaintainRotation.gd" id="7_12u83"]
+[ext_resource type="PackedScene" uid="uid://bi1w3i1bm7sd1" path="res://src/goos/visual/states/DeformedByMovement.tscn" id="8_c07xj"]
+[ext_resource type="Script" path="res://src/goos/body/states/Push.gd" id="8_jvkqw"]
+[ext_resource type="PackedScene" uid="uid://c8qoq50cpwkqm" path="res://src/goos/body/states/TearableOut.tscn" id="9_kfoex"]
+[ext_resource type="PackedScene" path="res://src/goos/visual/states/PreviewConnexions.tscn" id="11_83xiv"]
+[ext_resource type="PackedScene" path="res://src/goos/visual/states/DeformedByCollision.tscn" id="12_qdp48"]
+[ext_resource type="Texture2D" uid="uid://b8p6wyhk7ueaw" path="res://assets/images/air_arrow.png" id="14_rp3in"]
+[ext_resource type="Script" path="res://src/goos/visual/green_goo/Blast.gd" id="17_qwdp6"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_vmx4u"]
+noise_type = 0
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_dvvxg"]
+width = 256
+height = 256
+seamless = true
+normalize = false
+noise = SubResource("FastNoiseLite_vmx4u")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dwykx"]
+shader = ExtResource("3_i85kw")
+shader_parameter/color = Color(1, 1, 1, 1)
+shader_parameter/limit = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_dvvxg")
+
+[sub_resource type="Animation" id="Animation_ehjkv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePosition/SpriteRotation/Blast:material:shader_parameter/limit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SpritePosition/SpriteRotation/Blast:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_3amr5"]
+resource_name = "start_blast"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePosition/SpriteRotation/Blast:material:shader_parameter/limit")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0.0, 1.0]
+}
+
+[sub_resource type="Animation" id="Animation_cfvrg"]
+resource_name = "stop_blast"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpritePosition/SpriteRotation/Blast:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3gf7g"]
+_data = {
+"RESET": SubResource("Animation_ehjkv"),
+"start_blast": SubResource("Animation_3amr5"),
+"stop_blast": SubResource("Animation_cfvrg")
+}
+
+[node name="GreenGoo" groups=["green_goos"] instance=ExtResource("1_6uwrr")]
+script = ExtResource("2_7ovds")
+
+[node name="DraggableLimitedSpeed" parent="GooBody/States/Idle" index="0" instance=ExtResource("3_h4oe8")]
+
+[node name="JustConnected" type="Node" parent="GooBody/States" index="1"]
+script = ExtResource("6_m0ofl")
+
+[node name="RotateToCursor" type="Node" parent="GooBody/States/JustConnected" index="0"]
+script = ExtResource("5_a02w8")
+
+[node name="SetDirection" type="Node" parent="GooBody/States/JustConnected" index="1"]
+script = ExtResource("6_c6c72")
+
+[node name="Started" type="Node" parent="GooBody/States" index="2"]
+script = ExtResource("6_m0ofl")
+
+[node name="MaintainRotation" type="Node" parent="GooBody/States/Started" index="0"]
+script = ExtResource("7_12u83")
+
+[node name="Push" type="Node" parent="GooBody/States/Started" index="1"]
+script = ExtResource("8_jvkqw")
+PUSH_FORCE = 30.0
+
+[node name="TearableOut" parent="GooBody/States/Started" index="2" instance=ExtResource("9_kfoex")]
+
+[node name="Connectable" parent="GooBody" index="3" instance=ExtResource("3_vcdu4")]
+
+[node name="Face" parent="SpritePosition/SpriteRotation" index="0"]
+self_modulate = Color(0, 0.521569, 0.247059, 1)
+
+[node name="Eye1" type="Sprite2D" parent="SpritePosition/SpriteRotation" index="1"]
+position = Vector2(-6, -6)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_ecpi1")
+
+[node name="Eye2" type="Sprite2D" parent="SpritePosition/SpriteRotation" index="2"]
+position = Vector2(5, -6)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_ecpi1")
+
+[node name="Mouth" type="Sprite2D" parent="SpritePosition/SpriteRotation" index="3"]
+modulate = Color(0.12549, 0.317647, 0, 1)
+position = Vector2(1, 6)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_ecpi1")
+
+[node name="Blast" type="Sprite2D" parent="SpritePosition/SpriteRotation" index="4"]
+material = SubResource("ShaderMaterial_dwykx")
+position = Vector2(20.9, 6)
+scale = Vector2(0.628125, 0.3)
+texture = ExtResource("4_pkc24")
+
+[node name="AirArrow" type="Sprite2D" parent="SpritePosition/SpriteRotation" index="5"]
+visible = false
+position = Vector2(40.159, 0)
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("14_rp3in")
+
+[node name="Free" type="Node" parent="States" index="0"]
+script = ExtResource("6_m0ofl")
+
+[node name="Bouncing" parent="States/Free" index="0" instance=ExtResource("3_n8po5")]
+
+[node name="DeformedByMovement" parent="States/Free" index="1" instance=ExtResource("8_c07xj")]
+
+[node name="Dragged" type="Node" parent="States" index="1"]
+script = ExtResource("6_m0ofl")
+
+[node name="PreviewConnexions" parent="States/Dragged" index="0" instance=ExtResource("11_83xiv")]
+
+[node name="DeformedByMovement" parent="States/Dragged" index="1" instance=ExtResource("8_c07xj")]
+
+[node name="DeformedByCollision" parent="States/Dragged" index="2" instance=ExtResource("12_qdp48")]
+
+[node name="JustConnected" type="Node" parent="States" index="2"]
+script = ExtResource("6_m0ofl")
+
+[node name="Started" type="Node" parent="States" index="3"]
+script = ExtResource("6_m0ofl")
+
+[node name="Blast" type="Node" parent="States/Started" index="0"]
+script = ExtResource("17_qwdp6")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+libraries = {
+"": SubResource("AnimationLibrary_3gf7g")
+}
+
+[connection signal="drag_ended" from="GooBody/States/Idle/DraggableLimitedSpeed" to="." method="_on_draggable_drag_ended"]
+[connection signal="drag_started" from="GooBody/States/Idle/DraggableLimitedSpeed" to="." method="_on_draggable_limited_speed_drag_started"]
+[connection signal="direction_set" from="GooBody/States/JustConnected/SetDirection" to="." method="_on_set_direction_direction_set"]
+[connection signal="connected" from="GooBody/Connectable" to="." method="_on_connectable_connected"]
+[connection signal="connection_refused" from="GooBody/Connectable" to="." method="_on_connectable_connection_refused"]
+[connection signal="disconnected" from="GooBody/Connectable" to="." method="_on_connectable_disconnected"]
+
+[editable path="GooBody"]

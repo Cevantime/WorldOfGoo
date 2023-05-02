@@ -1,11 +1,21 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=3 uid="uid://bdtlg1wfg4btr"]
 
-[ext_resource path="res://src/ConnectionManager.gd" type="Script" id=1]
-[ext_resource path="res://src/connections/ConnectionsRenderer.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/connections/ConnectionLine.tscn" type="PackedScene" id=3]
+[ext_resource type="Script" path="res://src/ConnectionManager.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://w46vcyjc0em4" path="res://src/connections/lines/ConnectionRed.tscn" id="3_3nam1"]
+[ext_resource type="PackedScene" uid="uid://c36ksl7srsodh" path="res://src/connections/factories/RedGooFactory.tscn" id="3_6soam"]
+[ext_resource type="PackedScene" uid="uid://cptajylaj5gak" path="res://src/connections/factories/BaseFactory.tscn" id="3_k4rg1"]
+[ext_resource type="PackedScene" uid="uid://di42xm0mvi5a8" path="res://src/connections/previews/ConnectionPreviewRed.tscn" id="3_krtw7"]
+[ext_resource type="Script" path="res://src/connections/factories/DefaultFactory.gd" id="4_u3u1d"]
 
 [node name="ConnectionManager" type="Node"]
-script = ExtResource( 1 )
+process_mode = 3
+script = ExtResource("1")
 
-[node name="ConnectionsRenderer" parent="." instance=ExtResource( 2 )]
-connection_preview_packed = ExtResource( 3 )
+[node name="ConnectionFactories" type="Node" parent="."]
+
+[node name="RedGooFactory" parent="ConnectionFactories" instance=ExtResource("3_6soam")]
+preview_line_packed = ExtResource("3_krtw7")
+line_packed = ExtResource("3_3nam1")
+
+[node name="DefaultFactory" parent="ConnectionFactories" instance=ExtResource("3_k4rg1")]
+script = ExtResource("4_u3u1d")

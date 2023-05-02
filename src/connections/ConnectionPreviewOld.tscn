@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=3 uid="uid://dpd8fbkb836ps"]
+
+[ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="1_trbth"]
+[ext_resource type="Script" path="res://src/connections/ConnectionPreviewOld.gd" id="2_wi1bd"]
+
+[sub_resource type="ShaderMaterial" id="2"]
+shader = ExtResource("1_trbth")
+shader_parameter/color = Color(1, 1, 1, 0.243137)
+
+[node name="ConnectionPreview" type="Line2D"]
+material = SubResource("2")
+points = PackedVector2Array(0, 0, 129, 31)
+width = 15.0
+texture_mode = 2
+script = ExtResource("2_wi1bd")

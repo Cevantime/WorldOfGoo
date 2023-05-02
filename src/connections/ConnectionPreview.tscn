@@ -1,13 +1,13 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=3 uid="uid://c3caoc4805h0a"]
 
-[ext_resource path="res://assets/shaders/connection.gdshader" type="Shader" id=1]
+[ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="1"]
+[ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="1_foml5"]
+[ext_resource type="Script" path="res://src/connections/ConnectionPreview.gd" id="2_k306t"]
 
-[sub_resource type="ShaderMaterial" id=2]
-shader = ExtResource( 1 )
-shader_param/color = Color( 1, 1, 1, 0.243137 )
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kcxp2"]
+shader = ExtResource("1")
+shader_parameter/color = Color(1, 1, 1, 0.266667)
 
-[node name="ConnectionPreview" type="Line2D"]
-material = SubResource( 2 )
-points = PackedVector2Array( 0, 0, 129, 31 )
-width = 15.0
-texture_mode = 2
+[node name="ConnectionPreview" instance=ExtResource("1_foml5")]
+material = SubResource("ShaderMaterial_kcxp2")
+script = ExtResource("2_k306t")

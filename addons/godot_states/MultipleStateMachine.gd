@@ -16,6 +16,4 @@ func _exit_state(next):
 	for n in get_children():
 		n.enabled = false
 		n._exit_state(next)
-		
-func _dummy_multiple_state_machine():
-	pass
+

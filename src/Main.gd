@@ -6,10 +6,20 @@ var goo_packed = preload("res://src/goos/visual/black_goo/BlackGoo.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	$GreyGoo.connect_to($GreyGoo2)
-	$GreyGoo2.connect_to($GreyGoo3)
-	$GreyGoo3.connect_to($GreyGoo4)
+#	$Goos/GreyGoo.connect_to($Goos/GreyGoo2)
+#	$Goos/GreyGoo2.connect_to($Goos/GreyGoo3)
+#	$Goos/GreyGoo3.connect_to($Goos/GreyGoo4)
+	connect_goos($Goos/BlackGoo5, $Goos/BlackGoo6)
+	connect_goos($Goos/BlackGoo5, $Goos/BlackGoo7)
+	connect_goos($Goos/BlackGoo6, $Goos/BlackGoo7)
+	connect_goos($Goos/BlackGoo7, $Goos/BlackGoo8)
+	connect_goos($Goos/BlackGoo8, $Goos/BlackGoo9)
+	connect_goos($Goos/BlackGoo9, $Goos/BlackGoo10)
+	connect_goos($Goos/BlackGoo8, $Goos/BlackGoo10)
+	pass
 
+func connect_goos(goo1, goo2):
+	ConnectionManager.connect_goos(goo1, goo2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

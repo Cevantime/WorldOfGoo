@@ -16,7 +16,11 @@ func _integrate_forces(state):
 		if contact is StaticBody2D:
 			contact_position = state.get_contact_local_position(i)
 			contact_normal = state.get_contact_local_normal(i)
-			break
+			emit_signal("_forces_integrated", state)
+			return
+	if contact_count >= 1:
+		contact_position = state.get_contact_local_position(0)
+		contact_normal = state.get_contact_local_normal(0)
 	
 	emit_signal("_forces_integrated", state)
 

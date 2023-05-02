@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0f5uttl2n4h0"]
+
+[ext_resource type="Script" path="res://src/connections/ConnectionJoint.gd" id="1_ofxk1"]
+
+[node name="ConnectionJoint" type="DampedSpringJoint2D"]
+disable_collision = false
+stiffness = 700.0
+script = ExtResource("1_ofxk1")

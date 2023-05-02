@@ -1,15 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=4 format=3 uid="uid://btjntkiluw2x8"]
 
-[ext_resource path="res://assets/shaders/connection.gdshader" type="Shader" id=1]
-[ext_resource path="res://src/connections/ConnectionLine.gd" type="Script" id=2]
+[ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="1"]
+[ext_resource type="Script" path="res://src/connections/ConnectionLine.gd" id="2"]
 
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 1 )
-shader_param/color = Color( 0.219608, 0.219608, 0.219608, 1 )
+[sub_resource type="ShaderMaterial" id="1"]
+shader = ExtResource("1")
+shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 
 [node name="ConnectionLine" type="Line2D"]
-material = SubResource( 1 )
-points = PackedVector2Array( 0, 0, 28, 21 )
+process_mode = 3
+material = SubResource("1")
+points = PackedVector2Array(0, 0, 28, 21)
 width = 13.0
 texture_mode = 2
-script = ExtResource( 2 )
+script = ExtResource("2")

@@ -39,13 +39,16 @@ func set_enabled(value):
 		
 func should_be_enabled_by_default():
 	var parent: Node = get_parent()
-	return (not(parent.has_method("change_state")) and _supports(parent)) or (parent.has_method("_dummy_multiple_state_machine") and parent.enabled and _supports(referer))
+	return (not(parent.has_method("change_state")) and _supports(parent)) or (parent is MultipleStateMachine and parent.enabled and _supports(parent.referer))
 		
 func _enter_tree():
 	var parent = get_parent()
 	enabled = should_be_enabled_by_default()
 	if enabled:
-		referer = parent
+		if parent.has_method("change_state"):
+			referer = parent.referer
+		else :
+			referer = parent
 	elif parent.has_method("change_state"):
 		referer = parent.referer
 		

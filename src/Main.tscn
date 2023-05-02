@@ -1,18 +1,27 @@
-[gd_scene load_steps=6 format=3 uid="uid://bhgp2i6wenokx"]
+[gd_scene load_steps=11 format=3 uid="uid://2p86ndwnrdir"]
 
 [ext_resource type="PackedScene" path="res://src/ground/Ground.tscn" id="1"]
 [ext_resource type="Script" path="res://src/camera/Camera2D.gd" id="2"]
 [ext_resource type="Script" path="res://src/Main.gd" id="3"]
-[ext_resource type="PackedScene" path="res://src/goos/visual/grey_goo/GreyGoo.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://b4gtw38cowsn3" path="res://src/goos/visual/black_goo/BlackGoo.tscn" id="5_w5o0r"]
+[ext_resource type="PackedScene" uid="uid://taniprq6a8fe" path="res://src/goos/visual/green_goo/GreenGoo.tscn" id="5_ywnqf"]
+[ext_resource type="PackedScene" uid="uid://dgofcbwjd68i1" path="res://src/goos/visual/red_goo/RedGoo.tscn" id="6_50bcm"]
+[ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="7_hcdld"]
+[ext_resource type="Script" path="res://src/managers/GreenGooConnectionManager.gd" id="8_3mwcn"]
+[ext_resource type="PackedScene" uid="uid://cpbxgnnybakka" path="res://src/managers/FocusOnManager.tscn" id="8_3varn"]
 
 [sub_resource type="Environment" id="1"]
-background_mode = 4
-glow_enabled = true
-glow_intensity = 1.0
-glow_strength = 0.95
+background_mode = 3
+glow_levels/2 = 1.51
+glow_levels/3 = 2.93
+glow_levels/4 = 0.94
+glow_levels/5 = 0.06
+glow_intensity = 1.71
+glow_strength = 2.0
 glow_blend_mode = 0
+glow_hdr_scale = 0.0
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" groups=["levels"]]
 script = ExtResource("3")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -23,9 +32,10 @@ anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-color = Color(0.470588, 0.470588, 0.470588, 1)
+color = Color(0.447059, 0.447059, 0.447059, 1)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
 position = Vector2(234, 171)
 zoom = Vector2(0.75, 0.75)
 position_smoothing_enabled = true
@@ -38,24 +48,71 @@ zoom_speed = 0.1
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("1")
 
-[node name="Ground" parent="." instance=ExtResource("1")]
+[node name="Goos" type="Node" parent="."]
+
+[node name="BlackGoo" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(337, -72)
+
+[node name="BlackGoo4" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(362, -68)
+
+[node name="BlackGoo2" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(335, -28)
+
+[node name="BlackGoo3" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(366, -46)
+
+[node name="GreenGoo" parent="Goos" instance=ExtResource("5_ywnqf")]
+position = Vector2(392, -61)
+
+[node name="GreenGoo2" parent="Goos" instance=ExtResource("5_ywnqf")]
+position = Vector2(398, -31)
+
+[node name="GreenGoo3" parent="Goos" instance=ExtResource("5_ywnqf")]
+position = Vector2(400, -89)
+
+[node name="RedGoo" parent="Goos" instance=ExtResource("6_50bcm")]
+position = Vector2(367, -126)
+
+[node name="RedGoo2" parent="Goos" instance=ExtResource("6_50bcm")]
+position = Vector2(332, -113)
+
+[node name="RedGoo3" parent="Goos" instance=ExtResource("6_50bcm")]
+position = Vector2(332, -113)
+
+[node name="BlackGoo5" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(41, 157)
+
+[node name="BlackGoo6" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(49, 82)
+
+[node name="BlackGoo7" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(119, 94)
+
+[node name="BlackGoo8" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(194, 96)
+
+[node name="BlackGoo9" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(270, 96)
+
+[node name="BlackGoo10" parent="Goos" instance=ExtResource("5_w5o0r")]
+position = Vector2(271, 176)
+
+[node name="Landscape" type="Node" parent="."]
+
+[node name="Ground" parent="Landscape" instance=ExtResource("1")]
 position = Vector2(-111, -76)
 color = Color(0.317647, 0.0901961, 0.0901961, 1)
-polygon = PackedVector2Array(128, 241, 242, 266, 364, 269, 464, 245, 532, 210, 512, 476, 114, 481)
+polygon = PackedVector2Array(128, 241, 242, 266, 364, 269, 464, 245, 532, 210, 512, 476, 114, 481, -100, 478, -36, 214)
 
-[node name="GreyGoo" parent="." instance=ExtResource("4")]
-position = Vector2(114, 173)
-rotation = 5.11522
-report_angle = true
+[node name="Stock" parent="Landscape" instance=ExtResource("1")]
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(316, -98, 333, -15, 400, -14, 424, -82, 462, -90, 426, 40, 315, 37, 275, -97)
 
-[node name="GreyGoo2" parent="." instance=ExtResource("4")]
-position = Vector2(184, 179)
-rotation = -1.22522
+[node name="Managers" type="Node" parent="."]
+script = ExtResource("7_hcdld")
 
-[node name="GreyGoo3" parent="." instance=ExtResource("4")]
-position = Vector2(254, 180)
-rotation = 1.34914
-
-[node name="GreyGoo4" parent="." instance=ExtResource("4")]
-position = Vector2(328, 163)
-rotation = 2.88154
+[node name="GreenGooConnectionManager" parent="Managers" instance=ExtResource("8_3varn")]
+script = ExtResource("8_3mwcn")
+group_name = "green_goos"
+signal_name = "connected"

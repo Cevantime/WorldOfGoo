@@ -1,0 +1,16 @@
+[gd_scene load_steps=4 format=3 uid="uid://chebhcavrv4qn"]
+
+[ext_resource type="Script" path="res://src/goos/states/draggable/Draggable.gd" id="1_gty2g"]
+[ext_resource type="PackedScene" path="res://src/goos/states/draggable/Touchable.tscn" id="2_hb2kw"]
+[ext_resource type="PackedScene" path="res://src/goos/states/draggable/Dragged.tscn" id="3_5h46w"]
+
+[node name="Draggable" type="Node"]
+script = ExtResource("1_gty2g")
+
+[node name="Touchable" parent="." instance=ExtResource("2_hb2kw")]
+
+[node name="Dragged" parent="." instance=ExtResource("3_5h46w")]
+
+[connection signal="touched" from="Touchable" to="." method="_on_Touchable_touched"]
+[connection signal="drag_ended" from="Dragged" to="." method="_on_Dragged_drag_ended"]
+[connection signal="drag_started" from="Dragged" to="." method="_on_Dragged_drag_started"]
