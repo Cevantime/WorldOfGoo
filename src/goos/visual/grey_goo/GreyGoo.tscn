@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://b1b0qdcsnsw4a" path="res://src/goos/visual/BaseGoo.tscn" id="1"]
 [ext_resource type="PackedScene" uid="uid://eaiawuyhowi0" path="res://src/goos/visual/Eye.tscn" id="2"]
-[ext_resource type="PackedScene" path="res://src/goos/Connectable.tscn" id="3"]
+[ext_resource type="PackedScene" uid="uid://bqy3e82565yqc" path="res://src/goos/Connectable.tscn" id="3"]
 [ext_resource type="Script" path="res://src/goos/visual/grey_goo/GreyGoo.gd" id="4"]
 
 [node name="GreyGoo" instance=ExtResource("1")]

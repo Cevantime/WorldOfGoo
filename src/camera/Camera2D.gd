@@ -15,8 +15,8 @@ func _ready():
 	# Initialization here
 	pass
 
-func _process(_delta):
-	zoom = lerp(zoom, zoom_target, 0.1)
+func _process(delta):
+	zoom = lerp(zoom, zoom_target, delta * 5)
 	
 
 func clamp_position(pos) :

@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cab6a4jr4tppx"]
+
+[ext_resource type="PackedScene" uid="uid://cpbxgnnybakka" path="res://src/managers/FocusOnManager.tscn" id="1_23bm7"]
+[ext_resource type="Script" path="res://src/managers/PurpleGooConnectionManager.gd" id="2_xv1bn"]
+
+[node name="PurpleGooConnectionManager" instance=ExtResource("1_23bm7")]
+script = ExtResource("2_xv1bn")
+group_name = "purple_goos"
+signal_name = "connected"

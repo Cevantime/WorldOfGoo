@@ -13,7 +13,7 @@ func _enter_state(_previous, _params = []):
 	initial_neighbours_diff = {}
 	var body = referer.body
 	for n in connectable.neighbours:
-		var other_body = n.referer
+		var other_body = n.connectable.referer
 		initial_neighbours_diff[n.get_instance_id()] = (body.global_position - other_body.global_position).length()
 	
 
@@ -22,7 +22,7 @@ func _process(_delta):
 	var stretch_direction = Vector2.ZERO
 	var global_diff = Vector2.ZERO
 	for n in connectable.neighbours:
-		var other_body = n.referer
+		var other_body = n.connectable.referer
 		var diff = body.global_position - other_body.global_position
 		global_diff += diff
 		stretch_direction += diff - diff.normalized() * initial_neighbours_diff[n.get_instance_id()]

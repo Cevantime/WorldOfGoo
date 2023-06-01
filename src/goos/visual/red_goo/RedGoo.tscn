@@ -1,12 +1,15 @@
-[gd_scene load_steps=2 format=3 uid="uid://dgofcbwjd68i1"]
+[gd_scene load_steps=3 format=3 uid="uid://dgofcbwjd68i1"]
 
 [ext_resource type="PackedScene" uid="uid://b4gtw38cowsn3" path="res://src/goos/visual/black_goo/BlackGoo.tscn" id="1_m83nv"]
+[ext_resource type="Script" path="res://src/goos/visual/red_goo/RedGoo.gd" id="2_ynw04"]
 
-[node name="RedGoo" instance=ExtResource("1_m83nv")]
+[node name="RedGoo" groups=["red_goos"] instance=ExtResource("1_m83nv")]
+script = ExtResource("2_ynw04")
 
-[node name="GooBody" parent="." index="0" groups=["red_goos"]]
-
-[node name="Face" parent="SpritePosition/SpriteRotation" index="0"]
+[node name="Face" parent="SpritePosition/SpriteRotation" index="1"]
 self_modulate = Color(0.603922, 0, 0, 1)
+position = Vector2(0, -0.747)
+
+[connection signal="connected" from="GooBody/Connectable" to="." method="_on_connectable_connected"]
 
 [editable path="GooBody"]

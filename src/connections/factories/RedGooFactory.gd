@@ -3,8 +3,8 @@ extends "res://src/connections/factories/BaseFactory.gd"
 @export var packed_solid_connection = preload("res://src/connections/SolidConnection.tscn")
 
 func supports(c1, c2):
-	var ref1 = c1.referer
-	var ref2 = c2.referer
+	var ref1 = c1.referer.get_parent()
+	var ref2 = c2.referer.get_parent()
 	return ref1.is_in_group(Groups.RED_GOOS) and ref2.is_in_group(Groups.RED_GOOS)
 	
 func _create_connection(c1, c2):
@@ -17,6 +17,8 @@ func _create_connection(c1, c2):
 	var solid_connection = packed_solid_connection.instantiate()
 	solid_connection.global_rotation = (p2 - p1).angle()
 	solid_connection.global_position = p1.lerp(p2, 0.5)
+	solid_connection.node_a_instance = ref1
+	solid_connection.node_b_instance = ref2
 	connection.add_child(solid_connection)
 	solid_connection.length = dist + 5
 	call_deferred("add_pins", connection, ref1, ref2, solid_connection)

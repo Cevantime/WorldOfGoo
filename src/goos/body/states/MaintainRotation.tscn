@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dgd4hu4hmanmp"]
+
+[ext_resource type="Script" path="res://src/goos/body/states/MaintainRotation.gd" id="1_phvcn"]
+
+[node name="MaintainRotation" type="Node"]
+script = ExtResource("1_phvcn")

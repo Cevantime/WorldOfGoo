@@ -3,6 +3,7 @@ extends StateMachine
 signal drag_started
 signal drag_ended
 
+
 func _supports(node: Node):
 	return node is RigidBody2D
 
@@ -17,6 +18,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D):
 func _input(event):
 	if event.is_action_released("touch"):
 		emit_signal("drag_ended")
+	
 	
 func _enter_state(_previous, _params = []):
 	emit_signal("drag_started")

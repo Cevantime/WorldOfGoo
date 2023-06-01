@@ -1,6 +1,7 @@
-[gd_scene load_steps=7 format=3 uid="uid://bdtlg1wfg4btr"]
+[gd_scene load_steps=8 format=3 uid="uid://bdtlg1wfg4btr"]
 
 [ext_resource type="Script" path="res://src/ConnectionManager.gd" id="1"]
+[ext_resource type="PackedScene" uid="uid://4vdsu0htunns" path="res://src/connections/factories/PurpleGooFactory.tscn" id="2_p2spc"]
 [ext_resource type="PackedScene" uid="uid://w46vcyjc0em4" path="res://src/connections/lines/ConnectionRed.tscn" id="3_3nam1"]
 [ext_resource type="PackedScene" uid="uid://c36ksl7srsodh" path="res://src/connections/factories/RedGooFactory.tscn" id="3_6soam"]
 [ext_resource type="PackedScene" uid="uid://cptajylaj5gak" path="res://src/connections/factories/BaseFactory.tscn" id="3_k4rg1"]
@@ -12,6 +13,8 @@ process_mode = 3
 script = ExtResource("1")
 
 [node name="ConnectionFactories" type="Node" parent="."]
+
+[node name="PurpleGooFactory" parent="ConnectionFactories" instance=ExtResource("2_p2spc")]
 
 [node name="RedGooFactory" parent="ConnectionFactories" instance=ExtResource("3_6soam")]
 preview_line_packed = ExtResource("3_krtw7")

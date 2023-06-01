@@ -29,7 +29,7 @@ func _process(_delta):
 	for goo in connected_goos_stack:
 		goo.process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 		get_tree().paused = true
-		create_tween().tween_property(camera, "global_position", goo.body.global_position, 0.4)
+		create_tween().tween_property(camera, "global_position", goo.body.global_position, 0.2)
 		await _action(goo)
 		get_tree().paused = false
 		goo.process_mode = ProcessMode.PROCESS_MODE_INHERIT
@@ -37,7 +37,7 @@ func _process(_delta):
 	connected_goos_stack = []
 	
 	camera.zoom_target = old_cam_zoom
-	create_tween().tween_property(camera, "global_position", old_cam_pos, 0.4)
+	create_tween().tween_property(camera, "global_position", old_cam_pos, 0.2)
 	
 	set_process(true)
 	

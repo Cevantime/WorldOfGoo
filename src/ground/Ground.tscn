@@ -1,11 +1,12 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://cbimwcvh3h705"]
 
-[ext_resource path="res://src/ground/Ground.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://src/ground/Ground.gd" id="1"]
 
 [node name="Ground" type="Polygon2D"]
 antialiased = true
-script = ExtResource( 1 )
+script = ExtResource("1")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 63
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]

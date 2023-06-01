@@ -1,0 +1,11 @@
+[gd_scene load_steps=5 format=3 uid="uid://4vdsu0htunns"]
+
+[ext_resource type="PackedScene" uid="uid://cptajylaj5gak" path="res://src/connections/factories/BaseFactory.tscn" id="1_0cu4q"]
+[ext_resource type="Script" path="res://src/connections/factories/PurpleGooFactory.gd" id="2_fdv2y"]
+[ext_resource type="PackedScene" uid="uid://bucrw7td2l5uf" path="res://src/connections/previews/ConnectionPreviewPurple.tscn" id="3_awvk6"]
+[ext_resource type="PackedScene" uid="uid://bu673h7gr4wnf" path="res://src/connections/lines/ConnectionPurple.tscn" id="4_s5vfv"]
+
+[node name="PurpleGooFactory" instance=ExtResource("1_0cu4q")]
+script = ExtResource("2_fdv2y")
+preview_line_packed = ExtResource("3_awvk6")
+line_packed = ExtResource("4_s5vfv")

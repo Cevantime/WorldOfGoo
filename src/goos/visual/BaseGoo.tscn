@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://b1b0qdcsnsw4a"]
+[gd_scene load_steps=6 format=3 uid="uid://b1b0qdcsnsw4a"]
 
 [ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="1"]
+[ext_resource type="Texture2D" uid="uid://ckguq68ewpexj" path="res://assets/images/goo_outline.png" id="3_jrfik"]
 [ext_resource type="Texture2D" uid="uid://lgytc2b4wbrh" path="res://assets/images/goo.png" id="5"]
 [ext_resource type="PackedScene" uid="uid://bkra6ftag6r61" path="res://src/goos/body/BaseGooBody.tscn" id="8"]
 [ext_resource type="Script" path="res://src/goos/visual/BaseGoo.gd" id="9"]
@@ -12,6 +13,8 @@ BOUNCING_SPEED = 15.0
 
 [node name="GooBody" parent="." instance=ExtResource("8")]
 position = Vector2(-1.49012e-08, -2.38419e-07)
+collision_layer = 2
+collision_mask = 2
 max_contacts_reported = 3
 
 [node name="RemoteTransformPosition" type="RemoteTransform2D" parent="GooBody"]
@@ -24,8 +27,13 @@ position = Vector2(-1.49012e-08, -2.38419e-07)
 
 [node name="SpriteRotation" type="Node2D" parent="SpritePosition"]
 
+[node name="GooOutline" type="Sprite2D" parent="SpritePosition/SpriteRotation"]
+visible = false
+position = Vector2(0, -5.96042e-08)
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_jrfik")
+
 [node name="Face" type="Sprite2D" parent="SpritePosition/SpriteRotation"]
-position = Vector2(0, -0.747)
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("5")
 

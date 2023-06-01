@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://bucrw7td2l5uf"]
+
+[ext_resource type="PackedScene" uid="uid://c3caoc4805h0a" path="res://src/connections/ConnectionPreview.tscn" id="1_i02j0"]
+[ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="2_nhguv"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tbna2"]
+shader = ExtResource("2_nhguv")
+shader_parameter/color = Color(1, 0.556863, 0.996078, 1)
+
+[node name="ConnectionPreviewPurple" instance=ExtResource("1_i02j0")]
+material = SubResource("ShaderMaterial_tbna2")

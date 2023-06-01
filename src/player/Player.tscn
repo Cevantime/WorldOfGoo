@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=3 uid="uid://s7daqm0imcyu"]
+
+[ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="2_l1kd5"]
+[ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="3_enll4"]
+[ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="4_b3xp1"]
+[ext_resource type="Script" path="res://src/player/AffectedByGravity.gd" id="5_734sf"]
+[ext_resource type="Script" path="res://src/player/states/CanJump.gd" id="6_0jqw1"]
+[ext_resource type="Script" path="res://src/player/CanRun.gd" id="7_0los3"]
+[ext_resource type="Script" path="res://src/player/CanMove.gd" id="8_ono64"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h1vp6"]
+size = Vector2(30, 30)
+
+[node name="Player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 35
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 13
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_l1kd5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_h1vp6")
+
+[node name="States" type="Node" parent="."]
+script = ExtResource("3_enll4")
+
+[node name="Default" type="Node" parent="States"]
+script = ExtResource("4_b3xp1")
+
+[node name="AffectedByGravity" type="Node" parent="States/Default"]
+script = ExtResource("5_734sf")
+
+[node name="CanJump" type="Node" parent="States/Default"]
+script = ExtResource("6_0jqw1")
+
+[node name="CanRun" type="Node" parent="States/Default"]
+script = ExtResource("7_0los3")
+
+[node name="CanMove" type="Node" parent="States/Default"]
+script = ExtResource("8_ono64")

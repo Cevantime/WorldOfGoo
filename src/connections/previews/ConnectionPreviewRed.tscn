@@ -5,7 +5,7 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6g073"]
 shader = ExtResource("2_3ydg3")
-shader_parameter/color = Color(0.878431, 0, 0.027451, 0.266667)
+shader_parameter/color = Color(1, 0.494118, 0.423529, 0.803922)
 
 [node name="ConnectionPreview" instance=ExtResource("1_li6g2")]
 material = SubResource("ShaderMaterial_6g073")

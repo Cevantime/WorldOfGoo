@@ -1,6 +1,6 @@
 extends Node2D
 
-@export var DEFORMATION_FACTOR =2.0
+@export var DEFORMATION_FACTOR = 2.0
 @export var DEFORMATION_AMPLITUDE = 0.8
 @export var BOUNCING_SPEED = 1.0
 @export var report_angle = false
@@ -14,6 +14,7 @@ var current_deformation = Vector2.ZERO
 @onready var body = $GooBody
 @onready var states = $States
 @onready var body_states = $GooBody/States
+@onready var outline = $SpritePosition/SpriteRotation/GooOutline
 
 func _ready():
 	sprite_position.rotation += rotation

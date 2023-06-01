@@ -16,7 +16,6 @@ func _create_preview_line(c1, c2):
 	
 func get_preview_line(c1, c2):
 	return _create_preview_line(c1, c2)
-		
 	
 	
 func configure_connection_line(line, c1, c2):
