@@ -21,4 +21,10 @@ func _input(event):
 	
 	
 func _enter_state(_previous, _params = []):
+	referer.collision_layer = Layers.DRAGGED_GOOS
+	referer.collision_mask = Layers.GROUND
 	emit_signal("drag_started")
+
+func _exit_state(_next):
+	referer.collision_layer = Layers.WAITING_GOOS
+	referer.collision_mask = Layers.WAITING_GOOS + Layers.GROUND + Layers.SOLID_CONNECTIONS

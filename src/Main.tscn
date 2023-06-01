@@ -74,12 +74,15 @@ position = Vector2(657, -25)
 position = Vector2(659, -83)
 
 [node name="RedGoo" parent="Goos" instance=ExtResource("6_50bcm")]
+z_index = 10
 position = Vector2(626, -120)
 
 [node name="RedGoo2" parent="Goos" instance=ExtResource("6_50bcm")]
+z_index = 10
 position = Vector2(618, -91)
 
 [node name="RedGoo3" parent="Goos" instance=ExtResource("6_50bcm")]
+z_index = 10
 position = Vector2(591, -107)
 
 [node name="BlackGoo5" parent="Goos" instance=ExtResource("5_w5o0r")]

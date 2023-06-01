@@ -107,6 +107,7 @@ _data = {
 }
 
 [node name="BlackGoo" instance=ExtResource("2")]
+z_index = 5
 script = ExtResource("6")
 
 [node name="GooBody" parent="." index="0"]

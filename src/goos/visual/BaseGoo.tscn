@@ -39,3 +39,5 @@ texture = ExtResource("5")
 
 [node name="States" type="Node" parent="."]
 script = ExtResource("1")
+
+[editable path="GooBody"]
