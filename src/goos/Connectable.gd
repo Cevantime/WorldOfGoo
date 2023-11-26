@@ -1,3 +1,4 @@
+@tool
 extends StateMachine
 
 signal connection_requested
@@ -26,14 +27,14 @@ func request_disconnection(other):
 	emit_signal("disconnection_requested", other)
 	
 func emit_connected(other):
-	referer.collision_layer = Layers.CONNECTED_GOOS
-	referer.collision_mask = Layers.GROUND + Layers.CONNECTED_GOOS
+	referer.collision_layer = referer.connected_layer
+	referer.collision_mask = referer.connected_mask
 	emit_signal("connected", other)
 	
 func emit_connection_refused():
 	emit_signal("connection_refused")
 	
 func emit_disconnected(other):
-	referer.collision_layer = Layers.WAITING_GOOS
-	referer.collision_mask = Layers.WAITING_GOOS + Layers.GROUND + Layers.SOLID_CONNECTIONS
+	referer.collision_layer = referer.waiting_layer
+	referer.collision_mask = referer.waiting_mask
 	emit_signal("disconnected", other)

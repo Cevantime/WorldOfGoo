@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://dwjagotfhe4qx"]
 
-[ext_resource path="res://src/utils/Sinus.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://src/utils/Sinus.gd" id="1"]
 
 [node name="Sinus" type="Node"]
-script = ExtResource( 1 )
+script = ExtResource("1")

@@ -9,17 +9,17 @@
 script = ExtResource("4")
 
 [node name="GooBody" parent="." index="0"]
-mass = 27.79
+mass = 28.0
 
-[node name="Connectable" parent="GooBody" index="3" instance=ExtResource("3")]
-
-[node name="Face" parent="SpritePosition/SpriteRotation" index="0"]
-self_modulate = Color(0.192157, 0.192157, 0.192157, 1)
+[node name="Connectable" parent="GooBody" index="4" instance=ExtResource("3")]
 
 [node name="Eye1" parent="SpritePosition/SpriteRotation" index="1" instance=ExtResource("2")]
 position = Vector2(-6, -6)
 
 [node name="Eye2" parent="SpritePosition/SpriteRotation" index="2" instance=ExtResource("2")]
 position = Vector2(6, -6)
+
+[node name="Face" parent="SpritePosition/SpriteRotation" index="3"]
+self_modulate = Color(0.192157, 0.192157, 0.192157, 1)
 
 [editable path="GooBody"]

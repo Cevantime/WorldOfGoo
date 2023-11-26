@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" path="res://src/goos/body/states/AddToConnectedGroup.tscn" id="5_mhua3"]
 [ext_resource type="Script" path="res://src/goos/body/states/RotationDamped.gd" id="5_sekfx"]
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="6_xq5i5"]
-[ext_resource type="PackedScene" path="res://src/goos/visual/states/Bouncing.tscn" id="8_h54rm"]
+[ext_resource type="PackedScene" uid="uid://ccopljgvuo4gc" path="res://src/goos/visual/states/Bouncing.tscn" id="8_h54rm"]
 [ext_resource type="PackedScene" uid="uid://bi1w3i1bm7sd1" path="res://src/goos/visual/states/DeformedByMovement.tscn" id="9_aharv"]
 [ext_resource type="PackedScene" uid="uid://b37podescl8a" path="res://src/goos/visual/states/Drag.tscn" id="9_hxse5"]
 [ext_resource type="PackedScene" uid="uid://bngpvsvjqyhdj" path="res://src/goos/visual/states/PreviewConnexions.tscn" id="10_ung05"]
@@ -21,11 +21,8 @@
 [node name="PurpleGoo" groups=["purple_goos"] instance=ExtResource("1_mtjh3")]
 script = ExtResource("2_vu7gl")
 
-[node name="GooBody" parent="." index="0"]
-collision_layer = 8
-collision_mask = 41
-
-[node name="DraggableLimitedSpeed" parent="GooBody/States/Idle" index="0" instance=ExtResource("2_2yxcv")]
+[node name="AwakeArea" parent="GooBody" index="1"]
+position = Vector2(1, 0)
 
 [node name="Connected" type="Node" parent="GooBody/States" index="1"]
 script = ExtResource("6_xq5i5")
@@ -35,7 +32,9 @@ script = ExtResource("6_xq5i5")
 [node name="RotationDamped" type="Node" parent="GooBody/States/Connected" index="1"]
 script = ExtResource("5_sekfx")
 
-[node name="Connectable" parent="GooBody" index="3" instance=ExtResource("4_ks2o3")]
+[node name="DraggableLimitedSpeed" parent="GooBody/States/Idle" index="0" instance=ExtResource("2_2yxcv")]
+
+[node name="Connectable" parent="GooBody" index="4" instance=ExtResource("4_ks2o3")]
 
 [node name="Face" parent="SpritePosition/SpriteRotation" index="1"]
 self_modulate = Color(0.8, 0, 0.8, 1)
@@ -51,21 +50,18 @@ remote_path = NodePath("../../Buttons")
 update_rotation = false
 update_scale = false
 
-[node name="Free" type="Node" parent="States" index="0"]
-script = ExtResource("6_xq5i5")
+[node name="Bouncing" parent="States/Awake" index="0" instance=ExtResource("8_h54rm")]
 
-[node name="Bouncing" parent="States/Free" index="0" instance=ExtResource("8_h54rm")]
+[node name="DeformedByMovement" parent="States/Awake" index="1" instance=ExtResource("9_aharv")]
 
-[node name="DeformedByMovement" parent="States/Free" index="1" instance=ExtResource("9_aharv")]
-
-[node name="Drag" type="Node" parent="States" index="1"]
+[node name="Drag" type="Node" parent="States" index="2"]
 script = ExtResource("6_xq5i5")
 
 [node name="Drag" parent="States/Drag" index="0" instance=ExtResource("9_hxse5")]
 
 [node name="PreviewConnexions" parent="States/Drag" index="1" instance=ExtResource("10_ung05")]
 
-[node name="Connected" type="Node" parent="States" index="2"]
+[node name="Connected" type="Node" parent="States" index="3"]
 script = ExtResource("6_xq5i5")
 
 [node name="Bouncing" parent="States/Connected" index="0" instance=ExtResource("8_h54rm")]

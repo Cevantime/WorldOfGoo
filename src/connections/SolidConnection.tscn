@@ -5,11 +5,13 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_uhxvg"]
 size = Vector2(100, 5)
 
-[node name="SolidConnection" type="RigidBody2D" groups=["solid_connections"]]
-collision_mask = 0
+[node name="SolidConnection" type="RigidBody2D" groups=["bullet_reflectors", "solid_connections"]]
+collision_mask = 2
 script = ExtResource("1_36q0p")
-enabled_layer = 1
-disabled_layer = 2147483648
+enabled_layer = 33
+disabled_layer = 2155872256
+enabled_mask = 2
+disabled_mask = 8388608
 length = 100.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

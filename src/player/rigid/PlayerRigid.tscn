@@ -1,0 +1,39 @@
+[gd_scene load_steps=5 format=3 uid="uid://b4w5uys8m48x3"]
+
+[ext_resource type="Script" path="res://src/player/rigid/PlayerRigid.gd" id="1_b1ptx"]
+[ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="2_6fiep"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
+rough = true
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5dh33"]
+radius = 15.0
+height = 46.0
+
+[node name="PlayerRigid" type="RigidBody2D" groups=["players"]]
+collision_layer = 2
+collision_mask = 291
+mass = 2.0
+physics_material_override = SubResource("PhysicsMaterial_temxo")
+gravity_scale = 3.0
+max_contacts_reported = 10
+can_sleep = false
+lock_rotation = true
+linear_damp_mode = 1
+linear_damp = 0.2
+script = ExtResource("1_b1ptx")
+JUMP_FORCE = 485
+VELOCITY = 50
+
+[node name="Icon" type="Sprite2D" parent="."]
+position = Vector2(0, 8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_6fiep")
+
+[node name="Icon2" type="Sprite2D" parent="."]
+position = Vector2(0, -8)
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_6fiep")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_5dh33")

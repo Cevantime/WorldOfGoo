@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://bkra6ftag6r61"]
+[gd_scene load_steps=6 format=3 uid="uid://bkra6ftag6r61"]
 
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="1"]
 [ext_resource type="Script" path="res://src/goos/body/BaseGooBody.gd" id="2"]
@@ -7,20 +7,37 @@
 [sub_resource type="CircleShape2D" id="1"]
 radius = 12.0
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_0wm8u"]
+radius = 24.0832
+
 [node name="BaseGooBody" type="RigidBody2D" groups=["goo_bodies"]]
 collision_layer = 8
 collision_mask = 41
 input_pickable = true
+can_sleep = false
 max_contacts_reported = 1
 contact_monitor = true
-can_sleep = false
 script = ExtResource("2")
+waiting_layer = 8
+waiting_mask = 297
+dragging_layer = 16
+dragging_mask = 289
+connected_layer = 4
+connected_mask = 261
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("1")
 
+[node name="AwakeArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AwakeArea"]
+shape = SubResource("CircleShape2D_0wm8u")
+
 [node name="States" type="Node" parent="."]
 script = ExtResource("3")
+
+[node name="Sleeping" type="Node" parent="States"]
+script = ExtResource("1")
 
 [node name="Idle" type="Node" parent="States"]
 script = ExtResource("1")

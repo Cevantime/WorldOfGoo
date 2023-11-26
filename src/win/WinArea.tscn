@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://d0wtnxf1g5e0d"]
+
+[ext_resource type="Script" path="res://src/win/WinArea.gd" id="1_1ymjo"]
+
+[node name="WinArea" type="Polygon2D"]
+color = Color(0.67451, 0, 0.745098, 0.505882)
+polygon = PackedVector2Array(-15, -24, 30, -22, 28, 37, -20, 36)
+script = ExtResource("1_1ymjo")
+
+[node name="Area2D" type="Area2D" parent="."]
+collision_layer = 128
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D"]
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

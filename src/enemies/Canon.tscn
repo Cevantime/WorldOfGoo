@@ -1,0 +1,48 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhqo211yrikrd"]
+
+[ext_resource type="Script" path="res://src/enemies/Canon.gd" id="1_l34ps"]
+[ext_resource type="PackedScene" uid="uid://bk8h0uua70hho" path="res://src/enemies/Bullet.tscn" id="2_b8a76"]
+
+[node name="Canon" type="Node2D"]
+script = ExtResource("1_l34ps")
+bullet_packed_scene = ExtResource("2_b8a76")
+range = 100
+
+[node name="CanonRigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2(0, -35)
+collision_layer = 2048
+collision_mask = 2863
+freeze = true
+freeze_mode = 1
+
+[node name="RayCast2D" type="RayCast2D" parent="CanonRigidBody2D"]
+position = Vector2(-1, -4)
+rotation = 3.14159
+target_position = Vector2(0, 100)
+
+[node name="Spawner" type="Node2D" parent="CanonRigidBody2D"]
+position = Vector2(0, -66)
+rotation = -1.5708
+
+[node name="CanonCollisionPolygon2D" type="CollisionPolygon2D" parent="CanonRigidBody2D"]
+polygon = PackedVector2Array(-20, 0, -16, 10, -7, 20, 4, 21, 12, 21, 17, 13, 21, -1, 12, -76, -14, -76)
+
+[node name="CanonPolygon2D" type="Polygon2D" parent="CanonRigidBody2D"]
+z_index = 1
+color = Color(0.545098, 0.545098, 0.545098, 1)
+polygon = PackedVector2Array(-20, 0, -16, 10, -7, 20, 4, 21, 12, 21, 17, 13, 21, -1, 12, -76, -14, -76)
+
+[node name="BaseStaticBody2D" type="StaticBody2D" parent="."]
+collision_layer = 2048
+collision_mask = 2863
+
+[node name="BaseCollisionPolygon2D" type="CollisionPolygon2D" parent="BaseStaticBody2D"]
+polygon = PackedVector2Array(-35, -16, -21, -1, -1, 0, 21, -1, 36, -17, 26, -34, 13, -16, -11, -16, -26, -34)
+
+[node name="BasePolygon2D" type="Polygon2D" parent="BaseStaticBody2D"]
+color = Color(0.807843, 0.356863, 0, 1)
+polygon = PackedVector2Array(-35, -16, -21, -1, -1, 0, 21, -1, 36, -17, 26, -34, 13, -16, -11, -16, -26, -34)
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

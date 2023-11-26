@@ -1,0 +1,110 @@
+[gd_scene load_steps=14 format=3 uid="uid://yavwrobnthef"]
+
+[ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_kni6i"]
+[ext_resource type="Script" path="res://src/levels/Level3.gd" id="2_qbhah"]
+[ext_resource type="PackedScene" uid="uid://tle3ubur3dbo" path="res://src/goos/visual/grey_goo/GreyGoo.tscn" id="3_7f5c2"]
+[ext_resource type="PackedScene" uid="uid://dgofcbwjd68i1" path="res://src/goos/visual/red_goo/RedGoo.tscn" id="4_23bcy"]
+[ext_resource type="PackedScene" uid="uid://taniprq6a8fe" path="res://src/goos/visual/green_goo/GreenGoo.tscn" id="5_5qpde"]
+[ext_resource type="PackedScene" uid="uid://c0x0lcq6auxjk" path="res://src/goos/visual/purple_goo/PurpleGoo.tscn" id="6_36ci2"]
+[ext_resource type="PackedScene" uid="uid://1kwdxums3axx" path="res://src/platforms/PathPlatform.tscn" id="7_q4fif"]
+[ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="8_xqgt5"]
+[ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="9_hdtt8"]
+
+[sub_resource type="Animation" id="Animation_e5bum"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_t1x4m"]
+resource_name = "animate"
+length = 14.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 3, 6, 9.1, 14),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [0.0, 1.0, 1.0, 0.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_aovln"]
+_data = {
+"RESET": SubResource("Animation_e5bum"),
+"animate": SubResource("Animation_t1x4m")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ohk4y"]
+shader = ExtResource("9_hdtt8")
+shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
+shader_parameter/signal_color = Color(1, 1, 1, 1)
+shader_parameter/signal_ratio = -1.3
+shader_parameter/backwards = false
+shader_parameter/display_tex = false
+
+[node name="Level3" instance=ExtResource("1_kni6i")]
+script = ExtResource("2_qbhah")
+next_level = "Level4"
+
+[node name="Camera2D" parent="." index="0"]
+position = Vector2(561, 333)
+
+[node name="GreyGoo" parent="Goos" index="0" instance=ExtResource("3_7f5c2")]
+position = Vector2(826, 168)
+
+[node name="GreyGoo2" parent="Goos" index="1" instance=ExtResource("3_7f5c2")]
+position = Vector2(766, 166)
+
+[node name="RedGoo" parent="Goos" index="2" instance=ExtResource("4_23bcy")]
+position = Vector2(584, 170)
+
+[node name="RedGoo2" parent="Goos" index="3" instance=ExtResource("4_23bcy")]
+position = Vector2(662, 170)
+
+[node name="GreenGoo" parent="Goos" index="4" instance=ExtResource("5_5qpde")]
+position = Vector2(875, 42)
+
+[node name="PurpleGoo" parent="Goos" index="5" instance=ExtResource("6_36ci2")]
+position = Vector2(942, 53)
+
+[node name="Ground" parent="Landscape" index="0"]
+position = Vector2(178, 234)
+polygon = PackedVector2Array(-417, -180, -415, -55, 68, -47, 68, 150, 290, 146, 287, -49, 664, -50, 666, -170, 741, -164, 820, -168, 825, -32, 831, 377, -504, 379, -506, -180)
+
+[node name="WinArea" parent="." index="6"]
+position = Vector2(-328, 29)
+polygon = PackedVector2Array(2, -31, 5, 28, 58, 30, 58, -32)
+
+[node name="PathPlatform" parent="." index="7" instance=ExtResource("7_q4fif")]
+position = Vector2(356, 120)
+
+[node name="Polygon2D" parent="PathPlatform/PathFollow2D/RigidBody2D" index="1"]
+polygon = PackedVector2Array(-96, -11, -96, 11, 103, 11, 103, -9)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="PathPlatform" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_aovln")
+}
+autoplay = "animate"
+
+[node name="ConnectionLine" parent="." index="11" instance=ExtResource("8_xqgt5")]
+material = SubResource("ShaderMaterial_ohk4y")
+points = PackedVector2Array(766, 166, 826, 168)
+node_a_path = NodePath("../Goos/GreyGoo2/SpritePosition/SpriteRotation")
+node_b_path = NodePath("../Goos/GreyGoo/SpritePosition/SpriteRotation")
+
+[editable path="PathPlatform"]

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwamhclin1nh6"]
+
+[ext_resource type="Script" path="res://addons/goo_connection/GooCheckBox.gd" id="1_blrye"]
+
+[node name="GooCheckBox" type="CheckBox"]
+script = ExtResource("1_blrye")

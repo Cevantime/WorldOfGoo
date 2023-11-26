@@ -1,3 +1,4 @@
+@tool
 extends Line2D
 
 @onready var target_width = width
@@ -5,6 +6,10 @@ extends Line2D
 
 var node_a_instance
 var node_b_instance
+
+@export var node_a_path: NodePath
+@export var node_b_path: NodePath
+
 
 var backwards = false:
 	set(value):
@@ -16,6 +21,9 @@ var backwards = false:
 signal signal_sent
 
 func _ready():
+	if node_a_path:
+		node_a_instance = get_node(node_a_path)
+		node_b_instance = get_node(node_b_path)
 	material = material.duplicate()
 	appear()
 
@@ -28,7 +36,7 @@ func _process(_delta):
 
 func appear():
 	width = 0
-	var _t = create_tween().tween_property(self, "width", target_width, 0.8)
+	create_tween().tween_property(self, "width", target_width, 0.8)
 
 func set_color(color):
 	(material as ShaderMaterial).set_shader_parameter("color", color)

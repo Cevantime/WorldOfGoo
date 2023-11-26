@@ -1,3 +1,4 @@
+@tool
 extends "res://src/connections/factories/BaseFactory.gd"
 
 

@@ -16,8 +16,6 @@ z_index = 10
 collision_layer = 2
 collision_mask = 35
 
-[node name="Camera2D" type="Camera2D" parent="."]
-
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("2_l1kd5")
@@ -37,8 +35,14 @@ script = ExtResource("5_734sf")
 [node name="CanJump" type="Node" parent="States/Default"]
 script = ExtResource("6_0jqw1")
 
+[node name="Timer" type="Timer" parent="States/Default/CanJump"]
+wait_time = 0.09
+one_shot = true
+
 [node name="CanRun" type="Node" parent="States/Default"]
 script = ExtResource("7_0los3")
 
 [node name="CanMove" type="Node" parent="States/Default"]
 script = ExtResource("8_ono64")
+
+[connection signal="timeout" from="States/Default/CanJump/Timer" to="States/Default/CanJump" method="_on_timer_timeout"]

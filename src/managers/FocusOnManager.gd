@@ -14,7 +14,7 @@ func _ready():
 		goo.connect(signal_name, Callable(self, "_on_signal"))
 		
 func _enter_state(_previous, _params = []):
-	camera = referer.get_node("Camera2D")
+	camera = referer.main_camera
 
 func _process(_delta):
 	if connected_goos_stack.size() == 0:
@@ -27,6 +27,7 @@ func _process(_delta):
 	
 	
 	for goo in connected_goos_stack:
+		camera.follow_player = false
 		goo.process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 		get_tree().paused = true
 		var tw = create_tween().tween_property(camera, "global_position", goo.body.global_position, 0.2)
@@ -36,6 +37,8 @@ func _process(_delta):
 		get_tree().paused = false
 		goo.process_mode = ProcessMode.PROCESS_MODE_INHERIT
 		
+	camera.follow_player = true
+	
 	connected_goos_stack = []
 	
 	camera.zoom_target = old_cam_zoom

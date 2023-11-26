@@ -6,4 +6,4 @@ extends DampedSpringJoint2D
 
 func _process(_delta):
 	global_position = node_a_instance.global_position
-	global_rotation = (node_b_instance.global_position - node_a_instance.global_position).angle() + PI /2
+	global_rotation = node_a_instance.global_position.angle_to(node_b_instance.global_position) + PI /2

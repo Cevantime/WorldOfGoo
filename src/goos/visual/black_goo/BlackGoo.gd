@@ -14,12 +14,12 @@ func _on_DraggableLimitedSpeed_drag_ended():
 
 func _on_Connectable_connected(_other):
 	body_states.change_state("Connected")
-	states.change_state("Free")
+	states.change_state("Awake")
 
 
 func _on_Connectable_connection_refused():
 	body_states.change_state("Idle")
-	states.change_state("Free")
+	states.change_state("Awake")
 
 
 func _on_Connectable_disconnected(_other):

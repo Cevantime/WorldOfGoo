@@ -1,0 +1,125 @@
+[gd_scene load_steps=13 format=3 uid="uid://c5ycvrf3hmdd3"]
+
+[ext_resource type="Script" path="res://src/levels/BaseLevel.gd" id="1_jac0e"]
+[ext_resource type="Script" path="res://src/camera/Camera2D.gd" id="2_e0rww"]
+[ext_resource type="PackedScene" uid="uid://cbimwcvh3h705" path="res://src/ground/Ground.tscn" id="3_f45hq"]
+[ext_resource type="PackedScene" uid="uid://b4w5uys8m48x3" path="res://src/player/rigid/PlayerRigid.tscn" id="5_6t8ch"]
+[ext_resource type="PackedScene" uid="uid://d0wtnxf1g5e0d" path="res://src/win/WinArea.tscn" id="5_k8cks"]
+[ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="6_fanrs"]
+[ext_resource type="PackedScene" uid="uid://cpbxgnnybakka" path="res://src/managers/FocusOnManager.tscn" id="7_eeuqj"]
+[ext_resource type="Script" path="res://src/managers/GreenGooConnectionManager.gd" id="8_2fh50"]
+[ext_resource type="PackedScene" uid="uid://cab6a4jr4tppx" path="res://src/managers/PurpleGooConnectionManager.tscn" id="9_wa6tu"]
+[ext_resource type="PackedScene" uid="uid://j43jkvmlenmu" path="res://src/debug/FPSLabel.tscn" id="10_6ua0l"]
+[ext_resource type="Script" path="res://src/debug/InstanceCountLabel.gd" id="11_eof4i"]
+
+[sub_resource type="Environment" id="1"]
+background_mode = 3
+glow_intensity = 1.71
+glow_strength = 2.0
+glow_blend_mode = 0
+glow_hdr_scale = 0.0
+
+[node name="BaseLevel" type="Node2D" groups=["levels"]]
+script = ExtResource("1_jac0e")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+process_mode = 3
+position = Vector2(234, 171)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("2_e0rww")
+CAMERA_SPEED = 1
+zoom_min = 0.75
+zoom_max = 3.0
+player_followed_path = NodePath("../PlayerRigid")
+
+[node name="Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.447059, 0.447059, 0.447059, 1)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("1")
+
+[node name="Goos" type="Node2D" parent="."]
+
+[node name="Landscape" type="Node2D" parent="."]
+
+[node name="Ground" parent="Landscape" instance=ExtResource("3_f45hq")]
+position = Vector2(178, 229)
+polygon = PackedVector2Array(-115, -50, 278, -50, 278, 94, -112, 96)
+
+[node name="Objects" type="Node2D" parent="."]
+
+[node name="WinArea" parent="." instance=ExtResource("5_k8cks")]
+position = Vector2(395, 150)
+polygon = PackedVector2Array(2, -31, 2, 29, 58, 30, 58, -32)
+
+[node name="PlayerRigid" parent="." instance=ExtResource("5_6t8ch")]
+position = Vector2(136, 160)
+
+[node name="Managers" type="Node" parent="."]
+script = ExtResource("6_fanrs")
+
+[node name="GreenGooConnectionManager" parent="Managers" instance=ExtResource("7_eeuqj")]
+script = ExtResource("8_2fh50")
+group_name = "green_goos"
+signal_name = "connected"
+
+[node name="PurpleGooConnectionManager" parent="Managers" instance=ExtResource("9_wa6tu")]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="FPSLabel" parent="UI" instance=ExtResource("10_6ua0l")]
+offset_right = 83.0
+offset_bottom = 37.0
+text = "FPS: 60"
+
+[node name="InstanceCountLabel" type="Label" parent="UI"]
+offset_top = 27.0
+offset_right = 40.0
+offset_bottom = 50.0
+text = "Instance count : "
+script = ExtResource("11_eof4i")
+
+[node name="Button" type="Button" parent="UI"]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -61.0
+offset_bottom = 31.0
+grow_horizontal = 0
+text = "Reload"
+
+[node name="WinPanel" type="PanelContainer" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/WinPanel"]
+layout_mode = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_right = 20
+
+[node name="Label" type="Label" parent="UI/WinPanel/MarginContainer"]
+layout_mode = 2
+text = "You win !!!!"
+
+[connection signal="player_won" from="WinArea" to="." method="_on_win_area_player_won"]
+[connection signal="pressed" from="UI/Button" to="." method="_on_button_pressed"]

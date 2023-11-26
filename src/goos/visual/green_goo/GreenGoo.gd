@@ -18,7 +18,7 @@ func _on_draggable_drag_ended():
 
 
 func _on_connectable_connection_refused():
-	states.change_state("Free")
+	states.change_state("Awake")
 
 
 func _on_connectable_connected(other):

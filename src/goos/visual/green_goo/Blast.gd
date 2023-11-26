@@ -13,5 +13,3 @@ func _enter_state(_previous, _params = []):
 	
 func _exit_state(_next_state):
 	animation_player.play("stop_blast")
-	await animation_player.animation_finished
-	animation_player.play("RESET")

@@ -22,7 +22,7 @@ func _on_draggable_limited_speed_drag_started():
 
 func _on_draggable_limited_speed_drag_ended():
 	connectable_state.request_connection()
-	states.change_state("Free")
+	states.change_state("Awake")
 
 
 func _on_connectable_connected(_other):

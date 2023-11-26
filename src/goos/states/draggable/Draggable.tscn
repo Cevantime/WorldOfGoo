@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/goos/states/draggable/Draggable.gd" id="1_gty2g"]
 [ext_resource type="PackedScene" path="res://src/goos/states/draggable/Touchable.tscn" id="2_hb2kw"]
-[ext_resource type="PackedScene" path="res://src/goos/states/draggable/Dragged.tscn" id="3_5h46w"]
+[ext_resource type="PackedScene" uid="uid://bvsqbaq7hvtcl" path="res://src/goos/states/draggable/Dragged.tscn" id="3_5h46w"]
 
 [node name="Draggable" type="Node"]
 script = ExtResource("1_gty2g")

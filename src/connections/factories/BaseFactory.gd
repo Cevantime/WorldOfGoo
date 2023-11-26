@@ -1,5 +1,5 @@
+@tool
 extends Node
-
 
 @export var connection_packed = preload("res://src/connections/Connection.tscn")
 @export var joint_packed = preload("res://src/connections/ConnectionJoint.tscn")
@@ -19,8 +19,8 @@ func get_preview_line(c1, c2):
 	
 	
 func configure_connection_line(line, c1, c2):
-	line.node_a_instance = c1.referer.get_parent().sprite_rotation
-	line.node_b_instance = c2.referer.get_parent().sprite_rotation
+	line.node_a_instance = c1.referer.get_parent().get_node("SpritePosition/SpriteRotation")
+	line.node_b_instance = c2.referer.get_parent().get_node("SpritePosition/SpriteRotation")
 	
 func get_connection(c1, c2):
 	return _create_connection(c1, c2)

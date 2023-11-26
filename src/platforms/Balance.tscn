@@ -1,0 +1,170 @@
+[gd_scene load_steps=10 format=3 uid="uid://bhb8luifi2x7q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_erpwh"]
+size = Vector2(20, 370)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_84had"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ppg86"]
+size = Vector2(320, 10)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ct20y"]
+friction = 0.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jrii5"]
+size = Vector2(180, 10)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4skdl"]
+size = Vector2(160, 10)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_tokph"]
+friction = 0.0
+bounce = 1.0
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_phslk"]
+friction = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_4ocab"]
+
+[node name="Balance" type="Node2D"]
+position = Vector2(0, -57)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(1, 38)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+color = Color(0, 0.623529, 0.505882, 1)
+polygon = PackedVector2Array(-10, -185, -10, 185, 10, 185, 10, -185)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_erpwh")
+
+[node name="PinBalance" type="PinJoint2D" parent="."]
+position = Vector2(0, -146)
+node_a = NodePath("../StaticBody2D")
+node_b = NodePath("../UpPlate")
+
+[node name="UpPlate" type="RigidBody2D" parent="."]
+position = Vector2(0, -146)
+collision_layer = 0
+collision_mask = 512
+physics_material_override = SubResource("PhysicsMaterial_84had")
+
+[node name="Polygon2D" type="Polygon2D" parent="UpPlate"]
+polygon = PackedVector2Array(-160, -5, 160, -5, 150, 5, -150, 5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpPlate"]
+shape = SubResource("RectangleShape2D_ppg86")
+
+[node name="Left" type="Node2D" parent="."]
+position = Vector2(-157, -65)
+
+[node name="Sustainer" type="RigidBody2D" parent="Left"]
+position = Vector2(-2, -1)
+collision_layer = 0
+collision_mask = 512
+physics_material_override = SubResource("PhysicsMaterial_ct20y")
+
+[node name="Polygon2D" type="Polygon2D" parent="Left/Sustainer"]
+polygon = PackedVector2Array(4, -86, 92, 74, 82, 78, 6, -63, -69, 77, -77, 70)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Left/Sustainer"]
+position = Vector2(44, -4)
+rotation = 1.07186
+shape = SubResource("RectangleShape2D_jrii5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Left/Sustainer"]
+position = Vector2(-36, 3)
+rotation = -1.07614
+shape = SubResource("RectangleShape2D_4skdl")
+
+[node name="PinJointUp" type="PinJoint2D" parent="Left"]
+position = Vector2(2, -81)
+node_a = NodePath("../../UpPlate")
+node_b = NodePath("../Sustainer")
+bias = 0.9
+
+[node name="Plate" type="RigidBody2D" parent="Left"]
+position = Vector2(4, 71)
+collision_layer = 256
+collision_mask = 15
+mass = 10.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Left/Plate"]
+polygon = PackedVector2Array(-80, -4, -79, 5, 78, 5, 78, -5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Left/Plate"]
+polygon = PackedVector2Array(-82, -12, -74, -4, 74, -5, 80, -14, 80, 5, -82, 6)
+
+[node name="PinJointLeft" type="PinJoint2D" parent="Left"]
+position = Vector2(-73, 69)
+node_a = NodePath("../Sustainer")
+node_b = NodePath("../Plate")
+
+[node name="PinJointRight" type="PinJoint2D" parent="Left"]
+position = Vector2(79, 70)
+node_a = NodePath("../Sustainer")
+node_b = NodePath("../Plate")
+
+[node name="Right" type="Node2D" parent="."]
+position = Vector2(155, -65)
+
+[node name="Sustainer" type="RigidBody2D" parent="Right"]
+position = Vector2(-2, -1)
+collision_layer = 0
+collision_mask = 512
+physics_material_override = SubResource("PhysicsMaterial_tokph")
+
+[node name="Polygon2D" type="Polygon2D" parent="Right/Sustainer"]
+polygon = PackedVector2Array(4, -86, 92, 74, 82, 78, 6, -63, -69, 77, -77, 70)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Right/Sustainer"]
+position = Vector2(44, -4)
+rotation = 1.07186
+shape = SubResource("RectangleShape2D_jrii5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Right/Sustainer"]
+position = Vector2(-36, 3)
+rotation = -1.07614
+shape = SubResource("RectangleShape2D_4skdl")
+
+[node name="PinJointUp" type="PinJoint2D" parent="Right"]
+position = Vector2(2, -81)
+node_a = NodePath("../../UpPlate")
+node_b = NodePath("../Sustainer")
+
+[node name="Plate" type="RigidBody2D" parent="Right"]
+position = Vector2(4, 71)
+collision_layer = 256
+collision_mask = 15
+mass = 10.0
+
+[node name="Polygon2D" type="Polygon2D" parent="Right/Plate"]
+polygon = PackedVector2Array(-80, -4, -79, 5, 78, 5, 78, -5)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Right/Plate"]
+polygon = PackedVector2Array(-82, -12, -74, -4, 74, -5, 80, -14, 80, 5, -82, 6)
+
+[node name="PinJointLeft" type="PinJoint2D" parent="Right"]
+position = Vector2(-73, 69)
+node_a = NodePath("../Sustainer")
+node_b = NodePath("../Plate")
+
+[node name="PinJointRight" type="PinJoint2D" parent="Right"]
+position = Vector2(79, 70)
+node_a = NodePath("../Sustainer")
+node_b = NodePath("../Plate")
+
+[node name="UpSensor" type="StaticBody2D" parent="."]
+position = Vector2(0, -127)
+collision_layer = 512
+collision_mask = 0
+physics_material_override = SubResource("PhysicsMaterial_phslk")
+
+[node name="CollisionPolygon2D" type="CollisionShape2D" parent="UpSensor"]
+position = Vector2(0, -2)
+shape = SubResource("CircleShape2D_4ocab")

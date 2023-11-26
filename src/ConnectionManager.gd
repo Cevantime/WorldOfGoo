@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 var GooBody = preload("res://src/goos/body/BaseGooBody.gd")
@@ -14,12 +15,12 @@ class PreviewLink:
 		connectable = c
 
 enum LINKABLE_STATES {
-	OK,
-	TOO_CLOSE,
-	TOO_FAR,
-	NOT_CONNECTED,
-	SAME_AS_TARGET,
-	ALREADY_CONNECTED_TO_TARGET
+	OK = 1,
+	TOO_CLOSE = 2,
+	TOO_FAR = 4,
+	NOT_CONNECTED = 8,
+	SAME_AS_TARGET = 16,
+	ALREADY_CONNECTED_TO_TARGET = 32
 }
 
 @onready var connection_factories = $ConnectionFactories.get_children()
@@ -86,23 +87,23 @@ func _on_node_added(node: Node):
 		listen_to_connectable(node)
 
 func listen_to_connectable(connectable):
-	connectable.connect("connection_requested", Callable(self, "_on_connectable_connection_requested").bind(connectable))
-	connectable.connect("disconnection_requested", Callable(self, "_on_connectable_disconnection_requested").bind(connectable))
+	if not connectable.is_connected("connection_requested", Callable(self, "_on_connectable_connection_requested").bind(connectable)):
+		connectable.connect("connection_requested", Callable(self, "_on_connectable_connection_requested").bind(connectable))
+		connectable.connect("disconnection_requested", Callable(self, "_on_connectable_disconnection_requested").bind(connectable))
 	
 func check_connectable_is_linkable(connectable):
 	var connectables = get_tree().get_nodes_in_group(Groups.CONNECTABLE_STATE)
 	
 	var linkable_count = 0
-	var too_close_found = false
+	
 	for c in connectables:
 		var linkable_state = check_connectables_are_linkable(connectable, c)
 		if linkable_state == LINKABLE_STATES.TOO_CLOSE:
-			too_close_found = true
-			break
+			return false
 		if linkable_state == LINKABLE_STATES.OK:
 			linkable_count += 1
 			
-	return linkable_count >= 2 and not too_close_found
+	return linkable_count >= GameManager.MINIMUM_LINK_COUNT_AT_CREATION
 			
 func _on_connectable_connection_requested(connectable):
 	if not check_connectable_is_linkable(connectable):
@@ -112,7 +113,7 @@ func _on_connectable_connection_requested(connectable):
 	for c in linkable_connectables:
 		connect_connectables(connectable, c)
 
-func _on_connectable_disconnection_requested(connectable, other):
+func disconnect_connectables(connectable, other):
 	if not other in connectable.neighbours:
 		printerr("requested disconnection between goos that are not connected")
 		return
@@ -130,24 +131,30 @@ func _on_connectable_disconnection_requested(connectable, other):
 	connectable.emit_disconnected(other)
 	other.emit_disconnected(connectable)
 	
+func _on_connectable_disconnection_requested(connectable, other):
+	disconnect_connectables(connectable, other)
 	
 	
 func check_connectables_are_linkable(c1, target):
 	var g1 = c1.referer
 	var g2 = target.referer
+	if c1 == target:
+		return LINKABLE_STATES.SAME_AS_TARGET
+		
+	if c1 in target.neighbours:
+		return LINKABLE_STATES.ALREADY_CONNECTED_TO_TARGET
+		
+	var max_dist = GameManager.MAXIMUM_DISTANCE_GOO_CONNECTION
+	var distance_squared = g1.global_position.distance_squared_to(g2.global_position)
+	if distance_squared > max_dist * max_dist:
+		return LINKABLE_STATES.TOO_FAR
+	var min_dis = GameManager.MINIMUM_DISTANCE_GOO_CONNECTION
+	if distance_squared < min_dis * min_dis:
+		return LINKABLE_STATES.TOO_CLOSE
 	
 	if target.neighbours.is_empty():
 		return LINKABLE_STATES.NOT_CONNECTED
-	if c1 == target:
-		return LINKABLE_STATES.SAME_AS_TARGET
-	if c1 in target.neighbours:
-		return LINKABLE_STATES.ALREADY_CONNECTED_TO_TARGET
-	var distance = g1.global_position.distance_to(g2.global_position)
-	if distance < GameManager.MINIMUM_DISTANCE_GOO_CONNECTION:
-		return LINKABLE_STATES.TOO_CLOSE
-	if distance > GameManager.MAXIMUM_DISTANCE_GOO_CONNECTION:
-		return LINKABLE_STATES.TOO_FAR
-	
+		
 	return LINKABLE_STATES.OK
 
 
@@ -158,16 +165,17 @@ func connect_connectables(c1, c2):
 	c1.emit_connected(c2)
 	c2.emit_connected(c1)
 	get_tree().current_scene.add_child(connection)
+	return connection
 	
 func connect_goos(goo1, goo2):
-	var c1 = ConnectionManager.get_connectable(goo1.body)
-	var c2 = ConnectionManager.get_connectable(goo2.body)
+	var c1 = get_connectable(goo1.body)
+	var c2 = get_connectable(goo2.body)
 	connect_connectables(c1, c2)
 
-func get_linkable_connectables(connectable):
+func get_linkable_connectables(connectable, condition = LINKABLE_STATES.OK):
 	var linkable_connectables = []
 	for c in get_tree().get_nodes_in_group(Groups.CONNECTABLE_STATE):
-		if check_connectables_are_linkable(connectable, c) == LINKABLE_STATES.OK:
+		if check_connectables_are_linkable(connectable, c) & condition:
 			linkable_connectables.push_back(c)
 	return linkable_connectables
 	

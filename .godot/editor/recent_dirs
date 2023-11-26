@@ -1,3 +1,11 @@
+res://src/goos/body
+res://src/states
+res://src/levels
+res://src/connections
+res://src/platforms
+res://src/player/rigid
+res://src/debug
+res://src/win
 res://src
 res://src/player/states
 res://src/player
@@ -6,11 +14,9 @@ res://src/goos/visual/purple_goo
 res://src/goos/body/states
 res://src/managers
 res://src/connections/lines
-res://src/connections
 res://src/connections/previews
 res://src/connections/factories
 res://src/goos/visual
 res://src/goos/visual/red_goo
 res://src/goos/visual/black_goo
 res://src/goos/states
-res://src/goos/visual/green_goo

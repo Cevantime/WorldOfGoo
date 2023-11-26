@@ -1,19 +1,19 @@
 extends Node2D
 
+@export var next_level = "Level1"
 
 var goo_packed = preload("res://src/goos/visual/black_goo/BlackGoo.tscn")
+var player_cam
+var draggable_cam
 
+@onready var main_camera = $Camera2D
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	connect_goos($Goos/BlackGoo5, $Goos/BlackGoo6)
-	connect_goos($Goos/BlackGoo5, $Goos/BlackGoo7)
-	connect_goos($Goos/BlackGoo6, $Goos/BlackGoo7)
-	connect_goos($Goos/BlackGoo7, $Goos/BlackGoo8)
-	connect_goos($Goos/BlackGoo8, $Goos/BlackGoo9)
-	connect_goos($Goos/BlackGoo9, $Goos/BlackGoo10)
-	connect_goos($Goos/BlackGoo8, $Goos/BlackGoo10)
-	
+	for cl in get_tree().get_nodes_in_group(Groups.CONNECTION_LINES):
+		var g1 = cl.node_a_instance.get_parent().get_parent()
+		var g2 = cl.node_b_instance.get_parent().get_parent()
+		connect_goos(g1, g2)
+		cl.queue_free()
 
 func connect_goos(goo1, goo2):
 	ConnectionManager.connect_goos(goo1, goo2)
@@ -28,3 +28,9 @@ func _process(_delta):
 		
 func _on_button_pressed():
 	get_tree().reload_current_scene()
+
+
+func _on_win_area_player_won():
+	$UI/WinPanel.show()
+	await get_tree().create_timer(2).timeout
+	get_tree().change_scene_to_file("res://src/levels/"+next_level+".tscn")

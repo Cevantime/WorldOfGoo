@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cnw5wybg4khy3"]
+
+[ext_resource type="Script" path="res://src/goos/body/CanBeAwaken.gd" id="1_p5t2o"]
+
+[node name="CanBeAwaken" type="Node"]
+script = ExtResource("1_p5t2o")

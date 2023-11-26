@@ -1,9 +1,10 @@
 extends Node2D
 
+@export_category("Deformation")
 @export var DEFORMATION_FACTOR = 2.0
 @export var DEFORMATION_AMPLITUDE = 0.8
+@export_category("Speed")
 @export var BOUNCING_SPEED = 1.0
-@export var report_angle = false
 
 var deformation_vertical_influence = 0.5
 var deformation = Vector2.ZERO: set = set_deformation
@@ -39,3 +40,6 @@ func apply_deformation():
 	sprite_rotation.position.y = lerp(sprite_rotation.position.y, deformation_factor * 30 * deformation_vertical_influence, 0.5)
 	
 
+
+func _on_can_be_awaken_is_awaken():
+	states.change_state("Awake")

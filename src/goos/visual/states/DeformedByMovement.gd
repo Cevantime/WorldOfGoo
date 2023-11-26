@@ -4,7 +4,7 @@ signal contact_found
 
 const Goo = preload("res://src/goos/visual/BaseGoo.gd")
 
-@onready var sinus = Utils.create_sinus(0.08, 10)
+@onready var sinus = Utils.create_sinus(self, 0.08, 10)
 
 func _supports(node):
 	return node is Goo

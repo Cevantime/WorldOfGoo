@@ -1,5 +1,5 @@
+@tool
 extends "res://src/connections/factories/BaseFactory.gd"
-
 
 func supports(c1, c2):
 	var ref1 = c1.referer.get_parent()

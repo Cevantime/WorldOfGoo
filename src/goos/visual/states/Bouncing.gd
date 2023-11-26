@@ -5,7 +5,7 @@ signal contact_lost
 const Goo = preload("res://src/goos/visual/BaseGoo.gd")
 var deformation = Vector2.ZERO
 
-@onready var sinus = Utils.create_sinus(referer.DEFORMATION_AMPLITUDE * 0.4, referer.BOUNCING_SPEED)
+@onready var sinus = Utils.create_sinus(self, referer.DEFORMATION_AMPLITUDE * 0.4, referer.BOUNCING_SPEED)
 
 func _supports(node):
 	return node is Goo
