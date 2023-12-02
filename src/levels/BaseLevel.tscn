@@ -50,6 +50,8 @@ environment = SubResource("1")
 
 [node name="Goos" type="Node2D" parent="."]
 
+[node name="Bonus" type="Node2D" parent="."]
+
 [node name="Landscape" type="Node2D" parent="."]
 
 [node name="Ground" parent="Landscape" instance=ExtResource("3_f45hq")]

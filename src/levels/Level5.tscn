@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4w4ngo10si7y"]
+[gd_scene load_steps=10 format=3 uid="uid://b4w4ngo10si7y"]
 
 [ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_18ghb"]
 [ext_resource type="Script" path="res://src/levels/Level5.gd" id="2_c3ku3"]
@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="6_kbscy"]
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="7_bd0kc"]
 [ext_resource type="PackedScene" uid="uid://bhb8luifi2x7q" path="res://src/platforms/Balance.tscn" id="7_g2kfq"]
+[ext_resource type="PackedScene" uid="uid://1pwdejotpm34" path="res://src/bonus/PistoBoost.tscn" id="8_82vqo"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_j04am"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wr3um"]
 shader = ExtResource("7_bd0kc")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -34,21 +35,27 @@ position = Vector2(48, 70)
 [node name="SpritePosition" parent="Goos/GreenGoo" index="1"]
 position = Vector2(0, 0)
 
+[node name="PistoBoost" parent="Bonus" index="0" instance=ExtResource("8_82vqo")]
+position = Vector2(11, -74)
+
 [node name="Ground" parent="Landscape" index="0"]
 position = Vector2(177, 229)
 polygon = PackedVector2Array(-115, -50, 487, -55, 475, -406, 543, -438, 649, -438, 669, 96, 489, 96, -112, 96, -348, 92, -283, -518, -158, -521, -181, -288, -145, -288, -145, -263, -172, -219, -163, -137, -109, -139, -111, -114, -161, -114, -171, -52)
 
-[node name="WinArea" parent="." index="6"]
-position = Vector2(-83, -321)
-
 [node name="Balance" parent="." index="7" instance=ExtResource("7_g2kfq")]
 position = Vector2(396, -46)
 
-[node name="PlayerRigid" parent="." index="8"]
+[node name="WinArea" parent="." index="8"]
+position = Vector2(-83, -321)
+
+[node name="PlayerRigid" parent="." index="9"]
 position = Vector2(209, 154)
 
+[node name="PistoArea" parent="PlayerRigid" index="3"]
+visible = true
+
 [node name="ConnectionLine" parent="." index="11" instance=ExtResource("6_kbscy")]
-material = SubResource("ShaderMaterial_j04am")
+material = SubResource("ShaderMaterial_wr3um")
 points = PackedVector2Array(738, -224, 802, -223)
 goo_a_path = NodePath("../Goos/GreyGoo")
 goo_b_path = NodePath("../Goos/GreyGoo2")
@@ -56,3 +63,4 @@ goo_b_path = NodePath("../Goos/GreyGoo2")
 [editable path="Goos/GreenGoo"]
 [editable path="Goos/GreenGoo/GooBody"]
 [editable path="Landscape/Ground"]
+[editable path="PlayerRigid"]

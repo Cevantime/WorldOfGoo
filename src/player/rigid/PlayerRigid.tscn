@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://b4w5uys8m48x3"]
+[gd_scene load_steps=13 format=3 uid="uid://b4w5uys8m48x3"]
 
 [ext_resource type="Script" path="res://src/player/rigid/PlayerRigid.gd" id="1_b1ptx"]
 [ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="2_6fiep"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://buyctnouhet4v" path="res://src/player/states/CanMove.tscn" id="6_wv5so"]
 [ext_resource type="Script" path="res://src/player/states/CanUsePisto.gd" id="7_aftjf"]
 [ext_resource type="Script" path="res://src/player/states/ControlViewFinder.gd" id="8_uaw0v"]
+[ext_resource type="Script" path="res://src/player/states/CanGrabBonus.gd" id="8_vgkhb"]
 [ext_resource type="Script" path="res://src/player/states/CanDisposePisto.gd" id="10_80sx2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
@@ -56,6 +57,9 @@ script = ExtResource("5_py27a")
 
 [node name="CanUsePisto" type="Node" parent="States/Default"]
 script = ExtResource("7_aftjf")
+
+[node name="CanGrabBonus" type="Node" parent="States/Default"]
+script = ExtResource("8_vgkhb")
 
 [node name="UsePisto" type="Node" parent="States"]
 script = ExtResource("5_py27a")

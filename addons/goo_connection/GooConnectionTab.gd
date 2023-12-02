@@ -56,7 +56,8 @@ func _on_editor_selection_changed():
 	if selected_nodes.size() != 1:
 		goo_panel.visible = false
 		no_goo_selected_label.visible = true
-		selected_connectable = null
+		if selected_connectable != null:
+			deselect_connectable()
 		return
 	var selected = selected_nodes[0]
 	goo_panel.visible = selected is BaseGoo
@@ -66,9 +67,14 @@ func _on_editor_selection_changed():
 		selected_connectable = ConnectionManager.get_connectable(body)
 		selected_previous_pos = _get_connectable_global_position(selected_connectable)
 		update_checkboxes()
-	else:
-		selected_connectable = null
-		
+		selected_connectable.connect("tree_exited", Callable(self, "_on_connectable_tree_exited").bind(selected_connectable))
+	elif selected_connectable != null:
+		deselect_connectable()
+
+func deselect_connectable():
+	selected_connectable.disconnect("tree_exited", Callable(self, "_on_connectable_tree_exited").bind(selected_connectable))
+	selected_connectable = null
+	
 func update_checkboxes():
 	if selected_connectable:
 		var possible_neighbours: Array = ConnectionManager.get_linkable_connectables(selected_connectable, ConnectionManager.LINKABLE_STATES.OK | ConnectionManager.LINKABLE_STATES.NOT_CONNECTED)
@@ -86,6 +92,12 @@ func update_checkboxes():
 				checkbox.button_pressed = check_are_connected(c, selected_connectable)
 				checkbox.connect("toggled", Callable(self, "_on_checkbox_toggled").bind(checkbox))
 				
+func _on_connectable_tree_exited(connectable):
+	var selected_connectable_rotation = _get_connectable_sprite_rotation(connectable)
+	for c in get_tree().get_nodes_in_group(Groups.CONNECTION_LINES):
+		if c.node_a_instance == selected_connectable_rotation or c.node_b_instance == selected_connectable_rotation:
+			c.queue_free()
+
 func check_are_connected(c1, c2):
 	var cls = c1.get_tree().get_nodes_in_group(Groups.CONNECTION_LINES)
 	for cl in cls:

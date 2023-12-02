@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://1pwdejotpm34"]
+
+[ext_resource type="PackedScene" uid="uid://bnjqop4vsu225" path="res://src/bonus/AreaBonus.tscn" id="1_jbr61"]
+
+[node name="PistoBoost" instance=ExtResource("1_jbr61")]
+
+[node name="PolygonTop" type="Polygon2D" parent="." index="1"]
+color = Color(0, 0.662745, 0.67451, 1)
+polygon = PackedVector2Array(-8, -13, 8, -13, 5, -8, -5, -8)
+
+[node name="PolygonBottom" type="Polygon2D" parent="." index="2"]
+color = Color(0, 0.545098, 0.847059, 1)
+polygon = PackedVector2Array(-5, -8, -9, -2, -9, 4, -3, 9, 3, 9, 9, 4, 9, -2, 5, -8)
+
+[node name="Bonus" parent="." index="3"]
+extend_area_factor = 2.0

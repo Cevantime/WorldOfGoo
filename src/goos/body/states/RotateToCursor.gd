@@ -11,4 +11,4 @@ func _process(delta):
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
-		referer.global_rotation = referer.global_position.angle_to_point(referer.get_global_mouse_positon())
+		referer.global_rotation = referer.global_position.angle_to_point(referer.get_global_mouse_position())

@@ -13,7 +13,7 @@
 shader = ExtResource("1_w8rkk")
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7rnjk"]
-radius = 250.056
+radius = 200.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_p1tfn"]
 radius = 8.06226
@@ -25,6 +25,7 @@ VIEW_FINDER_SPEED = 350.0
 
 [node name="PistoArea" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_7gaws")
+scale = Vector2(0.8, 0.8)
 texture = ExtResource("2_6cwqi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -58,3 +59,4 @@ script = ExtResource("8_y1aag")
 
 [connection signal="mouse_entered" from="." to="States/Enabled/ControlsViewFinder" method="_on_pisto_connector_area_mouse_entered"]
 [connection signal="mouse_exited" from="." to="States/Enabled/ControlsViewFinder" method="_on_pisto_connector_area_mouse_exited"]
+[connection signal="texture_changed" from="PistoArea" to="." method="_on_pisto_area_texture_changed"]

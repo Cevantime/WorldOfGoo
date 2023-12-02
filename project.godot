@@ -172,6 +172,7 @@ rotate_green_goo_left={
 2d_physics/layer_12="canons"
 2d_physics/layer_13="pisto_grabbables"
 2d_physics/layer_14="pisto_view_finders"
+2d_physics/layer_15="bonus"
 2d_physics/layer_32="parallel_universe"
 
 [mono]
