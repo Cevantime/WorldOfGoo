@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cih1vfsyx0rgd"]
+
+[ext_resource type="PackedScene" uid="uid://cbimwcvh3h705" path="res://src/ground/Ground.tscn" id="1_2slmj"]
+
+[node name="TestScene" type="Node2D"]
+
+[node name="Ground" parent="." instance=ExtResource("1_2slmj")]
+position = Vector2(21, 14)
+polygon = PackedVector2Array(-20, -42, 327, -20, 313, 97, -73, 58)
+
+[node name="Camera2D" type="Camera2D" parent="."]

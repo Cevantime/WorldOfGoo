@@ -11,6 +11,9 @@ extends RigidBody2D
 var node_a_instance
 var node_b_instance
 
+var goo_a
+var goo_b
+
 @export var length: float = 50:
 	set(value):
 		if shape: shape.size = Vector2(value, 5)

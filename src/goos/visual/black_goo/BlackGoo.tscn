@@ -1,14 +1,17 @@
-[gd_scene load_steps=19 format=3 uid="uid://b4gtw38cowsn3"]
+[gd_scene load_steps=22 format=3 uid="uid://b4gtw38cowsn3"]
 
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="1"]
 [ext_resource type="PackedScene" uid="uid://b1b0qdcsnsw4a" path="res://src/goos/visual/BaseGoo.tscn" id="2"]
-[ext_resource type="PackedScene" uid="uid://b8066cqy2v4uh" path="res://src/goos/body/states/DraggableLimitedSpeed.tscn" id="4"]
 [ext_resource type="PackedScene" uid="uid://eaiawuyhowi0" path="res://src/goos/visual/Eye.tscn" id="5"]
 [ext_resource type="Script" path="res://src/goos/visual/black_goo/BlackGoo.gd" id="6"]
 [ext_resource type="PackedScene" uid="uid://b37podescl8a" path="res://src/goos/visual/states/Drag.tscn" id="7"]
+[ext_resource type="PackedScene" uid="uid://bwyok041l68h8" path="res://src/goos/body/states/PistoGrabbable.tscn" id="7_fhb7e"]
 [ext_resource type="Script" path="res://src/goos/body/states/RotationDamped.gd" id="8_111yb"]
 [ext_resource type="PackedScene" uid="uid://bngpvsvjqyhdj" path="res://src/goos/visual/states/PreviewConnexions.tscn" id="9"]
+[ext_resource type="PackedScene" uid="uid://bohxq135camt3" path="res://src/components/PistoGrabbableArea.tscn" id="9_3syps"]
+[ext_resource type="PackedScene" uid="uid://dmodxcgtmu5i8" path="res://src/goos/body/states/PistoReleaseable.tscn" id="9_y110a"]
 [ext_resource type="PackedScene" uid="uid://bqy3e82565yqc" path="res://src/goos/Connectable.tscn" id="10"]
+[ext_resource type="PackedScene" uid="uid://p0w2srjv2d5m" path="res://src/goos/body/states/EditLayers.tscn" id="10_ip5oi"]
 [ext_resource type="PackedScene" uid="uid://ccopljgvuo4gc" path="res://src/goos/visual/states/Bouncing.tscn" id="10_mhdtk"]
 [ext_resource type="PackedScene" path="res://src/goos/body/states/AddToConnectedGroup.tscn" id="11"]
 [ext_resource type="PackedScene" uid="uid://bi1w3i1bm7sd1" path="res://src/goos/visual/states/DeformedByMovement.tscn" id="11_83nnr"]
@@ -106,15 +109,14 @@ _data = {
 }
 
 [node name="BlackGoo" instance=ExtResource("2")]
-z_index = 5
 script = ExtResource("6")
 
 [node name="GooBody" parent="." index="0"]
 waiting_mask = 2345
 
-[node name="Dragged" parent="GooBody/States" index="1" instance=ExtResource("12")]
+[node name="PistoGrabbableArea" parent="GooBody" index="2" instance=ExtResource("9_3syps")]
 
-[node name="Connected" type="Node" parent="GooBody/States" index="2"]
+[node name="Connected" type="Node" parent="GooBody/States" index="1"]
 script = ExtResource("1")
 
 [node name="AddToConnectedGroup" parent="GooBody/States/Connected" index="0" instance=ExtResource("11")]
@@ -123,9 +125,20 @@ script = ExtResource("1")
 script = ExtResource("8_111yb")
 disabled = null
 
-[node name="DraggableLimitedSpeed" parent="GooBody/States/Idle" index="0" instance=ExtResource("4")]
+[node name="PistoGrabbable" parent="GooBody/States/Idle" index="0" instance=ExtResource("7_fhb7e")]
+pisto_draggable_area_path = NodePath("../../../PistoGrabbableArea")
 
-[node name="Connectable" parent="GooBody" index="4" instance=ExtResource("10")]
+[node name="Dragged" type="Node" parent="GooBody/States" index="3"]
+script = ExtResource("1")
+
+[node name="Dragged" parent="GooBody/States/Dragged" index="0" instance=ExtResource("12")]
+
+[node name="PistoReleaseable" parent="GooBody/States/Dragged" index="1" instance=ExtResource("9_y110a")]
+pisto_draggable_area_path = NodePath("../../../PistoGrabbableArea")
+
+[node name="EditLayers" parent="GooBody/States/Dragged" index="2" instance=ExtResource("10_ip5oi")]
+
+[node name="Connectable" parent="GooBody" index="5" instance=ExtResource("10")]
 
 [node name="Face" parent="SpritePosition/SpriteRotation" index="1"]
 self_modulate = Color(0, 0, 0, 1)
@@ -159,10 +172,9 @@ libraries = {
 "": SubResource("AnimationLibrary_s5rke")
 }
 
-[connection signal="drag_ended" from="GooBody/States/Dragged" to="." method="_on_Dragged_drag_ended"]
-[connection signal="drag_started" from="GooBody/States/Dragged" to="." method="_on_Dragged_drag_started"]
-[connection signal="drag_ended" from="GooBody/States/Idle/DraggableLimitedSpeed" to="." method="_on_DraggableLimitedSpeed_drag_ended"]
-[connection signal="drag_started" from="GooBody/States/Idle/DraggableLimitedSpeed" to="." method="_on_DraggableLimitedSpeed_drag_started"]
+[connection signal="pisto_grabbed" from="GooBody/States/Idle/PistoGrabbable" to="." method="_on_grabbable_pisto_grabbed"]
+[connection signal="pisto_released" from="GooBody/States/Idle/PistoGrabbable" to="." method="_on_grabbable_pisto_released"]
+[connection signal="pisto_released" from="GooBody/States/Dragged/PistoReleaseable" to="." method="_on_pisto_releaseable_pisto_released"]
 [connection signal="connected" from="GooBody/Connectable" to="." method="_on_Connectable_connected"]
 [connection signal="connection_refused" from="GooBody/Connectable" to="." method="_on_Connectable_connection_refused"]
 [connection signal="disconnected" from="GooBody/Connectable" to="." method="_on_Connectable_disconnected"]

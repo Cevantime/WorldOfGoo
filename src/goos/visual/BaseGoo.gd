@@ -17,6 +17,11 @@ var current_deformation = Vector2.ZERO
 @onready var body_states = $GooBody/States
 @onready var outline = $SpritePosition/SpriteRotation/GooOutline
 
+signal pisto_hovered(pisto)
+signal pisto_exited(pisto)
+signal pisto_grabbed(pisto)
+signal pisto_released(pisto)
+
 func _ready():
 	sprite_position.rotation += rotation
 	rotation = 0
@@ -39,7 +44,18 @@ func apply_deformation():
 	sprite_position.rotation = current_deformation.angle()
 	sprite_rotation.position.y = lerp(sprite_rotation.position.y, deformation_factor * 30 * deformation_vertical_influence, 0.5)
 	
-
+func pisto_hover(pisto):
+	emit_signal("pisto_hovered", pisto)
+	
+func pisto_exit(pisto):
+	emit_signal("pisto_exited", pisto)
+	
+func pisto_grab(pisto):
+	emit_signal("pisto_grabbed", pisto)
+	
+func pisto_release(pisto):
+	emit_signal("pisto_released", pisto)
 
 func _on_can_be_awaken_is_awaken():
 	states.change_state("Awake")
+	body_states.change_state("Idle")

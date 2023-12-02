@@ -7,10 +7,13 @@ func _supports(node: Node):
 	
 func _enter_state(previous, params = []):
 	for n in get_children():
-		if not(n._supports(referer)) || n.disabled:
+		if not(n._supports(referer)) :
+			printerr("state " + n.name + " has been added to " + referer.name + " but doesn't support it!")
+			continue
+		if n.disabled:
 			continue
 		n.enabled = true
-		n._enter_state(previous)
+		n._enter_state(previous, params)
 
 func _exit_state(next):
 	for n in get_children():

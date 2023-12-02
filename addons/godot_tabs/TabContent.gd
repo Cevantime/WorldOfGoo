@@ -104,6 +104,7 @@ func _on_delete_confirmed(popup):
 
 
 func _can_drop_data(at_position, data):
+	print(data)
 	return typeof(data) == TYPE_DICTIONARY and data.has("type") and data.type == "files"
 	
 

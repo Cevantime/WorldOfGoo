@@ -2,14 +2,6 @@ extends "res://src/goos/visual/BaseGoo.gd"
 
 
 @onready var connectable_state = $GooBody/Connectable
-
-
-func _on_DraggableLimitedSpeed_drag_started():
-	states.change_state("Drag")
-
-
-func _on_DraggableLimitedSpeed_drag_ended():
-	connectable_state.request_connection()
 	
 
 func _on_Connectable_connected(_other):
@@ -27,10 +19,15 @@ func _on_Connectable_disconnected(_other):
 		body_states.change_state("Idle")
 
 
-func _on_Dragged_drag_started():
+func _on_grabbable_pisto_grabbed(p):
+	body_states.change_state("Dragged", [p.view_finder_area])
 	states.change_state("Drag")
 
 
-func _on_Dragged_drag_ended():
-	connectable_state.request_connection()
+func _on_grabbable_pisto_released(_p):
+	body_states.change_state("Idle")
+	states.change_state("Awake")
 
+
+func _on_pisto_releaseable_pisto_released(_p):
+	connectable_state.request_connection()

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bwyok041l68h8"]
+
+[ext_resource type="Script" path="res://src/goos/body/states/PistoGrabbable.gd" id="1_dgwnn"]
+
+[node name="PistoGrabbable" type="Node"]
+script = ExtResource("1_dgwnn")

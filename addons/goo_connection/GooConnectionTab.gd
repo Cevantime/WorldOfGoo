@@ -108,8 +108,8 @@ func _on_checkbox_toggled(toggled, checkbox):
 		var scene_root = EditorInterface.get_edited_scene_root()
 		scene_root.add_child(connection_line)
 		connection_line.owner = scene_root
-		connection_line.node_a_path = connection_line.get_path_to(connection_line.node_a_instance)
-		connection_line.node_b_path = connection_line.get_path_to(connection_line.node_b_instance)
+		connection_line.goo_a_path = connection_line.get_path_to(connection_line.goo_a)
+		connection_line.goo_b_path = connection_line.get_path_to(connection_line.goo_b)
 		
 	elif not toggled && selected_connectable:
 		var c1 = selected_connectable

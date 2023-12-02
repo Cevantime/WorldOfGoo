@@ -10,8 +10,8 @@ var draggable_cam
 
 func _ready():
 	for cl in get_tree().get_nodes_in_group(Groups.CONNECTION_LINES):
-		var g1 = cl.node_a_instance.get_parent().get_parent()
-		var g2 = cl.node_b_instance.get_parent().get_parent()
+		var g1 = cl.goo_a
+		var g2 = cl.goo_b
 		connect_goos(g1, g2)
 		cl.queue_free()
 

@@ -1,13 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cpo5frpt2i6pk"]
 
-[sub_resource type="GDScript" id="GDScript_q6x6d"]
-script/source = "extends Node
-
-		
-var node_a_instance
-var node_b_instance
-
-"
+[ext_resource type="Script" path="res://src/connections/Connection.gd" id="1_iu3th"]
 
 [node name="Connection" type="Node" groups=["connections"]]
-script = SubResource("GDScript_q6x6d")
+script = ExtResource("1_iu3th")

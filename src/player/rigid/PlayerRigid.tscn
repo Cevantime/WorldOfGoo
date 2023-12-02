@@ -1,7 +1,14 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4w5uys8m48x3"]
+[gd_scene load_steps=12 format=3 uid="uid://b4w5uys8m48x3"]
 
 [ext_resource type="Script" path="res://src/player/rigid/PlayerRigid.gd" id="1_b1ptx"]
 [ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="2_6fiep"]
+[ext_resource type="PackedScene" uid="uid://cxymy6dny1vf4" path="res://src/weapons/PistoConnectorArea.tscn" id="3_obgno"]
+[ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="4_jjynt"]
+[ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="5_py27a"]
+[ext_resource type="PackedScene" uid="uid://buyctnouhet4v" path="res://src/player/states/CanMove.tscn" id="6_wv5so"]
+[ext_resource type="Script" path="res://src/player/states/CanUsePisto.gd" id="7_aftjf"]
+[ext_resource type="Script" path="res://src/player/states/ControlViewFinder.gd" id="8_uaw0v"]
+[ext_resource type="Script" path="res://src/player/states/CanDisposePisto.gd" id="10_80sx2"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
 rough = true
@@ -16,14 +23,12 @@ collision_mask = 291
 mass = 2.0
 physics_material_override = SubResource("PhysicsMaterial_temxo")
 gravity_scale = 3.0
-max_contacts_reported = 10
 can_sleep = false
 lock_rotation = true
+max_contacts_reported = 10
 linear_damp_mode = 1
 linear_damp = 0.2
 script = ExtResource("1_b1ptx")
-JUMP_FORCE = 485
-VELOCITY = 50
 
 [node name="Icon" type="Sprite2D" parent="."]
 position = Vector2(0, 8)
@@ -37,3 +42,28 @@ texture = ExtResource("2_6fiep")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_5dh33")
+
+[node name="PistoArea" parent="." instance=ExtResource("3_obgno")]
+visible = false
+
+[node name="States" type="Node" parent="."]
+script = ExtResource("4_jjynt")
+
+[node name="Default" type="Node" parent="States"]
+script = ExtResource("5_py27a")
+
+[node name="CanMove" parent="States/Default" instance=ExtResource("6_wv5so")]
+
+[node name="CanUsePisto" type="Node" parent="States/Default"]
+script = ExtResource("7_aftjf")
+
+[node name="UsePisto" type="Node" parent="States"]
+script = ExtResource("5_py27a")
+
+[node name="ControlViewFinder" type="Node" parent="States/UsePisto"]
+script = ExtResource("8_uaw0v")
+
+[node name="CanDisposePisto" type="Node" parent="States/UsePisto"]
+script = ExtResource("10_80sx2")
+
+[node name="CanMove" parent="States/UsePisto" instance=ExtResource("6_wv5so")]

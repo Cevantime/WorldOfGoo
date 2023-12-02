@@ -1,3 +1,10 @@
+res://src/goos/visual/purple_goo
+res://src/goos/body/states
+res://src/weapons/pisto/states
+res://src/components
+res://src/player/states
+res://assets/shaders
+res://test
 res://src/goos/body
 res://src/states
 res://src/levels
@@ -7,16 +14,9 @@ res://src/player/rigid
 res://src/debug
 res://src/win
 res://src
-res://src/player/states
 res://src/player
-res://assets/shaders
-res://src/goos/visual/purple_goo
-res://src/goos/body/states
 res://src/managers
 res://src/connections/lines
 res://src/connections/previews
 res://src/connections/factories
 res://src/goos/visual
-res://src/goos/visual/red_goo
-res://src/goos/visual/black_goo
-res://src/goos/states

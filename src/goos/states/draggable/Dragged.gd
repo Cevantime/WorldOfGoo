@@ -1,30 +1,27 @@
 extends StateMachine
 
-signal drag_started
-signal drag_ended
+@export var target_path:NodePath
 
+var target
 
 func _supports(node: Node):
 	return node is RigidBody2D
 
 func _integrate_forces(state: PhysicsDirectBodyState2D):
 	var r = referer as RigidBody2D
-	var mouse_pos = r.get_global_mouse_position()
-	var diff_pos = mouse_pos - r.global_position
+	var target_pos = target.global_position if target else r.get_global_mouse_position()
+	var diff_pos = target_pos - r.global_position
 	state.linear_velocity = diff_pos * 30
 	if state.get_contact_count() > 0:
 		state.linear_velocity = state.linear_velocity.limit_length(400)
 	
-func _input(event):
-	if event.is_action_released("touch"):
-		emit_signal("drag_ended")
 	
-	
-func _enter_state(_previous, _params = []):
-	referer.collision_layer = referer.dragging_layer
-	referer.collision_mask = referer.dragging_mask
-	emit_signal("drag_started")
+func _enter_state(_previous, params = []):
+	if not params.is_empty():
+		target = params[0]
+	elif target_path:
+		target = get_node(target_path)
+	else:
+		target = null
+		
 
-func _exit_state(_next):
-	referer.collision_layer = referer.waiting_layer
-	referer.collision_mask = referer.waiting_mask

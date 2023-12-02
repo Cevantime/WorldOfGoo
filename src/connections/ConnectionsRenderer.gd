@@ -6,8 +6,8 @@ var connections_preview_pool = []
 signal connection_shown(connection, joint)
 
 func show_connection(connection, joint):
-	var n1 = joint.node_a_instance.get_parent().sprite_rotation
-	var n2 = joint.node_b_instance.get_parent().sprite_rotation
+	var n1 = joint.node_a_instance.goo.sprite_rotation
+	var n2 = joint.node_b_instance.goo.sprite_rotation
 	display_connection(connection, n1, n2)
 	emit_signal("connection_shown", connection, joint)
 

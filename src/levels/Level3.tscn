@@ -48,7 +48,7 @@ _data = {
 "animate": SubResource("Animation_t1x4m")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ohk4y"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3d10k"]
 shader = ExtResource("9_hdtt8")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -70,13 +70,16 @@ position = Vector2(826, 168)
 position = Vector2(766, 166)
 
 [node name="RedGoo" parent="Goos" index="2" instance=ExtResource("4_23bcy")]
+z_index = 5
 position = Vector2(584, 170)
 
 [node name="RedGoo2" parent="Goos" index="3" instance=ExtResource("4_23bcy")]
+z_index = 5
 position = Vector2(662, 170)
 
 [node name="GreenGoo" parent="Goos" index="4" instance=ExtResource("5_5qpde")]
-position = Vector2(875, 42)
+position = Vector2(878, 52)
+push_force = 49.767
 
 [node name="PurpleGoo" parent="Goos" index="5" instance=ExtResource("6_36ci2")]
 position = Vector2(942, 53)
@@ -102,9 +105,9 @@ libraries = {
 autoplay = "animate"
 
 [node name="ConnectionLine" parent="." index="11" instance=ExtResource("8_xqgt5")]
-material = SubResource("ShaderMaterial_ohk4y")
-points = PackedVector2Array(766, 166, 826, 168)
-node_a_path = NodePath("../Goos/GreyGoo2/SpritePosition/SpriteRotation")
-node_b_path = NodePath("../Goos/GreyGoo/SpritePosition/SpriteRotation")
+material = SubResource("ShaderMaterial_3d10k")
+points = PackedVector2Array(826, 168, 766, 166)
+goo_a_path = NodePath("../Goos/GreyGoo")
+goo_b_path = NodePath("../Goos/GreyGoo2")
 
 [editable path="PathPlatform"]

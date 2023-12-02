@@ -38,8 +38,9 @@ func _on_connected(_other):
 	
 func refresh_animation_players():
 	lines = []
+	# TODO: optimize !
 	for c in get_tree().get_nodes_in_group(Groups.PURPLE_CONNECTIONS):
-		if c.node_a_instance.get_parent().get_parent() == referer or c.node_b_instance.get_parent().get_parent() == referer:
+		if c.goo_a == referer or c.goo_b == referer:
 			lines.push_back(c)
 	
 

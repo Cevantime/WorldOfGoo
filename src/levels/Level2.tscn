@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="6_dm7wo"]
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="7_cvurs"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_8evuy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gin7i"]
 shader = ExtResource("7_cvurs")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -46,7 +46,7 @@ position = Vector2(-21, 5)
 polygon = PackedVector2Array(28, -32, 28, 29, 58, 30, 58, -32)
 
 [node name="ConnectionLine" parent="." index="10" instance=ExtResource("6_dm7wo")]
-material = SubResource("ShaderMaterial_8evuy")
+material = SubResource("ShaderMaterial_gin7i")
 points = PackedVector2Array(490, 165, 427, 166)
-node_a_path = NodePath("../Goos/GreyGoo/SpritePosition/SpriteRotation")
-node_b_path = NodePath("../Goos/GreyGoo2/SpritePosition/SpriteRotation")
+goo_a_path = NodePath("../Goos/GreyGoo")
+goo_b_path = NodePath("../Goos/GreyGoo2")

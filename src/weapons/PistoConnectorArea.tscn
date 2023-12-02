@@ -1,0 +1,60 @@
+[gd_scene load_steps=12 format=3 uid="uid://cxymy6dny1vf4"]
+
+[ext_resource type="Script" path="res://src/weapons/PistoConnectorArea.gd" id="1_oynb5"]
+[ext_resource type="Shader" path="res://assets/shaders/pisto_area.gdshader" id="1_w8rkk"]
+[ext_resource type="Texture2D" uid="uid://bmrxh8nvgf4x5" path="res://assets/images/pisto_area.png" id="2_6cwqi"]
+[ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="4_npodd"]
+[ext_resource type="Script" path="res://src/weapons/pisto/states/Disabled.gd" id="5_yd80f"]
+[ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="6_keenp"]
+[ext_resource type="Script" path="res://src/weapons/pisto/states/DisplayViewFinder.gd" id="7_jwc2r"]
+[ext_resource type="Script" path="res://src/weapons/pisto/states/ControlsViewFinder.gd" id="8_y1aag"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7gaws"]
+shader = ExtResource("1_w8rkk")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7rnjk"]
+radius = 250.056
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p1tfn"]
+radius = 8.06226
+
+[node name="PistoConnectorArea" type="Area2D"]
+z_index = 20
+script = ExtResource("1_oynb5")
+VIEW_FINDER_SPEED = 350.0
+
+[node name="PistoArea" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7gaws")
+texture = ExtResource("2_6cwqi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7rnjk")
+
+[node name="ViewFinderArea" type="Area2D" parent="."]
+collision_layer = 8192
+collision_mask = 4096
+
+[node name="ViewFinderSprite2D" type="Sprite2D" parent="ViewFinderArea"]
+scale = Vector2(0.03, 0.03)
+texture = ExtResource("2_6cwqi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewFinderArea"]
+shape = SubResource("CircleShape2D_p1tfn")
+
+[node name="States" type="Node" parent="."]
+script = ExtResource("4_npodd")
+
+[node name="Disabled" type="Node" parent="States"]
+script = ExtResource("5_yd80f")
+
+[node name="Enabled" type="Node" parent="States"]
+script = ExtResource("6_keenp")
+
+[node name="DisplayViewFinder" type="Node" parent="States/Enabled"]
+script = ExtResource("7_jwc2r")
+
+[node name="ControlsViewFinder" type="Node" parent="States/Enabled"]
+script = ExtResource("8_y1aag")
+
+[connection signal="mouse_entered" from="." to="States/Enabled/ControlsViewFinder" method="_on_pisto_connector_area_mouse_entered"]
+[connection signal="mouse_exited" from="." to="States/Enabled/ControlsViewFinder" method="_on_pisto_connector_area_mouse_exited"]

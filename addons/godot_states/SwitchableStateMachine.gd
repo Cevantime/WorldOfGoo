@@ -10,9 +10,10 @@ func _supports(node: Node):
 func _enter_state(previous, params = []):
 	if selected_state == null:
 		for n in get_children():
-			if n._supports(referer) and not n.disabled:
-				change_state(n.name, [null, []])
-				break
+			if n._supports(referer):
+				if not n.disabled:
+					change_state(n.name, [null, []])
+					break
 			else:
 				printerr("state " + n.name + " has been added to " + referer.name + " but doesn't support it!")
 

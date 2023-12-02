@@ -1,15 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4w4ngo10si7y"]
+[gd_scene load_steps=9 format=3 uid="uid://b4w4ngo10si7y"]
 
 [ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_18ghb"]
 [ext_resource type="Script" path="res://src/levels/Level5.gd" id="2_c3ku3"]
 [ext_resource type="PackedScene" uid="uid://tle3ubur3dbo" path="res://src/goos/visual/grey_goo/GreyGoo.tscn" id="3_ktikr"]
 [ext_resource type="PackedScene" uid="uid://taniprq6a8fe" path="res://src/goos/visual/green_goo/GreenGoo.tscn" id="4_lbr4g"]
-[ext_resource type="Texture2D" uid="uid://lgytc2b4wbrh" path="res://assets/images/goo.png" id="5_ddsdt"]
 [ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="6_kbscy"]
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="7_bd0kc"]
 [ext_resource type="PackedScene" uid="uid://bhb8luifi2x7q" path="res://src/platforms/Balance.tscn" id="7_g2kfq"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xt8u1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_j04am"]
 shader = ExtResource("7_bd0kc")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -35,17 +34,9 @@ position = Vector2(48, 70)
 [node name="SpritePosition" parent="Goos/GreenGoo" index="1"]
 position = Vector2(0, 0)
 
-[node name="GooOutline" parent="Goos/GreenGoo/SpritePosition/SpriteRotation" index="0"]
-self_modulate = Color(1, 1, 1, 1)
-
-[node name="Face" parent="Goos/GreenGoo/SpritePosition/SpriteRotation" index="1"]
-visible = true
-position = Vector2(0, 0)
-texture = ExtResource("5_ddsdt")
-
 [node name="Ground" parent="Landscape" index="0"]
 position = Vector2(177, 229)
-polygon = PackedVector2Array(-115, -50, 487, -55, 475, -406, 543, -438, 649, -438, 669, 96, 489, 96, -112, 96, -348, 92, -283, -518, -158, -521, -172, -219, -163, -137, -109, -139, -111, -114, -161, -114, -171, -52)
+polygon = PackedVector2Array(-115, -50, 487, -55, 475, -406, 543, -438, 649, -438, 669, 96, 489, 96, -112, 96, -348, 92, -283, -518, -158, -521, -181, -288, -145, -288, -145, -263, -172, -219, -163, -137, -109, -139, -111, -114, -161, -114, -171, -52)
 
 [node name="WinArea" parent="." index="6"]
 position = Vector2(-83, -321)
@@ -57,10 +48,10 @@ position = Vector2(396, -46)
 position = Vector2(209, 154)
 
 [node name="ConnectionLine" parent="." index="11" instance=ExtResource("6_kbscy")]
-material = SubResource("ShaderMaterial_xt8u1")
+material = SubResource("ShaderMaterial_j04am")
 points = PackedVector2Array(738, -224, 802, -223)
-node_a_path = NodePath("../Goos/GreyGoo/SpritePosition/SpriteRotation")
-node_b_path = NodePath("../Goos/GreyGoo2/SpritePosition/SpriteRotation")
+goo_a_path = NodePath("../Goos/GreyGoo")
+goo_b_path = NodePath("../Goos/GreyGoo2")
 
 [editable path="Goos/GreenGoo"]
 [editable path="Goos/GreenGoo/GooBody"]

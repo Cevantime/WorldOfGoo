@@ -10,4 +10,6 @@ script = ExtResource("2_ynw04")
 self_modulate = Color(0.603922, 0, 0, 1)
 position = Vector2(0, -0.747)
 
+[connection signal="connected" from="GooBody/Connectable" to="." method="_on_connectable_connected"]
+
 [editable path="GooBody"]

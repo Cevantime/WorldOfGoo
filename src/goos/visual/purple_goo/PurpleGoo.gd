@@ -32,12 +32,29 @@ func _on_connectable_connected(_other):
 	emit_signal("connected", self)
 	
 func switch_to_just_connected():
-	buttons.show()
+	states.change_state("JustConnected")
 
 func assign_action(action):
-	buttons.hide()
 	action_name = "action_"+action
 	emit_signal("action_assigned")
 	body_states.change_state("Connected")
 	states.change_state("Connected")
 
+
+func _on_pisto_grabbable_pisto_grabbed(p):
+	states.change_state("Drag")
+	body_states.change_state("Dragged", [p.view_finder_area])
+
+
+func _on_pisto_grabbable_pisto_released(_p):
+	states.change_state("Awake")
+	body_states.change_state("Idle")
+
+
+func _on_pisto_releaseable_pisto_released(_p):
+	connectable_state.request_connection()
+
+
+func _on_connectable_connection_refused():
+	states.change_state("Awake")
+	body_states.change_state("Idle")

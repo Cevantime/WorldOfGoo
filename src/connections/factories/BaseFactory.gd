@@ -19,8 +19,8 @@ func get_preview_line(c1, c2):
 	
 	
 func configure_connection_line(line, c1, c2):
-	line.node_a_instance = c1.referer.get_parent().get_node("SpritePosition/SpriteRotation")
-	line.node_b_instance = c2.referer.get_parent().get_node("SpritePosition/SpriteRotation")
+	line.goo_a = c1.referer.goo
+	line.goo_b = c2.referer.goo
 	
 func get_connection(c1, c2):
 	return _create_connection(c1, c2)
@@ -38,8 +38,8 @@ func _create_default_connection_line(c1, c2):
 
 func _wrap(elements: Array, c1, c2):
 	var node = connection_packed.instantiate()
-	node.node_a_instance = c1.referer
-	node.node_b_instance = c2.referer
+	node.goo_a = c1.referer.goo
+	node.goo_b = c2.referer.goo
 	for e in elements:
 		node.add_child(e)
 	return node
