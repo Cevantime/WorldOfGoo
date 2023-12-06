@@ -1,3 +1,5 @@
+res://src/levels
+res://src/goos/visual
 res://src/platforms
 res://src/bonus
 res://src/player/states
@@ -9,7 +11,6 @@ res://assets/shaders
 res://test
 res://src/goos/body
 res://src/states
-res://src/levels
 res://src/connections
 res://src/player/rigid
 res://src/debug
@@ -19,4 +20,3 @@ res://src/player
 res://src/managers
 res://src/connections/lines
 res://src/connections/previews
-res://src/connections/factories

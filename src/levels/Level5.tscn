@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bhb8luifi2x7q" path="res://src/platforms/Balance.tscn" id="7_g2kfq"]
 [ext_resource type="PackedScene" uid="uid://1pwdejotpm34" path="res://src/bonus/PistoBoost.tscn" id="8_82vqo"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wr3um"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d8ie6"]
 shader = ExtResource("7_bd0kc")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -24,16 +24,13 @@ script = ExtResource("2_c3ku3")
 initial_zoom = 0.75
 
 [node name="GreyGoo" parent="Goos" index="0" instance=ExtResource("3_ktikr")]
-position = Vector2(738, -224)
+position = Vector2(740, -223)
 
 [node name="GreyGoo2" parent="Goos" index="1" instance=ExtResource("3_ktikr")]
 position = Vector2(802, -223)
 
 [node name="GreenGoo" parent="Goos" index="2" instance=ExtResource("4_lbr4g")]
-position = Vector2(48, 70)
-
-[node name="SpritePosition" parent="Goos/GreenGoo" index="1"]
-position = Vector2(0, 0)
+position = Vector2(43, 77)
 
 [node name="PistoBoost" parent="Bonus" index="0" instance=ExtResource("8_82vqo")]
 position = Vector2(11, -74)
@@ -49,18 +46,13 @@ position = Vector2(396, -46)
 position = Vector2(-83, -321)
 
 [node name="PlayerRigid" parent="." index="9"]
-position = Vector2(209, 154)
+position = Vector2(210, 155)
 
-[node name="PistoArea" parent="PlayerRigid" index="3"]
-visible = true
+[node name="ConnectionLine" parent="." index="12" instance=ExtResource("6_kbscy")]
+material = SubResource("ShaderMaterial_d8ie6")
+points = PackedVector2Array(740, -223, 802, -223)
+connectable_a_path = NodePath("../Goos/GreyGoo/GooBody/Connectable")
+connectable_b_path = NodePath("../Goos/GreyGoo2/GooBody/Connectable")
+metadata/_edit_lock_ = true
 
-[node name="ConnectionLine" parent="." index="11" instance=ExtResource("6_kbscy")]
-material = SubResource("ShaderMaterial_wr3um")
-points = PackedVector2Array(738, -224, 802, -223)
-goo_a_path = NodePath("../Goos/GreyGoo")
-goo_b_path = NodePath("../Goos/GreyGoo2")
-
-[editable path="Goos/GreenGoo"]
-[editable path="Goos/GreenGoo/GooBody"]
 [editable path="Landscape/Ground"]
-[editable path="PlayerRigid"]

@@ -42,11 +42,11 @@ func _process(delta):
 		var selected_connectable_rotation = _get_connectable_sprite_rotation(selected_connectable)
 		for cl in cls:
 			if selected_connectable_rotation == cl.node_a_instance:
-				if not (ConnectionManager.check_connectables_are_linkable(selected_connectable, _get_sprite_rotation_connectable(cl.node_b_instance)) & (ConnectionManager.LINKABLE_STATES.OK | ConnectionManager.LINKABLE_STATES.NOT_CONNECTED)):
+				if not (ConnectionManager.check_connectables_are_linkable(selected_connectable, cl.connectable_b) & (ConnectionManager.LINKABLE_STATES.OK | ConnectionManager.LINKABLE_STATES.NOT_CONNECTED)):
 					cl.queue_free()
 					should_update_checkboxes = true
 			if selected_connectable_rotation == cl.node_b_instance:
-				if not (ConnectionManager.check_connectables_are_linkable(selected_connectable, _get_sprite_rotation_connectable(cl.node_a_instance))  & (ConnectionManager.LINKABLE_STATES.OK | ConnectionManager.LINKABLE_STATES.NOT_CONNECTED)):
+				if not (ConnectionManager.check_connectables_are_linkable(selected_connectable, cl.connectable_a)  & (ConnectionManager.LINKABLE_STATES.OK | ConnectionManager.LINKABLE_STATES.NOT_CONNECTED)):
 					cl.queue_free()
 					should_update_checkboxes = true
 		if should_update_checkboxes:
@@ -58,7 +58,7 @@ func _get_connectable_global_position(connectable):
 	return _get_connectable_sprite_rotation(connectable).global_position
 	
 func _get_connectable_sprite_rotation(connectable):
-	return connectable.referer.get_parent().get_node("SpritePosition/SpriteRotation")
+	return connectable.visual
 	
 func _get_sprite_rotation_connectable(sprite_rotation):
 	return ConnectionManager.get_connectable(sprite_rotation.get_parent().get_parent().get_node("GooBody"))
@@ -72,11 +72,10 @@ func _on_editor_selection_changed():
 			deselect_connectable()
 		return
 	var selected = selected_nodes[0]
-	goo_panel.visible = selected is BaseGoo
+	selected_connectable = ConnectionManager.search_connectable(selected, 2)
+	goo_panel.visible = selected_connectable != null
 	no_goo_selected_label.visible = ! goo_panel.visible
 	if goo_panel.visible:
-		var body = selected.get_node("GooBody")
-		selected_connectable = ConnectionManager.get_connectable(body)
 		selected_previous_pos = _get_connectable_global_position(selected_connectable)
 		update_checkboxes()
 		
@@ -112,11 +111,11 @@ func _on_connectable_tree_exited(connectable):
 func check_are_connected(c1, c2):
 	var cls = c1.get_tree().get_nodes_in_group(Groups.CONNECTION_LINES)
 	for cl in cls:
-		if is_connection_between(cl, c1, c2):
+		if is_connectable_between(cl, c1, c2):
 			return true
 	return false
 
-func is_connection_between(cl, c1, c2):
+func is_connectable_between(cl, c1, c2):
 	var n1 = _get_connectable_sprite_rotation(c1)
 	var n2 = _get_connectable_sprite_rotation(c2)
 	return cl.node_a_instance in [n1, n2] && cl.node_b_instance in [n1, n2]
@@ -132,13 +131,13 @@ func _on_checkbox_toggled(toggled, checkbox):
 		scene_root.add_child(connection_line)
 		connection_line.set_meta("_edit_lock_", true)
 		connection_line.owner = scene_root
-		connection_line.goo_a_path = connection_line.get_path_to(connection_line.goo_a)
-		connection_line.goo_b_path = connection_line.get_path_to(connection_line.goo_b)
+		connection_line.connectable_a_path = connection_line.get_path_to(connection_line.connectable_a)
+		connection_line.connectable_b_path = connection_line.get_path_to(connection_line.connectable_b)
 		
 	elif not toggled && selected_connectable:
 		var c1 = selected_connectable
 		var c2 = checkbox.connectable_ref
 		var cls = c1.get_tree().get_nodes_in_group(Groups.CONNECTION_LINES)
 		for cl in cls:
-			if is_connection_between(cl, c1, c2):
+			if is_connectable_between(cl, c1, c2):
 				cl.queue_free()

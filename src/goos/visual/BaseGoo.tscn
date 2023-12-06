@@ -16,7 +16,10 @@ BOUNCING_SPEED = 15.0
 
 [node name="GooBody" parent="." instance=ExtResource("8")]
 position = Vector2(-1.49012e-08, -2.38419e-07)
+collision_mask = 2345
 max_contacts_reported = 3
+waiting_mask = 2345
+dragging_mask = 2337
 connected_mask = 2309
 
 [node name="AwakeArea" parent="GooBody" index="1"]

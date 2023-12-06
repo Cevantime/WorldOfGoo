@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/player/rigid/PlayerRigid.gd" id="1_b1ptx"]
 [ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="2_6fiep"]
-[ext_resource type="PackedScene" uid="uid://cxymy6dny1vf4" path="res://src/weapons/PistoConnectorArea.tscn" id="3_obgno"]
+[ext_resource type="PackedScene" uid="uid://cxymy6dny1vf4" path="res://src/weapons/pisto/PistoConnectorArea.tscn" id="3_obgno"]
 [ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="4_jjynt"]
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="5_py27a"]
 [ext_resource type="PackedScene" uid="uid://buyctnouhet4v" path="res://src/player/states/CanMove.tscn" id="6_wv5so"]
@@ -71,3 +71,6 @@ script = ExtResource("8_uaw0v")
 script = ExtResource("10_80sx2")
 
 [node name="CanMove" parent="States/UsePisto" instance=ExtResource("6_wv5so")]
+
+[node name="CanGrabBonus" type="Node" parent="States/UsePisto"]
+script = ExtResource("8_vgkhb")

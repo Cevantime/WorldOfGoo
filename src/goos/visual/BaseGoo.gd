@@ -59,3 +59,5 @@ func pisto_release(pisto):
 func _on_can_be_awaken_is_awaken():
 	states.change_state("Awake")
 	body_states.change_state("Idle")
+
+

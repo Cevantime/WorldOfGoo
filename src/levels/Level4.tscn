@@ -9,7 +9,7 @@
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="8_gavpw"]
 [ext_resource type="PackedScene" uid="uid://c0x0lcq6auxjk" path="res://src/goos/visual/purple_goo/PurpleGoo.tscn" id="8_sva3n"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jdqsp"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fy2t5"]
 shader = ExtResource("8_gavpw")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -30,6 +30,9 @@ position = Vector2(228, 165)
 [node name="GooBody" parent="Goos/BlackGoo3" index="0"]
 connected_mask = 261
 
+[node name="Connectable" parent="Goos/BlackGoo3/GooBody" index="5"]
+visual_path = NodePath("../../SpritePosition/SpriteRotation")
+
 [node name="SpritePosition" parent="Goos/BlackGoo3" index="1"]
 position = Vector2(0, 0)
 
@@ -38,6 +41,9 @@ position = Vector2(152, 166)
 
 [node name="GooBody" parent="Goos/BlackGoo4" index="0"]
 connected_mask = 261
+
+[node name="Connectable" parent="Goos/BlackGoo4/GooBody" index="5"]
+visual_path = NodePath("../../SpritePosition/SpriteRotation")
 
 [node name="SpritePosition" parent="Goos/BlackGoo4" index="1"]
 position = Vector2(0, 0)
@@ -69,14 +75,15 @@ position = Vector2(510, 137)
 [node name="Ground" parent="Landscape" index="0"]
 polygon = PackedVector2Array(-130, -51, 121, -50, 229, -76, 252, -21, 316, -18, 364, -72, 431, -196, 427, -412, 695, 15, 278, 94, -112, 96, -452, 27, -299, -404, -294, -140)
 
-[node name="WinArea" parent="." index="6"]
+[node name="WinArea" parent="." index="7"]
 position = Vector2(198, -466)
 
-[node name="ConnectionLine" parent="." index="10" instance=ExtResource("7_pjrqs")]
-material = SubResource("ShaderMaterial_jdqsp")
+[node name="ConnectionLine" parent="." index="11" instance=ExtResource("7_pjrqs")]
+material = SubResource("ShaderMaterial_fy2t5")
 points = PackedVector2Array(152, 166, 228, 165)
-goo_a_path = NodePath("../Goos/BlackGoo4")
-goo_b_path = NodePath("../Goos/BlackGoo3")
+connectable_a_path = NodePath("../Goos/BlackGoo4/GooBody/Connectable")
+connectable_b_path = NodePath("../Goos/BlackGoo3/GooBody/Connectable")
+metadata/_edit_lock_ = true
 
 [editable path="Goos/BlackGoo3"]
 [editable path="Goos/BlackGoo3/GooBody"]

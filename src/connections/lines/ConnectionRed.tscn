@@ -4,7 +4,7 @@
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="2_qbd3b"]
 [ext_resource type="Texture2D" uid="uid://blh31tclre7it" path="res://assets/images/textures/bricks/bricks.png" id="3_rkmfg"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ll4b6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_61wyd"]
 shader = ExtResource("2_qbd3b")
 shader_parameter/color = Color(0.498697, 0, 0.0241411, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -14,8 +14,8 @@ shader_parameter/display_tex = true
 
 [node name="ConnectionRed" groups=["red_connections"] instance=ExtResource("1_bq8k3")]
 texture_repeat = 2
-material = SubResource("ShaderMaterial_ll4b6")
+material = SubResource("ShaderMaterial_61wyd")
 points = PackedVector2Array(0, 0, 24, 19)
 texture = ExtResource("3_rkmfg")
-goo_a_path = null
-goo_b_path = null
+connectable_a_path = null
+connectable_b_path = null

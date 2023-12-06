@@ -19,8 +19,8 @@ func get_preview_line(c1, c2):
 	
 	
 func configure_connection_line(line, c1, c2):
-	line.goo_a = c1.referer.goo
-	line.goo_b = c2.referer.goo
+	line.connectable_a = c1
+	line.connectable_b = c2
 	
 func get_connection(c1, c2):
 	return _create_connection(c1, c2)
@@ -38,8 +38,8 @@ func _create_default_connection_line(c1, c2):
 
 func _wrap(elements: Array, c1, c2):
 	var node = connection_packed.instantiate()
-	node.goo_a = c1.referer.goo
-	node.goo_b = c2.referer.goo
+	node.connectable_a = c1
+	node.connectable_b = c2
 	for e in elements:
 		node.add_child(e)
 	return node

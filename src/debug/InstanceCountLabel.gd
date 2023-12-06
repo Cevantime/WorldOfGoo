@@ -8,4 +8,4 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
-	text = "Goo count : " + str(get_tree().get_nodes_in_group(Groups.GOO_BODIES).size())
+	text = "Connectable count : " + str(get_tree().get_nodes_in_group(Groups.CONNECTABLE_STATE).size())

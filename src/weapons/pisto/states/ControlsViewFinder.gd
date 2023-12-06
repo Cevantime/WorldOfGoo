@@ -1,6 +1,6 @@
 extends StateMachine
 
-const PistoConnector = preload("res://src/weapons/PistoConnectorArea.gd")
+const PistoConnector = preload("res://src/weapons/pisto/PistoConnectorArea.gd")
 
 var view_finder_area: Area2D
 var pisto_speed = 0.0
@@ -17,7 +17,7 @@ func move_view_finder(dir):
 	
 
 func clamp_view_finder_position():
-	var radius = referer.shape.get_rect().size.x / 2.0 * referer.scale.x
+	var radius = referer.collision_shape_2d.shape.get_rect().size.x / 2.0 * referer.scale.x
 	if view_finder_area.position.length_squared() > radius * radius:
 		view_finder_area.position = view_finder_area.position.normalized() * radius
 	

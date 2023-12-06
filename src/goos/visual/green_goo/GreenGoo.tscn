@@ -1,12 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://taniprq6a8fe"]
+[gd_scene load_steps=29 format=3 uid="uid://taniprq6a8fe"]
 
-[ext_resource type="PackedScene" uid="uid://b1b0qdcsnsw4a" path="res://src/goos/visual/BaseGoo.tscn" id="1_6uwrr"]
+[ext_resource type="PackedScene" uid="uid://daiy4txtl3gy4" path="res://src/goos/visual/ConnectableGoo.tscn" id="1_6uwrr"]
 [ext_resource type="Script" path="res://src/goos/visual/green_goo/GreenGoo.gd" id="2_7ovds"]
 [ext_resource type="Texture2D" uid="uid://b1ase3aradegg" path="res://assets/images/goo_eye.png" id="2_ecpi1"]
 [ext_resource type="Shader" path="res://assets/shaders/blast.gdshader" id="3_i85kw"]
 [ext_resource type="PackedScene" uid="uid://ccopljgvuo4gc" path="res://src/goos/visual/states/Bouncing.tscn" id="3_n8po5"]
-[ext_resource type="PackedScene" uid="uid://bqy3e82565yqc" path="res://src/goos/Connectable.tscn" id="3_vcdu4"]
-[ext_resource type="PackedScene" uid="uid://bohxq135camt3" path="res://src/components/PistoGrabbableArea.tscn" id="4_051ei"]
+[ext_resource type="PackedScene" uid="uid://bohxq135camt3" path="res://src/components/GrabbableArea.tscn" id="3_ru7q3"]
 [ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="4_pkc24"]
 [ext_resource type="Script" path="res://src/goos/body/states/RotateToCursor.gd" id="5_a02w8"]
 [ext_resource type="Script" path="res://src/goos/states/SetDirection.gd" id="6_c6c72"]
@@ -98,11 +97,10 @@ script = ExtResource("2_7ovds")
 push_force = 30.0
 
 [node name="GooBody" parent="." index="0"]
-waiting_mask = 2345
+collision_mask = 41
+dragging_mask = 289
 
-[node name="Connectable" parent="GooBody" index="0" instance=ExtResource("3_vcdu4")]
-
-[node name="PistoGrabbableArea" parent="GooBody" index="2" instance=ExtResource("4_051ei")]
+[node name="PistoGrabbableArea" parent="GooBody" index="1" instance=ExtResource("3_ru7q3")]
 
 [node name="JustConnected" type="Node" parent="GooBody/States" index="1"]
 script = ExtResource("6_m0ofl")
@@ -209,9 +207,6 @@ libraries = {
 "": SubResource("AnimationLibrary_3gf7g")
 }
 
-[connection signal="connected" from="GooBody/Connectable" to="." method="_on_connectable_connected"]
-[connection signal="connection_refused" from="GooBody/Connectable" to="." method="_on_connectable_connection_refused"]
-[connection signal="disconnected" from="GooBody/Connectable" to="." method="_on_connectable_disconnected"]
 [connection signal="direction_set" from="GooBody/States/JustConnected/SetDirection" to="." method="_on_set_direction_direction_set"]
 [connection signal="pisto_grabbed" from="GooBody/States/Idle/PistoGrabbable" to="." method="_on_pisto_grabbable_pisto_grabbed"]
 [connection signal="pisto_released" from="GooBody/States/Idle/PistoGrabbable" to="." method="_on_pisto_grabbable_pisto_released"]

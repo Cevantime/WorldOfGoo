@@ -1,5 +1,5 @@
 extends Node
 
-var goo_a
-var goo_b
+var connectable_a
+var connectable_b
 

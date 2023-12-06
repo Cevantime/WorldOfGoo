@@ -1,6 +1,6 @@
 extends StateMachine
 
-const PistoConnector = preload("res://src/weapons/PistoConnectorArea.gd")
+const PistoConnector = preload("res://src/weapons/pisto/PistoConnectorArea.gd")
 var view_finder_area: Area2D
 
 func _supports(node: Node):

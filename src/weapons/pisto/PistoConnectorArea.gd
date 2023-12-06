@@ -4,9 +4,9 @@ extends Area2D
 @onready var view_finder_area = $ViewFinderArea
 @onready var pisto_area = $PistoArea
 @onready var states = $States
-@onready var shape = $CollisionShape2D.shape
+@onready var collision_shape_2d = $CollisionShape2D
 @onready var original_texture_radius = pisto_area.get_rect().size.x / 2
-@onready var shape_radius = shape.radius
+@onready var shape_radius = collision_shape_2d.shape.radius
 
 @export var VIEW_FINDER_SPEED := 100.0
 	
@@ -17,12 +17,17 @@ func disable():
 	states.change_state("Disabled")
 	
 func grow_by_factor(factor):
-	shape.radius *= factor
+	var new_shape = collision_shape_2d.shape.duplicate()
+	new_shape.radius *= factor
+	call_deferred("change_shape", new_shape)
 	enable()
 
+func change_shape(shape):
+	collision_shape_2d.shape = shape
+	
 func _process(_delta):
-	if shape.radius != shape_radius:
-		shape_radius = shape.radius
+	if collision_shape_2d.shape.radius != shape_radius:
+		shape_radius = collision_shape_2d.shape.radius
 		resize_pisto_area()
 
 func resize_pisto_area():

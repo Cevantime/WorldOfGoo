@@ -38,9 +38,10 @@ func _on_connected(_other):
 	
 func refresh_animation_players():
 	lines = []
+	var referer_connectable = ConnectionManager.get_connectable(referer)
 	# TODO: optimize !
 	for c in get_tree().get_nodes_in_group(Groups.PURPLE_CONNECTIONS):
-		if c.goo_a == referer or c.goo_b == referer:
+		if c.connectable_a == referer_connectable or c.connectable_b == referer_connectable:
 			lines.push_back(c)
 	
 

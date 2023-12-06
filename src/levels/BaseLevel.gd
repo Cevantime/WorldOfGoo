@@ -10,13 +10,9 @@ var draggable_cam
 
 func _ready():
 	for cl in get_tree().get_nodes_in_group(Groups.CONNECTION_LINES):
-		var g1 = cl.goo_a
-		var g2 = cl.goo_b
-		connect_goos(g1, g2)
+		ConnectionManager.connect_connectables(cl.connectable_a, cl.connectable_b)
 		cl.queue_free()
 
-func connect_goos(goo1, goo2):
-	ConnectionManager.connect_goos(goo1, goo2)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

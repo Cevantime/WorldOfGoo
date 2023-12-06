@@ -145,6 +145,7 @@ func check_connectables_are_linkable(c1, target):
 		return LINKABLE_STATES.ALREADY_CONNECTED_TO_TARGET
 		
 	var max_dist = GameManager.MAXIMUM_DISTANCE_GOO_CONNECTION
+	
 	var distance_squared = g1.global_position.distance_squared_to(g2.global_position)
 	if distance_squared > max_dist * max_dist:
 		return LINKABLE_STATES.TOO_FAR
@@ -167,10 +168,6 @@ func connect_connectables(c1, c2):
 	get_tree().current_scene.add_child(connection)
 	return connection
 	
-func connect_goos(goo1, goo2):
-	var c1 = get_connectable(goo1.body)
-	var c2 = get_connectable(goo2.body)
-	connect_connectables(c1, c2)
 
 func get_linkable_connectables(connectable, condition = LINKABLE_STATES.OK):
 	var linkable_connectables = []
@@ -185,6 +182,19 @@ func get_connectable(goo):
 			return child
 	return null
 
+func search_connectable(node: Node, max_depth, current_depth = 0):
+	if current_depth == max_depth:
+		return null
+	for child in node.get_children():
+		if child.is_in_group(Groups.CONNECTABLE_STATE):
+			return child
+		else:
+			var searched = search_connectable(child, max_depth, current_depth + 1)
+			if searched:
+				return searched
+	
+	return null
+	
 func get_connection(c1, c2):
 	for f in connection_factories:
 		if f.supports(c1, c2):

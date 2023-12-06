@@ -1,20 +1,17 @@
-extends "res://src/goos/visual/BaseGoo.gd"
+extends "res://src/goos/visual/ConnectableGoo.gd"
 
 
 @onready var connectable_state = $GooBody/Connectable
 	
 
-func _on_Connectable_connected(_other):
+func _on_connectable_connected(_other):
+	super(_other)
 	body_states.change_state("Connected")
 	states.change_state("Awake")
 
 
-func _on_Connectable_connection_refused():
-	body_states.change_state("Idle")
-	states.change_state("Awake")
-
-
-func _on_Connectable_disconnected(_other):
+func _on_connectable_disconnected(_other):
+	super(_other)
 	if connectable_state.neighbours.size() == 0:
 		body_states.change_state("Idle")
 

@@ -1,11 +1,9 @@
-[gd_scene load_steps=24 format=3 uid="uid://c0x0lcq6auxjk"]
+[gd_scene load_steps=22 format=3 uid="uid://c0x0lcq6auxjk"]
 
-[ext_resource type="PackedScene" uid="uid://b1b0qdcsnsw4a" path="res://src/goos/visual/BaseGoo.tscn" id="1_mtjh3"]
+[ext_resource type="PackedScene" uid="uid://daiy4txtl3gy4" path="res://src/goos/visual/ConnectableGoo.tscn" id="1_mtjh3"]
 [ext_resource type="Script" path="res://src/goos/visual/purple_goo/PurpleGoo.gd" id="2_vu7gl"]
 [ext_resource type="PackedScene" uid="uid://eaiawuyhowi0" path="res://src/goos/visual/Eye.tscn" id="3_10ljb"]
-[ext_resource type="PackedScene" uid="uid://bohxq135camt3" path="res://src/components/PistoGrabbableArea.tscn" id="3_xgl2a"]
-[ext_resource type="PackedScene" uid="uid://bqy3e82565yqc" path="res://src/goos/Connectable.tscn" id="4_ks2o3"]
-[ext_resource type="PackedScene" path="res://src/goos/body/states/AddToConnectedGroup.tscn" id="5_mhua3"]
+[ext_resource type="PackedScene" uid="uid://bohxq135camt3" path="res://src/components/GrabbableArea.tscn" id="3_xgl2a"]
 [ext_resource type="Script" path="res://src/goos/body/states/RotationDamped.gd" id="5_sekfx"]
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="6_xq5i5"]
 [ext_resource type="PackedScene" uid="uid://bwyok041l68h8" path="res://src/goos/body/states/PistoGrabbable.tscn" id="7_dh2o2"]
@@ -35,9 +33,7 @@ position = Vector2(1, 0)
 [node name="Connected" type="Node" parent="GooBody/States" index="1"]
 script = ExtResource("6_xq5i5")
 
-[node name="AddToConnectedGroup" parent="GooBody/States/Connected" index="0" instance=ExtResource("5_mhua3")]
-
-[node name="RotationDamped" type="Node" parent="GooBody/States/Connected" index="1"]
+[node name="RotationDamped" type="Node" parent="GooBody/States/Connected" index="0"]
 script = ExtResource("5_sekfx")
 
 [node name="PistoGrabbable" parent="GooBody/States/Idle" index="0" instance=ExtResource("7_dh2o2")]
@@ -52,7 +48,8 @@ pisto_draggable_area_path = NodePath("../../../PistoGrabbableArea")
 
 [node name="EditLayers" parent="GooBody/States/Dragged" index="2" instance=ExtResource("11_fytrw")]
 
-[node name="Connectable" parent="GooBody" index="5" instance=ExtResource("4_ks2o3")]
+[node name="Connectable" parent="GooBody" index="5" groups=["purple_connectables"]]
+visual_path = null
 
 [node name="Face" parent="SpritePosition/SpriteRotation" index="1"]
 self_modulate = Color(0.8, 0, 0.8, 1)
@@ -134,7 +131,5 @@ stretch_mode = 5
 [connection signal="pisto_grabbed" from="GooBody/States/Idle/PistoGrabbable" to="." method="_on_pisto_grabbable_pisto_grabbed"]
 [connection signal="pisto_released" from="GooBody/States/Idle/PistoGrabbable" to="." method="_on_pisto_grabbable_pisto_released"]
 [connection signal="pisto_released" from="GooBody/States/Dragged/PistoReleaseable" to="." method="_on_pisto_releaseable_pisto_released"]
-[connection signal="connected" from="GooBody/Connectable" to="." method="_on_connectable_connected"]
-[connection signal="connection_refused" from="GooBody/Connectable" to="." method="_on_connectable_connection_refused"]
 
 [editable path="GooBody"]

@@ -7,7 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="5_4pcc3"]
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="6_8ewra"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ly56g"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_oowly"]
 shader = ExtResource("6_8ewra")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -41,8 +41,9 @@ polygon = PackedVector2Array(-115, -50, 60, -47, 219, -50, 216, -246, 280, -245,
 position = Vector2(388, -49)
 polygon = PackedVector2Array(22, -30, 21, 28, 58, 30, 58, -32)
 
-[node name="ConnectionLine" parent="." index="10" instance=ExtResource("5_4pcc3")]
-material = SubResource("ShaderMaterial_ly56g")
+[node name="ConnectionLine" parent="." index="11" instance=ExtResource("5_4pcc3")]
+material = SubResource("ShaderMaterial_oowly")
 points = PackedVector2Array(384, 165, 321, 167)
-goo_a_path = NodePath("../Goos/GreyGoo")
-goo_b_path = NodePath("../Goos/GreyGoo2")
+connectable_a_path = NodePath("../Goos/GreyGoo/GooBody/Connectable")
+connectable_b_path = NodePath("../Goos/GreyGoo2/GooBody/Connectable")
+metadata/_edit_lock_ = true

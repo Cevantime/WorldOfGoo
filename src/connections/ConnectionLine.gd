@@ -7,21 +7,19 @@ extends Line2D
 var node_a_instance
 var node_b_instance
 
-var goo_a: 
+var connectable_a: 
 	set(v):
-		goo_a = v
-		node_a_instance = get_sprite_rotation(v)
+		connectable_a = v
+		node_a_instance = v.visual
 		
-var goo_b:
+var connectable_b:
 	set(v):
-		goo_b = v
-		node_b_instance = get_sprite_rotation(v)
+		connectable_b = v
+		node_b_instance = v.visual
 
-@export var goo_a_path: NodePath
-@export var goo_b_path: NodePath
+@export var connectable_a_path: NodePath
+@export var connectable_b_path: NodePath
 
-func get_sprite_rotation(goo):
-	return goo.get_node("SpritePosition/SpriteRotation")
 	
 var backwards = false:
 	set(value):
@@ -33,9 +31,9 @@ var backwards = false:
 signal signal_sent
 
 func _ready():
-	if goo_a_path:
-		goo_a = get_node(goo_a_path)
-		goo_b = get_node(goo_b_path)
+	if connectable_a_path:
+		connectable_a = get_node(connectable_a_path)
+		connectable_b = get_node(connectable_b_path)
 		
 	material = material.duplicate()
 	appear()
@@ -44,6 +42,7 @@ func _process(_delta):
 	if node_a_instance == null:
 		return
 		
+	print(node_a_instance.global_position)
 	points[0] = node_a_instance.global_position
 	points[1] = node_b_instance.global_position
 

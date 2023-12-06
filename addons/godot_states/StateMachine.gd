@@ -68,7 +68,7 @@ func change_state(state_name: String, params: Array = []):
 func get_referer_states_in_group(group_name: String):
 	var referer_states = []
 	for n in get_tree().get_nodes_in_group(group_name):
-		if n.has_method("change_state") and n.referer == referer:
+		if n.referer == referer and n.has_method("change_state"):
 			referer_states.push_back(n)
 
 	return referer_states

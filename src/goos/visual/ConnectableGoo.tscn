@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://daiy4txtl3gy4"]
+
+[ext_resource type="PackedScene" uid="uid://b1b0qdcsnsw4a" path="res://src/goos/visual/BaseGoo.tscn" id="1_ykpni"]
+[ext_resource type="Script" path="res://src/goos/visual/ConnectableGoo.gd" id="2_dc41j"]
+[ext_resource type="PackedScene" uid="uid://bqy3e82565yqc" path="res://src/goos/Connectable.tscn" id="3_fq2h7"]
+
+[node name="ConnectableGoo" instance=ExtResource("1_ykpni")]
+script = ExtResource("2_dc41j")
+
+[node name="Connectable" parent="GooBody" index="4" instance=ExtResource("3_fq2h7")]
+visual_path = NodePath("../../SpritePosition/SpriteRotation")
+
+[connection signal="connected" from="GooBody/Connectable" to="." method="_on_connectable_connected"]
+[connection signal="connection_refused" from="GooBody/Connectable" to="." method="_on_connectable_connection_refused"]
+[connection signal="disconnected" from="GooBody/Connectable" to="." method="_on_connectable_disconnected"]
+
+[editable path="GooBody"]

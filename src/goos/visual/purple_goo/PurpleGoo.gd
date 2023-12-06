@@ -1,4 +1,4 @@
-extends "res://src/goos/visual/BaseGoo.gd"
+extends "res://src/goos/visual/ConnectableGoo.gd"
 
 @onready var connectable_state = $GooBody/Connectable
 @onready var buttons = $Buttons
@@ -26,6 +26,7 @@ func _on_draggable_limited_speed_drag_ended():
 
 
 func _on_connectable_connected(_other):
+	super(_other)
 	if connectable_state.neighbours.size() >=2:
 		return
 	
@@ -54,7 +55,3 @@ func _on_pisto_grabbable_pisto_released(_p):
 func _on_pisto_releaseable_pisto_released(_p):
 	connectable_state.request_connection()
 
-
-func _on_connectable_connection_refused():
-	states.change_state("Awake")
-	body_states.change_state("Idle")

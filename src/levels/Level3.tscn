@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://yavwrobnthef"]
+[gd_scene load_steps=15 format=3 uid="uid://yavwrobnthef"]
 
 [ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_kni6i"]
 [ext_resource type="Script" path="res://src/levels/Level3.gd" id="2_qbhah"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://1kwdxums3axx" path="res://src/platforms/AnimatablePathPlatform.tscn" id="7_xuqku"]
 [ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="8_xqgt5"]
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="9_hdtt8"]
+[ext_resource type="Script" path="res://src/connections/ConnectionLine.gd" id="10_14uem"]
 
 [sub_resource type="Animation" id="Animation_e5bum"]
 length = 0.001
@@ -48,7 +49,7 @@ _data = {
 "animate": SubResource("Animation_t1x4m")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_y8x5k"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yksns"]
 shader = ExtResource("9_hdtt8")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -94,7 +95,6 @@ polygon = PackedVector2Array(-417, -180, -415, -55, 67, -49, 68, 150, 290, 146, 
 position = Vector2(362, 132)
 
 [node name="Polygon2D" parent="AnimatablePathPlatform/PathFollow2D/RigidBody2D" index="1"]
-color = Color(0, 0.258824, 0.160784, 1)
 polygon = PackedVector2Array(-99, -10, -99, 11, 97, 11, 97, -10)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatablePathPlatform" index="1"]
@@ -110,11 +110,15 @@ polygon = PackedVector2Array(2, -31, 5, 28, 58, 30, 58, -32)
 [node name="RedGoo" parent="." index="12" instance=ExtResource("4_23bcy")]
 position = Vector2(663, 171)
 
-[node name="ConnectionLine" parent="." index="13" instance=ExtResource("8_xqgt5")]
-material = SubResource("ShaderMaterial_y8x5k")
+[node name="ConnectionLine" type="Line2D" parent="." index="13" groups=["connection_lines"] instance=ExtResource("8_xqgt5")]
+process_mode = 3
+material = SubResource("ShaderMaterial_yksns")
 points = PackedVector2Array(756, 169, 826, 168)
-goo_a_path = NodePath("../Goos/GreyGoo2")
-goo_b_path = NodePath("../Goos/GreyGoo")
+width = 13.0
+texture_mode = 2
+script = ExtResource("10_14uem")
+connectable_a_path = NodePath("../Goos/GreyGoo2/GooBody/Connectable")
+connectable_b_path = NodePath("../Goos/GreyGoo/GooBody/Connectable")
 metadata/_edit_lock_ = true
 
 [editable path="AnimatablePathPlatform"]

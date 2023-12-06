@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://bohxq135camt3"]
 
-[ext_resource type="Script" path="res://src/components/GrabbableArea.gd" id="1_l7rol"]
+[ext_resource type="Script" path="res://src/components/GrabbableArea.gd" id="1_ogp6s"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fmbtv"]
 radius = 14.0
@@ -8,7 +8,7 @@ radius = 14.0
 [node name="PistoGrabbableArea" type="Area2D" groups=["pisto_grabbable_areas"]]
 collision_layer = 4096
 collision_mask = 8192
-script = ExtResource("1_l7rol")
+script = ExtResource("1_ogp6s")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fmbtv")

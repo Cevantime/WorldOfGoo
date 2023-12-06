@@ -1,9 +1,10 @@
-extends "res://src/goos/visual/BaseGoo.gd"
+extends "res://src/goos/visual/ConnectableGoo.gd"
 
 @onready var connectable_state = $GooBody/Connectable
 @onready var blast = $SpritePosition/SpriteRotation/Blast
 @onready var air_arrow = $SpritePosition/SpriteRotation/AirArrow
 @onready var push_state = $GooBody/States/Started/Push
+@onready var connectable = $GooBody/Connectable
 
 @export_category("Pushing")
 @export_range(0, 200.0) var push_force: float = 30.0:
@@ -25,13 +26,9 @@ func _on_draggable_drag_ended():
 	connectable_state.request_connection()
 
 
-func _on_connectable_connection_refused():
-	states.change_state("Awake")
-	body_states.change_state("Idle")
-
-
 func _on_connectable_connected(other):
-	var other_goo = other.referer.goo
+	super(other)
+	var other_goo = other.referer.get_parent()
 	
 	if other_goo.is_in_group(Groups.PURPLE_GOOS):
 		other_goo.connect("activated", Callable(self, "_on_activation"))
@@ -67,17 +64,17 @@ func check_is_active():
 	var purple_connections = []
 	# TODO: optimize
 	for pc in get_tree().get_nodes_in_group(Groups.PURPLE_CONNECTIONS):
-		var goo1 = pc.goo_a
-		var goo2 = pc.goo_b
-		if goo1 == self or goo2 == self:
+		var goo1 = pc.connectable_a
+		var goo2 = pc.connectable_b
+		if goo1 == connectable or goo2 == connectable:
 			purple_connections.push_back(pc)
 			
 	if purple_connections.is_empty():
 		return true
 	
 	for pc in purple_connections:
-		var g1 = pc.goo_a
-		var g2 = pc.goo_b
+		var g1 = pc.connectable_a.get_parent().get_parent()
+		var g2 = pc.connectable_b.get_parent().get_parent()
 		if (g1 == self and g2 is PurpleGoo and g2.active) or (g2 == self and g1 is PurpleGoo and g1.active):
 			return true
 			
@@ -95,7 +92,7 @@ func switch_to_started():
 	air_arrow.hide()
 	var is_connected_to_purple_goo = false
 	for n in connectable_state.neighbours:
-		if n.referer.goo.is_in_group(Groups.PURPLE_GOOS):
+		if n.referer.get_parent().is_in_group(Groups.PURPLE_GOOS):
 			is_connected_to_purple_goo = true
 			break
 			
@@ -105,6 +102,7 @@ func switch_to_started():
 		start()
 
 func _on_connectable_disconnected(_other):
+	super(_other)
 	if connectable_state.neighbours.size() == 0:
 		body_states.change_state("Idle")
 
