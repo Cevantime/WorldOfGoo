@@ -195,10 +195,14 @@ script = ExtResource("17_qwdp6")
 
 [node name="DeformedByMovement" parent="States/Started" index="1" instance=ExtResource("8_c07xj")]
 
+[node name="Bouncing" parent="States/Started" index="2" instance=ExtResource("3_n8po5")]
+
 [node name="Stopped" type="Node" parent="States" index="5"]
 script = ExtResource("6_m0ofl")
 
 [node name="DeformedByMovement" parent="States/Stopped" index="0" instance=ExtResource("8_c07xj")]
+
+[node name="Bouncing" parent="States/Stopped" index="1" instance=ExtResource("3_n8po5")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
 libraries = {

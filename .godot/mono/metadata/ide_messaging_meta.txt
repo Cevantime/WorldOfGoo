@@ -1,2 +1,2 @@
-﻿37219
+﻿35119
 /home/cevantime/godot/bin/godot.linuxbsd.editor.x86_64.mono

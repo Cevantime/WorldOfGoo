@@ -20,7 +20,9 @@
 		{
 			"uuid": "7f56431c-b837-4c12-858c-145c6e076e21",
 			"title": "Todo",
-			"tasks": []
+			"tasks": [
+				"fd2acab2-55d9-4fa3-b78e-7684da90a774"
+			]
 		},
 		{
 			"uuid": "7f1385d5-ba8b-478f-b6ca-3e6c45c569fb",
@@ -55,6 +57,13 @@
 					"done": true
 				}
 			]
+		},
+		{
+			"uuid": "fd2acab2-55d9-4fa3-b78e-7684da90a774",
+			"title": "Changer paramètre _enter_state par un dictionnaire",
+			"description": "",
+			"category": "2dd266de-52cd-4ade-aec4-d806aa642aee",
+			"steps": []
 		}
 	],
 	"layout": {

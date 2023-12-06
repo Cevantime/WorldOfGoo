@@ -2,7 +2,8 @@ extends "res://src/goos/visual/black_goo/BlackGoo.gd"
 
 const PurpleGoo = preload("res://src/goos/visual/purple_goo/PurpleGoo.gd")
 
-func _on_connectable_connected(other):
+func _on_Connectable_connected(other):
+	super(other)
 	var other_goo = other.referer.goo
 	call_deferred("_check_connections")
 	if other_goo is PurpleGoo:

@@ -1,3 +1,4 @@
+res://src/platforms
 res://src/bonus
 res://src/player/states
 res://src/goos/visual/purple_goo
@@ -10,7 +11,6 @@ res://src/goos/body
 res://src/states
 res://src/levels
 res://src/connections
-res://src/platforms
 res://src/player/rigid
 res://src/debug
 res://src/win

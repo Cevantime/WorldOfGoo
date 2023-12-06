@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://by4xa4kaklwua"]
+
+[ext_resource type="PackedScene" uid="uid://1kwdxums3axx" path="res://src/platforms/AnimatablePathPlatform.tscn" id="1_rxs0n"]
+[ext_resource type="Script" path="res://src/platforms/AnimatedPathPlatform.gd" id="2_isoud"]
+
+[node name="AnimatedPathPlatform" instance=ExtResource("1_rxs0n")]
+script = ExtResource("2_isoud")
+speed = 1.0
+pause_time = 1.0

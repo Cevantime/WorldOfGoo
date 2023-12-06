@@ -6,12 +6,21 @@ extends Node2D
 @onready var canon_collision_polygon_2d = $CanonRigidBody2D/CanonCollisionPolygon2D
 @onready var base_collision_polygon_2d = $BaseStaticBody2D/BaseCollisionPolygon2D
 @onready var base_polygon_2d = $BaseStaticBody2D/BasePolygon2D
-@onready var timer = $Timer
-@onready var spawner = $CanonRigidBody2D/Spawner
 @onready var canon_rigid_body_2d = $CanonRigidBody2D
-
-@export var bullet_packed_scene: PackedScene
-@export var spawn_timing: float = 1.0
+@onready var spawner = $CanonRigidBody2D/Spawner
+@export var bullet_packed_scene: PackedScene:
+	set(v):
+		bullet_packed_scene = v
+		if not is_node_ready():
+			await ready
+		spawner.scene_to_spawn_packed = v
+		
+@export var spawn_timing: float = 1.0:
+	set(v):
+		spawn_timing = v
+		if not is_node_ready():
+			await ready
+		spawner.timing = spawn_timing
 
 @export_range(0, 500) var range = 200:
 	set(v):
@@ -29,16 +38,11 @@ extends Node2D
 
 func _ready():
 	if not Engine.is_editor_hint():
-		timer.wait_time = spawn_timing
-		timer.start()
 		canon_collision_polygon_2d.polygon = canon_polygon_2d.polygon
 		base_collision_polygon_2d.polygon = base_polygon_2d.polygon
 		ray_cast_2d.queue_free()
 
 
-func _on_timer_timeout():
-	var bullet = bullet_packed_scene.instantiate()
-	bullet.velocity = spawner.global_transform.x
-	get_tree().current_scene.add_child(bullet)
-	bullet.global_position = spawner.global_position
 
+func _on_spawner_scene_spawned(bullet):
+	bullet.velocity = -spawner.global_transform.y

@@ -1,8 +1,11 @@
+Timer
+StaticBody2D
+Polygon2D
+CollisionPolygon2D
+CollisionShape2D
 Node2D
 StateMachine
 SwitchableStateMachine
-CollisionShape2D
-Polygon2D
 Area2D
 MultipleStateMachine
 VisibleOnScreenEnabler2D
@@ -10,5 +13,3 @@ Sprite2D
 Camera2D
 RemoteTransform2D
 RigidBody2D
-Label
-VBoxContainer

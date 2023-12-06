@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://bhqo211yrikrd"]
+[gd_scene load_steps=4 format=3 uid="uid://bhqo211yrikrd"]
 
 [ext_resource type="Script" path="res://src/enemies/Canon.gd" id="1_l34ps"]
 [ext_resource type="PackedScene" uid="uid://bk8h0uua70hho" path="res://src/enemies/Bullet.tscn" id="2_b8a76"]
+[ext_resource type="PackedScene" uid="uid://bfxkxa7ulpdus" path="res://src/components/Spawner.tscn" id="3_e56b7"]
 
 [node name="Canon" type="Node2D"]
 script = ExtResource("1_l34ps")
@@ -20,10 +21,6 @@ position = Vector2(-1, -4)
 rotation = 3.14159
 target_position = Vector2(0, 100)
 
-[node name="Spawner" type="Node2D" parent="CanonRigidBody2D"]
-position = Vector2(0, -66)
-rotation = -1.5708
-
 [node name="CanonCollisionPolygon2D" type="CollisionPolygon2D" parent="CanonRigidBody2D"]
 polygon = PackedVector2Array(-20, 0, -16, 10, -7, 20, 4, 21, 12, 21, 17, 13, 21, -1, 12, -76, -14, -76)
 
@@ -31,6 +28,9 @@ polygon = PackedVector2Array(-20, 0, -16, 10, -7, 20, 4, 21, 12, 21, 17, 13, 21,
 z_index = 1
 color = Color(0.545098, 0.545098, 0.545098, 1)
 polygon = PackedVector2Array(-20, 0, -16, 10, -7, 20, 4, 21, 12, 21, 17, 13, 21, -1, 12, -76, -14, -76)
+
+[node name="Spawner" parent="CanonRigidBody2D" instance=ExtResource("3_e56b7")]
+scene_to_spawn_packed = ExtResource("2_b8a76")
 
 [node name="BaseStaticBody2D" type="StaticBody2D" parent="."]
 collision_layer = 2048
@@ -43,6 +43,4 @@ polygon = PackedVector2Array(-35, -16, -21, -1, -1, 0, 21, -1, 36, -17, 26, -34,
 color = Color(0.807843, 0.356863, 0, 1)
 polygon = PackedVector2Array(-35, -16, -21, -1, -1, 0, 21, -1, 36, -17, 26, -34, 13, -16, -11, -16, -26, -34)
 
-[node name="Timer" type="Timer" parent="."]
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="scene_spawned" from="CanonRigidBody2D/Spawner" to="." method="_on_spawner_scene_spawned"]

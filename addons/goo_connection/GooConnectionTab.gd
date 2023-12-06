@@ -17,7 +17,19 @@ var selected_previous_pos = null
 func _ready():
 	if not editor_selection.is_connected("selection_changed", Callable(self, "_on_editor_selection_changed")):
 		editor_selection.connect("selection_changed", Callable(self, "_on_editor_selection_changed"))
+	for connectable in get_tree().get_nodes_in_group(Groups.CONNECTABLE_STATE):
+		manage_connectable_exited(connectable)
+	
+	get_tree().connect("node_added", Callable(self, "_on_node_added"))
 
+func _on_node_added(node):
+	if node.is_in_group(Groups.CONNECTABLE_STATE):
+		manage_connectable_exited(node)
+
+func manage_connectable_exited(connectable):
+	if not connectable.is_connected("tree_exited", Callable(self, "_on_connectable_tree_exited").bind(connectable)):
+		connectable.connect("tree_exited", Callable(self, "_on_connectable_tree_exited").bind(connectable))
+	
 func _process(delta):
 	if selected_connectable:
 		var should_update_checkboxes = false
@@ -67,12 +79,11 @@ func _on_editor_selection_changed():
 		selected_connectable = ConnectionManager.get_connectable(body)
 		selected_previous_pos = _get_connectable_global_position(selected_connectable)
 		update_checkboxes()
-		selected_connectable.connect("tree_exited", Callable(self, "_on_connectable_tree_exited").bind(selected_connectable))
+		
 	elif selected_connectable != null:
 		deselect_connectable()
 
 func deselect_connectable():
-	selected_connectable.disconnect("tree_exited", Callable(self, "_on_connectable_tree_exited").bind(selected_connectable))
 	selected_connectable = null
 	
 func update_checkboxes():
@@ -119,6 +130,7 @@ func _on_checkbox_toggled(toggled, checkbox):
 		var connection_line: Node = connection_factory._create_default_connection_line(c1, c2)
 		var scene_root = EditorInterface.get_edited_scene_root()
 		scene_root.add_child(connection_line)
+		connection_line.set_meta("_edit_lock_", true)
 		connection_line.owner = scene_root
 		connection_line.goo_a_path = connection_line.get_path_to(connection_line.goo_a)
 		connection_line.goo_b_path = connection_line.get_path_to(connection_line.goo_b)
