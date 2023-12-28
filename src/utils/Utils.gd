@@ -11,3 +11,9 @@ func create_sinus(o, amplitude, speed, processed = true, physics_processed = fal
 	o.call_deferred("add_child", sinus)
 	return sinus
 	
+func get_child_in_group(node, group):
+	for c in node.get_children():
+		if c.is_in_group(group):
+			return c
+			
+	return null

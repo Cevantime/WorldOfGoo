@@ -5,7 +5,7 @@ var entering = false
 func _supports(node: Node):
 	return node is RigidBody2D
 	
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	entering = true
 
 func _integrate_forces(state: PhysicsDirectBodyState2D):

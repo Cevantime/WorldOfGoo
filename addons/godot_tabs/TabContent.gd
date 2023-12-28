@@ -17,6 +17,10 @@ signal object_edited(object)
 @onready var name_line_edit = $VBoxContainer/ScrollContainer/HFlowContainer/NewObjectPanelContainer/MarginContainer/VBoxContainer/GridContainer/NameLineEdit
 @onready var image_line_edit = $VBoxContainer/ScrollContainer/HFlowContainer/NewObjectPanelContainer/MarginContainer/VBoxContainer/GridContainer/ImageLineEdit
 @onready var scroll_container = $VBoxContainer/ScrollContainer
+@onready var control = $VBoxContainer/ScrollContainer/HFlowContainer/NewObjectPanelContainer/MarginContainer/VBoxContainer/GridContainer/Control
+@onready var error_file = $VBoxContainer/ScrollContainer/HFlowContainer/NewObjectPanelContainer/MarginContainer/VBoxContainer/GridContainer/ErrorFile
+@onready var control_2 = $VBoxContainer/ScrollContainer/HFlowContainer/NewObjectPanelContainer/MarginContainer/VBoxContainer/GridContainer/Control2
+@onready var error_image = $VBoxContainer/ScrollContainer/HFlowContainer/NewObjectPanelContainer/MarginContainer/VBoxContainer/GridContainer/ErrorImage
 
 func initialize(data):
 	for o in data:
@@ -28,12 +32,16 @@ func _on_add_form_button_pressed():
 func add_object(object_data, before = null):
 	var object = object_packed.instantiate()
 	object.path = object_data.path
+	if "ruid" in object_data and object_data.ruid:
+		object.ruid = object_data.ruid
+	else:
+		var uid = ResourceLoader.get_resource_uid(object.path)
+		object.ruid = ResourceUID.id_to_text(uid)
+		
 	if "text" in object_data and object_data.text != "":
 		object.text = object_data.text
 	if "image" in object_data and object_data.image != "":
 		object.image = object_data.image
-	if "node_path" in object_data and object_data.node_path != "":
-		object.node_path = object_data.node_path
 	
 	if not is_node_ready():
 		await self.ready
@@ -43,24 +51,22 @@ func add_object(object_data, before = null):
 func _setup_object(object, before: Control = null):
 	if ! before:
 		before = h_flow_container.get_child(h_flow_container.get_child_count() - 1)
-
 	TabsPluginUtils.append_before(object, before)
 		
 	object.initialize_image()
 	emit_signal("object_added", object)
 	
-func _on_add_object_button_pressed():
+func _on_add_object_button_pressed(validated_data):
 	var object = object_packed.instantiate()
-	if file_line_edit.text == "" :
-		hide_form()
-		return
-	object.path = file_line_edit.text
+	
+	object.path = validated_data.scene_path
+	object.ruid = ResourceUID.id_to_text(validated_data.uid)
 	file_line_edit.text = ""
-	if name_line_edit.text != "":
-		object.text = name_line_edit.text
+	if validated_data.name != "":
+		object.text = validated_data.name 
 		name_line_edit.text = ""
-	if image_line_edit.text != "":
-		object.image = image_line_edit.text
+	if validated_data.image_path != "":
+		object.image = validated_data.imahe_path
 		image_line_edit.text = ""
 	
 	_setup_object(object)
@@ -104,7 +110,6 @@ func _on_delete_confirmed(popup):
 
 
 func _can_drop_data(at_position, data):
-	print(data)
 	return typeof(data) == TYPE_DICTIONARY and data.has("type") and data.type == "files"
 	
 
@@ -136,6 +141,13 @@ func _drop_data(at_position, data):
 	else:
 		if not (closest_child is ObjectClass):
 			closest_child = null
+		else :
+			if closest_child.get_rect().position.x < at_position.x:
+				var closest_child_index = closest_child.get_index()
+				if closest_child_index == h_flow_container.get_child_count() - 1:
+					closest_child = null
+				else:
+					closest_child = h_flow_container.get_child(closest_child_index + 1)
 		for f in data.files:
 			var p = load(f)
 			if p is PackedScene:

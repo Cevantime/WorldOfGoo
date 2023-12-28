@@ -1,55 +1,34 @@
-[gd_scene load_steps=22 format=3 uid="uid://c0x0lcq6auxjk"]
+[gd_scene load_steps=16 format=3 uid="uid://c0x0lcq6auxjk"]
 
 [ext_resource type="PackedScene" uid="uid://daiy4txtl3gy4" path="res://src/goos/visual/ConnectableGoo.tscn" id="1_mtjh3"]
 [ext_resource type="Script" path="res://src/goos/visual/purple_goo/PurpleGoo.gd" id="2_vu7gl"]
 [ext_resource type="PackedScene" uid="uid://eaiawuyhowi0" path="res://src/goos/visual/Eye.tscn" id="3_10ljb"]
-[ext_resource type="PackedScene" uid="uid://bohxq135camt3" path="res://src/components/GrabbableArea.tscn" id="3_xgl2a"]
 [ext_resource type="Script" path="res://src/goos/body/states/RotationDamped.gd" id="5_sekfx"]
+[ext_resource type="PackedScene" uid="uid://bku37winw166b" path="res://src/states/Focusable.tscn" id="5_txfsg"]
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="6_xq5i5"]
-[ext_resource type="PackedScene" uid="uid://bwyok041l68h8" path="res://src/goos/body/states/PistoGrabbable.tscn" id="7_dh2o2"]
-[ext_resource type="PackedScene" uid="uid://d1uv3komqh6e3" path="res://addons/godot_states/MultipleStateMachine.tscn" id="8_5x86h"]
+[ext_resource type="Script" path="res://src/goos/visual/purple_goo/AssignActions.gd" id="7_d8rq6"]
+[ext_resource type="PackedScene" uid="uid://c2buvb54lf4d4" path="res://src/states/DisplaySomething.tscn" id="8_bsx8t"]
 [ext_resource type="PackedScene" uid="uid://ccopljgvuo4gc" path="res://src/goos/visual/states/Bouncing.tscn" id="8_h54rm"]
 [ext_resource type="PackedScene" uid="uid://bi1w3i1bm7sd1" path="res://src/goos/visual/states/DeformedByMovement.tscn" id="9_aharv"]
-[ext_resource type="PackedScene" uid="uid://b37podescl8a" path="res://src/goos/visual/states/Drag.tscn" id="9_hxse5"]
-[ext_resource type="PackedScene" uid="uid://bvsqbaq7hvtcl" path="res://src/goos/states/draggable/Dragged.tscn" id="9_su710"]
-[ext_resource type="PackedScene" uid="uid://dmodxcgtmu5i8" path="res://src/goos/body/states/PistoReleaseable.tscn" id="10_sj3pt"]
-[ext_resource type="PackedScene" uid="uid://bngpvsvjqyhdj" path="res://src/goos/visual/states/PreviewConnexions.tscn" id="10_ung05"]
-[ext_resource type="PackedScene" uid="uid://p0w2srjv2d5m" path="res://src/goos/body/states/EditLayers.tscn" id="11_fytrw"]
 [ext_resource type="PackedScene" uid="uid://p7tff5gktesk" path="res://src/goos/visual/purple_goo/Activable.tscn" id="13_jaiyn"]
 [ext_resource type="Texture2D" uid="uid://d17g20na02yy7" path="res://assets/images/Buttons/A.png" id="14_ia6oj"]
 [ext_resource type="Texture2D" uid="uid://t6smq35yj8yb" path="res://assets/images/Buttons/X.png" id="15_e60b7"]
 [ext_resource type="Texture2D" uid="uid://cctccnsr27wg1" path="res://assets/images/Buttons/B.png" id="16_87jlq"]
 [ext_resource type="Texture2D" uid="uid://ckyc0mrm6wndj" path="res://assets/images/Buttons/Y.png" id="17_jnnis"]
-[ext_resource type="Script" path="res://src/goos/visual/purple_goo/JustConnected.gd" id="19_jp6dt"]
 
 [node name="PurpleGoo" groups=["purple_goos"] instance=ExtResource("1_mtjh3")]
 script = ExtResource("2_vu7gl")
 
-[node name="PistoGrabbableArea" parent="GooBody" index="0" instance=ExtResource("3_xgl2a")]
-
-[node name="AwakeArea" parent="GooBody" index="2"]
+[node name="AwakeArea" parent="GooBody" index="1"]
 position = Vector2(1, 0)
 
-[node name="Connected" type="Node" parent="GooBody/States" index="1"]
+[node name="SolidConnected" type="Node" parent="GooBody/States" index="4"]
 script = ExtResource("6_xq5i5")
 
-[node name="RotationDamped" type="Node" parent="GooBody/States/Connected" index="0"]
+[node name="RotationDamped" type="Node" parent="GooBody/States/SolidConnected" index="0"]
 script = ExtResource("5_sekfx")
 
-[node name="PistoGrabbable" parent="GooBody/States/Idle" index="0" instance=ExtResource("7_dh2o2")]
-pisto_draggable_area_path = NodePath("../../../PistoGrabbableArea")
-
-[node name="Dragged" parent="GooBody/States" index="3" instance=ExtResource("8_5x86h")]
-
-[node name="Dragged" parent="GooBody/States/Dragged" index="0" instance=ExtResource("9_su710")]
-
-[node name="PistoReleaseable" parent="GooBody/States/Dragged" index="1" instance=ExtResource("10_sj3pt")]
-pisto_draggable_area_path = NodePath("../../../PistoGrabbableArea")
-
-[node name="EditLayers" parent="GooBody/States/Dragged" index="2" instance=ExtResource("11_fytrw")]
-
 [node name="Connectable" parent="GooBody" index="5" groups=["purple_connectables"]]
-visual_path = null
 
 [node name="Face" parent="SpritePosition/SpriteRotation" index="1"]
 self_modulate = Color(0.8, 0, 0.8, 1)
@@ -65,30 +44,25 @@ remote_path = NodePath("../../Buttons")
 update_rotation = false
 update_scale = false
 
-[node name="Bouncing" parent="States/Awake" index="0" instance=ExtResource("8_h54rm")]
+[node name="Focusable" parent="." index="2" instance=ExtResource("5_txfsg")]
+target_path = NodePath("../GooBody")
 
-[node name="DeformedByMovement" parent="States/Awake" index="1" instance=ExtResource("9_aharv")]
+[node name="AssignActions" type="Node" parent="States/Connected" index="0"]
+script = ExtResource("7_d8rq6")
 
-[node name="Drag" type="Node" parent="States" index="2"]
+[node name="DisplayButtons" parent="States/Connected" index="1" instance=ExtResource("8_bsx8t")]
+node_to_display_path = NodePath("../../../Buttons")
+
+[node name="SolidConnected" type="Node" parent="States" index="4"]
 script = ExtResource("6_xq5i5")
 
-[node name="Drag" parent="States/Drag" index="0" instance=ExtResource("9_hxse5")]
+[node name="Bouncing" parent="States/SolidConnected" index="0" instance=ExtResource("8_h54rm")]
 
-[node name="PreviewConnexions" parent="States/Drag" index="1" instance=ExtResource("10_ung05")]
+[node name="DeformedByMovement" parent="States/SolidConnected" index="1" instance=ExtResource("9_aharv")]
 
-[node name="Connected" type="Node" parent="States" index="3"]
-script = ExtResource("6_xq5i5")
+[node name="Activable" parent="States/SolidConnected" index="2" instance=ExtResource("13_jaiyn")]
 
-[node name="Bouncing" parent="States/Connected" index="0" instance=ExtResource("8_h54rm")]
-
-[node name="DeformedByMovement" parent="States/Connected" index="1" instance=ExtResource("9_aharv")]
-
-[node name="Activable" parent="States/Connected" index="2" instance=ExtResource("13_jaiyn")]
-
-[node name="JustConnected" type="Node" parent="States" index="4"]
-script = ExtResource("19_jp6dt")
-
-[node name="Buttons" type="Node2D" parent="." index="3"]
+[node name="Buttons" type="Node2D" parent="." index="4"]
 visible = false
 position = Vector2(-1.49012e-08, -2.38419e-07)
 
@@ -127,9 +101,5 @@ offset_bottom = 16.0
 texture_normal = ExtResource("17_jnnis")
 ignore_texture_size = true
 stretch_mode = 5
-
-[connection signal="pisto_grabbed" from="GooBody/States/Idle/PistoGrabbable" to="." method="_on_pisto_grabbable_pisto_grabbed"]
-[connection signal="pisto_released" from="GooBody/States/Idle/PistoGrabbable" to="." method="_on_pisto_grabbable_pisto_released"]
-[connection signal="pisto_released" from="GooBody/States/Dragged/PistoReleaseable" to="." method="_on_pisto_releaseable_pisto_released"]
 
 [editable path="GooBody"]

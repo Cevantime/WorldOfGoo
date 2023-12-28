@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bku37winw166b"]
+
+[ext_resource type="Script" path="res://src/states/Focusable.gd" id="1_i75nb"]
+
+[node name="Focusable" type="Node" groups=["focusables"]]
+script = ExtResource("1_i75nb")

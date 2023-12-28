@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=3 uid="uid://b7cw718gfqpa3"]
+
+[ext_resource type="Script" path="res://src/objects/doors/Door.gd" id="1_63b76"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bafcx"]
+size = Vector2(12, 104)
+
+[node name="Door" type="Node2D"]
+script = ExtResource("1_63b76")
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+collision_layer = 256
+collision_mask = 0
+freeze = true
+freeze_mode = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="RigidBody2D"]
+color = Color(0.6, 0.00392157, 0.823529, 1)
+polygon = PackedVector2Array(-6, -52, 6, -52, 6, 52, -6, 52)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("RectangleShape2D_bafcx")
+
+[node name="TopAnchor" type="Polygon2D" parent="."]
+position = Vector2(0, -44)
+rotation = 3.14159
+polygon = PackedVector2Array(-12, -6, -6, 1, 6, 1, 10, -7, 13, -7, 13, 12, -12, 12)

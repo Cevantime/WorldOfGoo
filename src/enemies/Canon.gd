@@ -43,6 +43,5 @@ func _ready():
 		ray_cast_2d.queue_free()
 
 
-
 func _on_spawner_scene_spawned(bullet):
 	bullet.velocity = -spawner.global_transform.y

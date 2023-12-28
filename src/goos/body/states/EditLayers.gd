@@ -5,7 +5,7 @@ const BaseGooBody = preload("res://src/goos/body/BaseGooBody.gd")
 func _supports(node: Node):
 	return node is BaseGooBody
 
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	referer.collision_layer = referer.dragging_layer
 	referer.collision_mask = referer.dragging_mask
 

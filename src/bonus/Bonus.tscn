@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dhaibmp7hx8sn"]
-
-[ext_resource type="Script" path="res://src/bonus/Bonus.gd" id="1_pcja5"]
-
-[node name="Bonus" type="Node"]
-script = ExtResource("1_pcja5")

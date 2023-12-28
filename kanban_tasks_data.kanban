@@ -14,15 +14,18 @@
 			"uuid": "2db90629-c17e-47ab-b382-aac6921ed774",
 			"title": "Optimization",
 			"color": "21f614"
+		},
+		{
+			"uuid": "517b463a-74ad-4f19-aa85-5646b9c8099a",
+			"title": "Idea",
+			"color": "9b05bf"
 		}
 	],
 	"stages": [
 		{
 			"uuid": "7f56431c-b837-4c12-858c-145c6e076e21",
 			"title": "Todo",
-			"tasks": [
-				"fd2acab2-55d9-4fa3-b78e-7684da90a774"
-			]
+			"tasks": []
 		},
 		{
 			"uuid": "7f1385d5-ba8b-478f-b6ca-3e6c45c569fb",
@@ -33,7 +36,17 @@
 			"uuid": "eb2b343a-56d3-4b94-a805-b0f9f31371dc",
 			"title": "Done",
 			"tasks": [
-				"f8438ba2-4b95-415e-81dd-36e964048ab0"
+				"f8438ba2-4b95-415e-81dd-36e964048ab0",
+				"7caa663a-406b-4ec2-a4cf-5270a0e1e8d7",
+				"fd2acab2-55d9-4fa3-b78e-7684da90a774",
+				"bdd50074-97eb-493b-a5fe-48b2a4e0f9fc"
+			]
+		},
+		{
+			"uuid": "14c07882-1bbc-4cd1-a91e-fd7745d6e6e8",
+			"title": "Ideas",
+			"tasks": [
+				"bda6fe5e-9b7d-4234-9a50-92c214a0ad41"
 			]
 		}
 	],
@@ -64,6 +77,27 @@
 			"description": "",
 			"category": "2dd266de-52cd-4ade-aec4-d806aa642aee",
 			"steps": []
+		},
+		{
+			"uuid": "7caa663a-406b-4ec2-a4cf-5270a0e1e8d7",
+			"title": "Change platform to one way",
+			"description": "",
+			"category": "2dd266de-52cd-4ade-aec4-d806aa642aee",
+			"steps": []
+		},
+		{
+			"uuid": "bdd50074-97eb-493b-a5fe-48b2a4e0f9fc",
+			"title": "Move Grabbable logic inside Connectable Goo",
+			"description": "",
+			"category": "251f6732-93aa-410f-b2f9-8075e019fb89",
+			"steps": []
+		},
+		{
+			"uuid": "bda6fe5e-9b7d-4234-9a50-92c214a0ad41",
+			"title": "Goo crawler",
+			"description": "",
+			"category": "517b463a-74ad-4f19-aa85-5646b9c8099a",
+			"steps": []
 		}
 	],
 	"layout": {
@@ -76,6 +110,9 @@
 			],
 			[
 				"eb2b343a-56d3-4b94-a805-b0f9f31371dc"
+			],
+			[
+				"14c07882-1bbc-4cd1-a91e-fd7745d6e6e8"
 			]
 		]
 	}

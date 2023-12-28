@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://dao3pcdgkogft"]
+
+[ext_resource type="Shader" path="res://assets/shaders/levitation_ray.gdshader" id="1_652vk"]
+[ext_resource type="Texture2D" uid="uid://b11ft0k7h76dl" path="res://assets/shaders/noises/noise_texture_line.tres" id="2_y0y1b"]
+[ext_resource type="Script" path="res://src/objects/weapons/pisto/LevitationRay.gd" id="3_2e1h1"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_nksle"]
+shader = ExtResource("1_652vk")
+shader_parameter/thickness = 1.0
+shader_parameter/ray_color = Color(0.92549, 0.921569, 0.921569, 1)
+shader_parameter/outline_color = Color(0, 0.435294, 0.572549, 1)
+shader_parameter/deformation = 1.09565
+shader_parameter/rays = 3
+shader_parameter/speed = 1.0
+shader_parameter/outline_fade = 0.15
+shader_parameter/outline_percent = 1.15
+shader_parameter/outline_transition = 0.545
+shader_parameter/noise_scale = 1.09565
+shader_parameter/edge_fade = 0.03
+shader_parameter/noise = ExtResource("2_y0y1b")
+
+[node name="LevitationRay" type="Line2D"]
+z_index = -1
+z_as_relative = false
+material = SubResource("ShaderMaterial_nksle")
+points = PackedVector2Array(0, 0, 182, -1)
+width = 50.0
+texture_mode = 2
+script = ExtResource("3_2e1h1")
+deformation_scale = 150.725

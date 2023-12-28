@@ -1,0 +1,72 @@
+[gd_scene load_steps=14 format=3 uid="uid://cxymy6dny1vf4"]
+
+[ext_resource type="Script" path="res://src/objects/weapons/pisto/PistoConnectorArea.gd" id="1_bq8h1"]
+[ext_resource type="Shader" path="res://assets/shaders/pisto_area.gdshader" id="2_rjcm6"]
+[ext_resource type="Texture2D" uid="uid://jss1ukrkt6vq" path="res://assets/images/pisto_area.png" id="3_l07gw"]
+[ext_resource type="Texture2D" uid="uid://bmrxh8nvgf4x5" path="res://assets/images/pisto_view_finder.png" id="3_xn71g"]
+[ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="4_hu6qm"]
+[ext_resource type="PackedScene" uid="uid://dao3pcdgkogft" path="res://src/objects/weapons/pisto/LevitationRay.tscn" id="5_caevf"]
+[ext_resource type="Script" path="res://src/objects/weapons/pisto/states/Disabled.gd" id="5_vciey"]
+[ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="6_hxl5n"]
+[ext_resource type="Script" path="res://src/objects/weapons/pisto/states/DisplayViewFinder.gd" id="7_l05l1"]
+[ext_resource type="Script" path="res://src/objects/weapons/pisto/states/ControlsViewFinder.gd" id="8_iqgau"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7gaws"]
+shader = ExtResource("2_rjcm6")
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7rnjk"]
+radius = 200.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p1tfn"]
+radius = 8.06226
+
+[node name="PistoConnectorArea" type="Area2D"]
+z_index = 20
+script = ExtResource("1_bq8h1")
+VIEW_FINDER_SPEED = 350.0
+
+[node name="PistoArea" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_7gaws")
+scale = Vector2(0.8, 0.8)
+texture = ExtResource("3_l07gw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7rnjk")
+
+[node name="ViewFinderArea" type="Area2D" parent="."]
+collision_layer = 8192
+collision_mask = 4096
+
+[node name="ViewFinderSprite2D" type="Sprite2D" parent="ViewFinderArea"]
+texture = ExtResource("3_xn71g")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewFinderArea"]
+shape = SubResource("CircleShape2D_p1tfn")
+
+[node name="LevitationRay" parent="." instance=ExtResource("5_caevf")]
+visible = false
+points = PackedVector2Array(0, 0, 161, -33)
+deformation_scale = 150.0
+
+[node name="States" type="Node" parent="."]
+script = ExtResource("4_hu6qm")
+
+[node name="Disabled" type="Node" parent="States"]
+script = ExtResource("5_vciey")
+disabled = null
+
+[node name="Enabled" type="Node" parent="States"]
+script = ExtResource("6_hxl5n")
+
+[node name="DisplayViewFinder" type="Node" parent="States/Enabled"]
+script = ExtResource("7_l05l1")
+disabled = null
+
+[node name="ControlsViewFinder" type="Node" parent="States/Enabled"]
+script = ExtResource("8_iqgau")
+
+[connection signal="mouse_entered" from="." to="States/Enabled/ControlsViewFinder" method="_on_pisto_connector_area_mouse_entered"]
+[connection signal="mouse_exited" from="." to="States/Enabled/ControlsViewFinder" method="_on_pisto_connector_area_mouse_exited"]
+[connection signal="texture_changed" from="PistoArea" to="." method="_on_pisto_area_texture_changed"]
+
+[editable path="LevitationRay"]

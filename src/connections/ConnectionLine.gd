@@ -42,7 +42,6 @@ func _process(_delta):
 	if node_a_instance == null:
 		return
 		
-	print(node_a_instance.global_position)
 	points[0] = node_a_instance.global_position
 	points[1] = node_b_instance.global_position
 

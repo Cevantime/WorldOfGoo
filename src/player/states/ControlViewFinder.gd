@@ -7,7 +7,7 @@ var pisto
 func _supports(node):
 	return node is PlayerRigid
 
-func _enter_state(_previous, _args = []):
+func _enter_state(_previous, _args = {}):
 	pisto = referer.get_node("PistoArea")
 	pisto.enable()
 	

@@ -1,0 +1,116 @@
+[gd_scene load_steps=8 format=3 uid="uid://0ytw4gasn40i"]
+
+[ext_resource type="Script" path="res://src/objects/rope/Rope.gd" id="1_a4maq"]
+[ext_resource type="Texture2D" uid="uid://dtj7mnxu8fl0e" path="res://assets/images/rope.png" id="2_6dc1u"]
+[ext_resource type="PackedScene" uid="uid://ok5xdkxgvatn" path="res://src/objects/rope/RopeSegment.tscn" id="2_p5l4q"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xo48u"]
+size = Vector2(24, 4)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_vgu72"]
+radius = 5.0
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_j5o0s"]
+diffuse_texture = ExtResource("2_6dc1u")
+texture_repeat = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lhexx"]
+size = Vector2(2, 4)
+
+[node name="Rope" type="Node2D"]
+script = ExtResource("1_a4maq")
+
+[node name="Joints" type="Node2D" parent="."]
+
+[node name="PinJointBase" type="PinJoint2D" parent="Joints"]
+position = Vector2(0, -5)
+node_a = NodePath("../../Base")
+node_b = NodePath("../../Bodies/Segment1")
+softness = 0.1
+
+[node name="PinJoint2D" type="PinJoint2D" parent="Joints"]
+position = Vector2(0, 15)
+node_a = NodePath("../../Bodies/Segment1")
+node_b = NodePath("../../Bodies/Segment2")
+softness = 0.1
+
+[node name="PinJoint2D2" type="PinJoint2D" parent="Joints"]
+position = Vector2(0, 35)
+node_a = NodePath("../../Bodies/Segment2")
+node_b = NodePath("../../Bodies/Segment3")
+softness = 0.1
+
+[node name="PinJoint2D3" type="PinJoint2D" parent="Joints"]
+position = Vector2(0, 55)
+node_a = NodePath("../../Bodies/Segment3")
+node_b = NodePath("../../Bodies/Segment4")
+softness = 0.1
+
+[node name="Bodies" type="Node2D" parent="."]
+rotation = 1.56874
+
+[node name="Segment1" parent="Bodies" instance=ExtResource("2_p5l4q")]
+
+[node name="Segment2" type="RigidBody2D" parent="Bodies"]
+position = Vector2(25, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Ref" type="Node2D" parent="Bodies/Segment2"]
+position = Vector2(-10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/Segment2"]
+shape = SubResource("RectangleShape2D_xo48u")
+
+[node name="Segment3" type="RigidBody2D" parent="Bodies"]
+position = Vector2(45, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Ref" type="Node2D" parent="Bodies/Segment3"]
+position = Vector2(-10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/Segment3"]
+shape = SubResource("RectangleShape2D_xo48u")
+
+[node name="Segment4" type="RigidBody2D" parent="Bodies"]
+position = Vector2(65, 0)
+collision_layer = 0
+collision_mask = 0
+
+[node name="Ref" type="Node2D" parent="Bodies/Segment4"]
+position = Vector2(-10, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/Segment4"]
+shape = SubResource("RectangleShape2D_xo48u")
+
+[node name="Area2D" type="Area2D" parent="Bodies/Segment4"]
+position = Vector2(-0.000137329, 0.133482)
+rotation = -1.56874
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bodies/Segment4/Area2D"]
+shape = SubResource("CircleShape2D_vgu72")
+
+[node name="Ref2" type="Node2D" parent="Bodies/Segment4"]
+position = Vector2(7, 0)
+
+[node name="Line2D" type="Line2D" parent="."]
+rotation = 5.56088e-05
+points = PackedVector2Array(-1.00028, -4.99995, 0.000831604, 15, 0.0019989, 36, 0.00305939, 55, 0.00400543, 72)
+width = 5.0
+texture = SubResource("CanvasTexture_j5o0s")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+
+[node name="Base" type="StaticBody2D" parent="."]
+position = Vector2(0, -5)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
+shape = SubResource("RectangleShape2D_lhexx")
+
+[connection signal="body_entered" from="Bodies/Segment4/Area2D" to="." method="_on_area_2d_body_entered"]

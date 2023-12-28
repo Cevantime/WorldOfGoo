@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://df0l71hyxmk2h"]
+
+[ext_resource type="Script" path="res://src/states/bodies/CanJump.gd" id="1_8gq7q"]
+[ext_resource type="PackedScene" uid="uid://edx7gakw71wq" path="res://src/utils/AdvancedTimer.tscn" id="2_7cey7"]
+
+[node name="CanJump" type="Node"]
+script = ExtResource("1_8gq7q")
+
+[node name="JumpTimer" parent="." instance=ExtResource("2_7cey7")]
+wait_time = 0.06
+iterations_count = 3
+
+[connection signal="finished" from="JumpTimer" to="." method="_on_advanced_timer_finished"]
+[connection signal="iteration_done" from="JumpTimer" to="." method="_on_advanced_timer_iteration_done"]

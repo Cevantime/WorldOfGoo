@@ -10,7 +10,7 @@ var deformation = Vector2.ZERO
 func _supports(node):
 	return node is Goo
 
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	referer.deformation_vertical_influence = 0.5
 	
 func _process(_delta):

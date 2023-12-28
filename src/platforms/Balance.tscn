@@ -99,6 +99,7 @@ polygon = PackedVector2Array(-80, -4, -79, 5, 78, 5, 78, -5)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Left/Plate"]
 polygon = PackedVector2Array(-82, -12, -74, -4, 74, -5, 80, -14, 80, 5, -82, 6)
+one_way_collision = true
 
 [node name="PinJointLeft" type="PinJoint2D" parent="Left"]
 position = Vector2(-73, 69)
@@ -148,6 +149,7 @@ polygon = PackedVector2Array(-80, -4, -79, 5, 78, 5, 78, -5)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Right/Plate"]
 polygon = PackedVector2Array(-82, -12, -74, -4, 74, -5, 80, -14, 80, 5, -82, 6)
+one_way_collision = true
 
 [node name="PinJointLeft" type="PinJoint2D" parent="Right"]
 position = Vector2(-73, 69)

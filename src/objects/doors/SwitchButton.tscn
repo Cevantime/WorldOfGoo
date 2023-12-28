@@ -1,0 +1,82 @@
+[gd_scene load_steps=6 format=3 uid="uid://2fhhxlsyipqc"]
+
+[ext_resource type="Script" path="res://src/objects/doors/SwitchButton.gd" id="1_23mh2"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_luhrh"]
+size = Vector2(32, 29)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3frgd"]
+radius = 6.32456
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhjhj"]
+size = Vector2(10, 41)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_d80uf"]
+size = Vector2(20, 4)
+
+[node name="SwitchButton" type="Node2D"]
+script = ExtResource("1_23mh2")
+
+[node name="Button" type="RigidBody2D" parent="."]
+position = Vector2(0, -9)
+collision_layer = 256
+collision_mask = 270
+lock_rotation = true
+
+[node name="Polygon2D" type="Polygon2D" parent="Button"]
+color = Color(0.745098, 0, 0.0470588, 1)
+polygon = PackedVector2Array(-16, -14, 16, -14, 16, 15, -16, 15)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Button"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_luhrh")
+
+[node name="Base" type="StaticBody2D" parent="."]
+collision_layer = 256
+collision_mask = 2
+
+[node name="Polygon2D" type="Polygon2D" parent="Base"]
+color = Color(0.298649, 0.0761928, 1.20327e-08, 1)
+polygon = PackedVector2Array(-26, -14, -26, 33, 26, 33, 26, -14, 18, -14, 18, 20, -18, 20, -18, -14)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Base"]
+position = Vector2(0, 27)
+shape = SubResource("CircleShape2D_3frgd")
+
+[node name="Groover" type="StaticBody2D" parent="."]
+position = Vector2(0, 27)
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Groover"]
+position = Vector2(0, -20.5)
+shape = SubResource("RectangleShape2D_bhjhj")
+
+[node name="ActivationSensor" type="Area2D" parent="."]
+position = Vector2(0, 17)
+collision_layer = 0
+collision_mask = 256
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ActivationSensor"]
+shape = SubResource("RectangleShape2D_d80uf")
+
+[node name="DampedSpringJoint2D" type="DampedSpringJoint2D" parent="."]
+position = Vector2(0, 2)
+node_a = NodePath("../Button")
+node_b = NodePath("../Base")
+disable_collision = false
+length = 25.0
+rest_length = 25.0
+stiffness = 40.0
+
+[node name="GrooveJoint2D" type="GrooveJoint2D" parent="."]
+position = Vector2(0, 27)
+rotation = 3.14159
+node_a = NodePath("../Groover")
+node_b = NodePath("../Button")
+disable_collision = false
+length = 40.0
+initial_offset = 40.0
+
+[connection signal="body_entered" from="ActivationSensor" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="ActivationSensor" to="." method="_on_area_2d_body_exited"]

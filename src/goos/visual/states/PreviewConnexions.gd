@@ -6,7 +6,7 @@ var referer_connectable
 func _supports(node):
 	return node is Goo and get_connectable(node.body)
 	
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	referer_connectable = get_connectable(referer.body)
 	ConnectionManager.turn_on_preview(referer_connectable)
 	

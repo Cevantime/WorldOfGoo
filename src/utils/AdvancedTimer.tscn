@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://edx7gakw71wq"]
+
+[ext_resource type="Script" path="res://src/utils/AdvancedTimer.gd" id="1_nb22r"]
+
+[node name="AdvancedTimer" type="Timer"]
+script = ExtResource("1_nb22r")
+
+[connection signal="timeout" from="." to="." method="_on_timeout"]

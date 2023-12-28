@@ -30,3 +30,8 @@ func _on_win_area_player_won():
 	$UI/WinPanel.show()
 	await get_tree().create_timer(2).timeout
 	get_tree().change_scene_to_file("res://src/levels/"+next_level+".tscn")
+
+
+func _on_world_boundaries_body_entered(body):
+	if body.is_in_group(Groups.PLAYERS):
+		get_tree().call_deferred("reload_current_scene")

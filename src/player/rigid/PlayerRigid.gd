@@ -2,6 +2,7 @@ extends RigidBody2D
 
 signal _forces_integrated
 signal bonus_grabbed(node)
+signal rope_visited(rope)
 
 @onready var pisto_area = $PistoArea
 

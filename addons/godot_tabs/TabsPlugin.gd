@@ -10,7 +10,7 @@ func _enter_tree():
 		var file = FileAccess.open(TabsPluginUtils.SAVE_FILE,FileAccess.READ)
 		var data = JSON.parse_string(file.get_as_text())
 		objects_panel.initialize(data)
-	add_control_to_bottom_panel(objects_panel, "Objects")
+	add_control_to_bottom_panel(objects_panel, "My Tabs")
 
 
 

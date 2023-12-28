@@ -7,15 +7,17 @@
 [ext_resource type="PackedScene" uid="uid://taniprq6a8fe" path="res://src/goos/visual/green_goo/GreenGoo.tscn" id="5_jn1n6"]
 [ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="6_vxesa"]
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="7_agd08"]
-[ext_resource type="Script" path="res://src/connections/ConnectionLine.gd" id="8_a5voa"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7hmn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_68l5y"]
 shader = ExtResource("7_agd08")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
 shader_parameter/signal_ratio = -1.3
 shader_parameter/backwards = false
 shader_parameter/display_tex = false
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
+rough = true
 
 [node name="Level2" instance=ExtResource("1_r0512")]
 script = ExtResource("2_3cynu")
@@ -28,31 +30,31 @@ position = Vector2(286, 160)
 position = Vector2(490, 165)
 
 [node name="GreyGoo2" parent="Goos" index="1" instance=ExtResource("3_mds6w")]
-position = Vector2(427, 166)
+position = Vector2(422, 165)
 
 [node name="RedGoo" parent="Goos" index="2" instance=ExtResource("4_x4a62")]
-position = Vector2(264, 164)
+position = Vector2(277, 164)
 
 [node name="RedGoo2" parent="Goos" index="3" instance=ExtResource("4_x4a62")]
-position = Vector2(329, 164)
+position = Vector2(352, 166)
 
 [node name="GreenGoo" parent="Goos" index="4" instance=ExtResource("5_jn1n6")]
 position = Vector2(537, 54)
+push_force = 50.0
 
 [node name="Ground" parent="Landscape" index="0"]
 polygon = PackedVector2Array(-179, -194, -132, -197, -123, -49, 97.8785, -49, 326, -49, 328, -161, 359, -160, 392, -162, 391, -47, 391, 94, -112, 96, -177, 97)
 
-[node name="WinArea" parent="." index="7"]
+[node name="ConnectionLine" parent="Connections" index="0" instance=ExtResource("6_vxesa")]
+material = SubResource("ShaderMaterial_68l5y")
+points = PackedVector2Array(422, 165, 490, 165)
+connectable_a_path = NodePath("../../Goos/GreyGoo2/GooBody/Connectable")
+connectable_b_path = NodePath("../../Goos/GreyGoo/GooBody/Connectable")
+metadata/_edit_lock_ = true
+
+[node name="WinArea" parent="." index="8"]
 position = Vector2(-21, 5)
 polygon = PackedVector2Array(28, -32, 28, 29, 58, 30, 58, -32)
 
-[node name="ConnectionLine" type="Line2D" parent="." index="11" groups=["connection_lines"] instance=ExtResource("6_vxesa")]
-process_mode = 3
-material = SubResource("ShaderMaterial_e7hmn")
-points = PackedVector2Array(427, 166, 490, 165)
-width = 13.0
-texture_mode = 2
-script = ExtResource("8_a5voa")
-connectable_a_path = NodePath("../Goos/GreyGoo2/GooBody/Connectable")
-connectable_b_path = NodePath("../Goos/GreyGoo/GooBody/Connectable")
-metadata/_edit_lock_ = true
+[node name="PlayerRigid" parent="." index="9"]
+physics_material_override = SubResource("PhysicsMaterial_temxo")

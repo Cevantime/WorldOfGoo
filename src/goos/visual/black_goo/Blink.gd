@@ -8,7 +8,7 @@ const BlackGoo = preload("res://src/goos/visual/black_goo/BlackGoo.gd")
 func _supports(node):
 	return node is BlackGoo
 	
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	event_spawner.start()
 	
 func _exit_state(_next):

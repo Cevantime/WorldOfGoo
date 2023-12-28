@@ -3,8 +3,8 @@
 [ext_resource type="Script" path="res://src/goos/body/states/LimitSpeed.gd" id="1"]
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="2"]
 [ext_resource type="Script" path="res://src/goos/body/states/DraggableLimitedSpeed.gd" id="3"]
-[ext_resource type="PackedScene" path="res://src/goos/states/draggable/Touchable.tscn" id="4"]
-[ext_resource type="PackedScene" uid="uid://bvsqbaq7hvtcl" path="res://src/goos/states/draggable/Dragged.tscn" id="5"]
+[ext_resource type="PackedScene" path="res://src/states/bodies/Touchable.tscn" id="4"]
+[ext_resource type="PackedScene" uid="uid://bvsqbaq7hvtcl" path="res://src/states/bodies/Dragged.tscn" id="5"]
 [ext_resource type="PackedScene" uid="uid://p0w2srjv2d5m" path="res://src/goos/body/states/EditLayers.tscn" id="6_t56hp"]
 
 [node name="DraggableLimitedSpeed" type="Node"]

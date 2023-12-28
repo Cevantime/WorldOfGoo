@@ -7,7 +7,7 @@ var animation_player
 func _supports(node):
 	return node is GreenGoo
 
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	animation_player = referer.get_node("AnimationPlayer")
 	animation_player.play("start_blast")
 	

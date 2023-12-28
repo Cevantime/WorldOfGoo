@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b1b0qdcsnsw4a"]
+[gd_scene load_steps=8 format=3 uid="uid://b1b0qdcsnsw4a"]
 
 [ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="1"]
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="3_jj7ja"]
 [ext_resource type="Texture2D" uid="uid://ckguq68ewpexj" path="res://assets/images/goo_outline.png" id="3_jrfik"]
 [ext_resource type="Script" path="res://src/goos/body/CanBeAwaken.gd" id="3_y3oob"]
 [ext_resource type="Texture2D" uid="uid://lgytc2b4wbrh" path="res://assets/images/goo.png" id="5"]
-[ext_resource type="Script" path="res://src/goos/visual/Asleep.gd" id="6_l30p5"]
 [ext_resource type="PackedScene" uid="uid://bkra6ftag6r61" path="res://src/goos/body/BaseGooBody.tscn" id="8"]
 [ext_resource type="Script" path="res://src/goos/visual/BaseGoo.gd" id="9"]
 
@@ -52,8 +51,8 @@ texture = ExtResource("5")
 [node name="States" type="Node" parent="."]
 script = ExtResource("1")
 
-[node name="Asleep" type="Node" parent="States"]
-script = ExtResource("6_l30p5")
+[node name="Sleeping" type="Node" parent="States"]
+script = ExtResource("3_jj7ja")
 
 [node name="Awake" type="Node" parent="States"]
 script = ExtResource("3_jj7ja")

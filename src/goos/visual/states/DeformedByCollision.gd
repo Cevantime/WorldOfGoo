@@ -7,7 +7,7 @@ const Goo = preload("res://src/goos/visual/BaseGoo.gd")
 func _supports(node):
 	return node is Goo
 	
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	referer.deformation_vertical_influence = 1.0
 	
 func _process(_delta):
@@ -16,8 +16,8 @@ func _process(_delta):
 		emit_signal("contact_lost")
 		return
 	
-	var diff_pos = referer.get_global_mouse_position() - body.global_position
+	var diff_pos = referer.body.linear_velocity
 	var deformation_dir = body.contact_normal.rotated(PI/2).normalized()
 	
-	referer.deformation =referer.DEFORMATION_FACTOR * diff_pos.length() * 0.01 * deformation_dir
+	referer.deformation =referer.DEFORMATION_FACTOR * diff_pos.length() * 0.001 * deformation_dir
 	

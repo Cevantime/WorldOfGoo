@@ -15,7 +15,6 @@ func _integrate_forces(state):
 		var should_be_deleted = true
 		for i in range(contact_count):
 			var body = state.get_contact_collider_object(i)
-			print( body.name)
 			if body.is_in_group(Groups.BULLET_REFLECTORS):
 				var normal = state.get_contact_local_normal(i)
 				velocity = velocity.bounce(normal)

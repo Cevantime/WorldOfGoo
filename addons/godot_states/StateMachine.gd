@@ -58,7 +58,7 @@ func _ready():
 	if enabled:
 		call_deferred("_enter_state", null, [])
 		
-func change_state(state_name: String, params: Array = []):
+func change_state(state_name: String, params: Dictionary = {}):
 	var parent = get_parent()
 	while parent != null and not "selected_state" in parent:
 		parent = parent.get_parent()
@@ -83,7 +83,7 @@ func enable_group(group_name: String):
 func _supports(node: Node):
 	return false
 	
-func _enter_state(previous, params = []):
+func _enter_state(_previous, _params = {}):
 	pass
 	
 func _exit_state(next):

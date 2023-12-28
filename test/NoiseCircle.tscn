@@ -1,0 +1,18 @@
+[gd_scene load_steps=5 format=3 uid="uid://limjexcyn0po"]
+
+[ext_resource type="Shader" path="res://assets/shaders/noise_circle.gdshader" id="1_2ig7s"]
+[ext_resource type="Texture2D" uid="uid://cqtla2kq871hi" path="res://assets/shaders/noises/noise_texture_circle.tres" id="2_jkn6y"]
+[ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="3_vaxqm"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e7ma7"]
+shader = ExtResource("1_2ig7s")
+shader_parameter/color = Color(0, 0.435294, 0.572549, 1)
+shader_parameter/radius = 0.24
+shader_parameter/fade = 0.05
+shader_parameter/thickness = 0.035
+shader_parameter/speed = 5.0
+shader_parameter/noise = ExtResource("2_jkn6y")
+
+[node name="NoiseCircle" type="Sprite2D"]
+material = SubResource("ShaderMaterial_e7ma7")
+texture = ExtResource("3_vaxqm")

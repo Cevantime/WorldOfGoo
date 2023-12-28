@@ -28,7 +28,7 @@ project/assembly_name="World Of Goo"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/godot_states/plugin.cfg", "res://addons/godot_tabs/plugin.cfg", "res://addons/goo_connection/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/godot_states/plugin.cfg", "res://addons/godot_tabs/plugin.cfg", "res://addons/goo_connection/plugin.cfg", "res://addons/kanban_tasks/plugin.cfg", "res://addons/knife-tool/plugin.cfg")
 
 [file_customization]
 

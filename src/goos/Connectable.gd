@@ -21,7 +21,7 @@ var visual:
 
 var neighbours = []
 
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	visual = get_node(visual_path) if visual_path else referer
 
 func _supports(node):

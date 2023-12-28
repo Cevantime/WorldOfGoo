@@ -17,7 +17,7 @@ func _process(_delta):
 		timer.start()
 		for line in lines:
 			line.send_signal()
-	if Input.is_action_just_released(referer.action_name):
+	elif Input.is_action_just_released(referer.action_name):
 		if not timer.is_stopped(): 
 			timer.stop()
 		for line in lines:
@@ -26,7 +26,7 @@ func _process(_delta):
 		referer.active = false
 		referer.emit_signal("deactivated")
 		
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	connectable = ConnectionManager.get_connectable(referer.body)
 	connectable.connect("connected", Callable(self, "_on_connected"))
 	outline = referer.outline
@@ -38,7 +38,7 @@ func _on_connected(_other):
 	
 func refresh_animation_players():
 	lines = []
-	var referer_connectable = ConnectionManager.get_connectable(referer)
+	var referer_connectable = referer.connectable
 	# TODO: optimize !
 	for c in get_tree().get_nodes_in_group(Groups.PURPLE_CONNECTIONS):
 		if c.connectable_a == referer_connectable or c.connectable_b == referer_connectable:

@@ -8,6 +8,10 @@
 [node name="Object" type="PanelContainer" groups=["godot_tabs_objects"]]
 script = ExtResource("1_3k7yt")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.4, 0.4, 0.4, 1)
+
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
 theme_override_constants/margin_left = 2
@@ -26,6 +30,20 @@ size_flags_vertical = 4
 texture = ExtResource("2_m3i6a")
 script = ExtResource("3_bdwnv")
 object_path = NodePath("../../..")
+
+[node name="RefreshButton" type="Button" parent="MarginContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -15.0
+offset_top = -20.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_font_sizes/font_size = 8
+text = "⟳"
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer"]
 layout_mode = 2
@@ -55,8 +73,11 @@ text = "X
 visible = false
 layout_mode = 2
 
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TextureRect/RefreshButton" to="." method="_on_refresh_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/EditButton" to="." method="_on_edit_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/SeeButton" to="." method="_on_see_button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/HBoxContainer/RemoveButton" to="." method="_on_remove_button_pressed"]
 [connection signal="closed" from="MarginContainer/GridContainer" to="." method="_on_close_button_pressed"]
 [connection signal="validated" from="MarginContainer/GridContainer" to="." method="_on_validate_object_button_pressed"]
+
+[editable path="MarginContainer/GridContainer"]

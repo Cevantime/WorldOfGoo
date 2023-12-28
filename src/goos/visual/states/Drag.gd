@@ -8,7 +8,7 @@ func _supports(node):
 	return node is Goo
 	
 	
-func _enter_state(previous, params = []):
+func _enter_state(previous, params = {}):
 	super._enter_state(previous, params)
 
 

@@ -18,6 +18,14 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 script = ExtResource("2_sl12a")
 
+[node name="Control" type="Control" parent="." groups=["godot_tabs_error"]]
+visible = false
+layout_mode = 2
+
+[node name="ErrorFile" type="Label" parent="." groups=["godot_tabs_error"]]
+visible = false
+layout_mode = 2
+
 [node name="NameLabel" type="Label" parent="."]
 layout_mode = 2
 text = "Name: 
@@ -33,6 +41,14 @@ text = "Image:"
 [node name="ImageLineEdit" type="LineEdit" parent="."]
 layout_mode = 2
 script = ExtResource("2_sl12a")
+
+[node name="Control2" type="Control" parent="." groups=["godot_tabs_error"]]
+visible = false
+layout_mode = 2
+
+[node name="ErrorImage" type="Label" parent="." groups=["godot_tabs_error"]]
+visible = false
+layout_mode = 2
 
 [node name="CloseButton" type="Button" parent="."]
 layout_mode = 2

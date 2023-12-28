@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1ke21i33qolv"]
+
+[ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_6hdge"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
+rough = true
+
+[node name="TestLevel" instance=ExtResource("1_6hdge")]
+
+[node name="Ground" parent="Landscape" index="0"]
+polygon = PackedVector2Array(-115, -50, 278, -50, 316, 13, 278, 94, 110, 123, -63, 115, -112, 96, -156, 74, -144, -5)
+
+[node name="PlayerRigid" parent="." index="9"]
+position = Vector2(134, 152)
+physics_material_override = SubResource("PhysicsMaterial_temxo")

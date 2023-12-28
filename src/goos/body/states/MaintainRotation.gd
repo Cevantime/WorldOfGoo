@@ -8,7 +8,7 @@ func _supports(node: Node):
 	return ConnectionManager.get_connectable(node) != null
 
 
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	connectable = ConnectionManager.get_connectable(referer)
 	set_refs()
 	connectable.connect("disconnected", Callable(self, "_on_disconnected"))

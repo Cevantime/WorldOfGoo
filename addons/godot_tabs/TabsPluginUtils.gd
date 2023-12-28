@@ -18,7 +18,7 @@ static func display_error(error):
 
 static func save_tabs(tabs: TabContainer):
 	if not tabs.is_node_ready():
-		await tabs.ready
+		return
 	var data = {}
 	for i in range(tabs.get_tab_count() - 1):
 		var tab = tabs.get_tab_control(i)
@@ -29,13 +29,12 @@ static func save_tabs(tabs: TabContainer):
 		tab_data["index"] = i
 		for j in range(tab.h_flow_container.get_child_count() - 1):
 			var object = tab.h_flow_container.get_child(j)
-			print(object.text)
 			if "text" in object:
 				var object_data = {}
+				object_data["ruid"] = object.ruid
 				object_data["text"] = object.text
-				object_data["path"] = object.packed_scene.resource_path
+				object_data["path"] = object.packed_scene.resource_path if object.packed_scene else object.path
 				object_data["image"] = object.image
-				object_data["node_path"] = object.node_path
 				objects.push_back(object_data)
 		
 	

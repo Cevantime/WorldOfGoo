@@ -8,7 +8,7 @@ var initial_neighbours_diff
 func _supports(node):
 	return node is Goo
 	
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	connectable = ConnectionManager.get_connectable(referer.body)
 	initial_neighbours_diff = {}
 	var body = referer.body

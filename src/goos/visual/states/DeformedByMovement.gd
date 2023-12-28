@@ -9,7 +9,7 @@ const Goo = preload("res://src/goos/visual/BaseGoo.gd")
 func _supports(node):
 	return node is Goo
 	
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	referer.deformation_vertical_influence = 1.0
 	
 func _process(_delta):

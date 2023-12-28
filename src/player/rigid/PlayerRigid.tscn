@@ -1,15 +1,21 @@
-[gd_scene load_steps=13 format=3 uid="uid://b4w5uys8m48x3"]
+[gd_scene load_steps=19 format=3 uid="uid://b4w5uys8m48x3"]
 
 [ext_resource type="Script" path="res://src/player/rigid/PlayerRigid.gd" id="1_b1ptx"]
 [ext_resource type="Texture2D" uid="uid://b04luapofq2m0" path="res://icon.png" id="2_6fiep"]
-[ext_resource type="PackedScene" uid="uid://cxymy6dny1vf4" path="res://src/weapons/pisto/PistoConnectorArea.tscn" id="3_obgno"]
+[ext_resource type="PackedScene" uid="uid://cxymy6dny1vf4" path="res://src/objects/weapons/pisto/PistoConnectorArea.tscn" id="3_obgno"]
 [ext_resource type="Script" path="res://addons/godot_states/SwitchableStateMachine.gd" id="4_jjynt"]
 [ext_resource type="Script" path="res://addons/godot_states/MultipleStateMachine.gd" id="5_py27a"]
-[ext_resource type="PackedScene" uid="uid://buyctnouhet4v" path="res://src/player/states/CanMove.tscn" id="6_wv5so"]
+[ext_resource type="PackedScene" uid="uid://buyctnouhet4v" path="res://src/states/bodies/CanMove.tscn" id="6_wv5so"]
 [ext_resource type="Script" path="res://src/player/states/CanUsePisto.gd" id="7_aftjf"]
 [ext_resource type="Script" path="res://src/player/states/ControlViewFinder.gd" id="8_uaw0v"]
 [ext_resource type="Script" path="res://src/player/states/CanGrabBonus.gd" id="8_vgkhb"]
+[ext_resource type="PackedScene" uid="uid://df0l71hyxmk2h" path="res://src/states/bodies/CanJump.tscn" id="9_7m3tk"]
 [ext_resource type="Script" path="res://src/player/states/CanDisposePisto.gd" id="10_80sx2"]
+[ext_resource type="Script" path="res://src/player/states/CanGrabRopes.gd" id="10_kogdk"]
+[ext_resource type="PackedScene" uid="uid://bvsqbaq7hvtcl" path="res://src/states/bodies/Dragged.tscn" id="13_3xssp"]
+[ext_resource type="Script" path="res://src/player/states/GrabRope.gd" id="13_otkna"]
+[ext_resource type="Script" path="res://src/states/bodies/CanBalance.gd" id="14_3li5u"]
+[ext_resource type="Script" path="res://src/player/states/SwitchToRope.gd" id="14_eh4sr"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
 rough = true
@@ -61,6 +67,12 @@ script = ExtResource("7_aftjf")
 [node name="CanGrabBonus" type="Node" parent="States/Default"]
 script = ExtResource("8_vgkhb")
 
+[node name="CanJump" parent="States/Default" instance=ExtResource("9_7m3tk")]
+JUMP_FORCE = 175
+
+[node name="CanGrabRopes" type="Node" parent="States/Default"]
+script = ExtResource("10_kogdk")
+
 [node name="UsePisto" type="Node" parent="States"]
 script = ExtResource("5_py27a")
 
@@ -72,5 +84,26 @@ script = ExtResource("10_80sx2")
 
 [node name="CanMove" parent="States/UsePisto" instance=ExtResource("6_wv5so")]
 
+[node name="CanJump" parent="States/UsePisto" instance=ExtResource("9_7m3tk")]
+JUMP_FORCE = 175
+
 [node name="CanGrabBonus" type="Node" parent="States/UsePisto"]
 script = ExtResource("8_vgkhb")
+
+[node name="BeforeRope" type="Node" parent="States"]
+script = ExtResource("5_py27a")
+
+[node name="Dragged" parent="States/BeforeRope" instance=ExtResource("13_3xssp")]
+
+[node name="SwitchToRope" type="Node" parent="States/BeforeRope"]
+script = ExtResource("14_eh4sr")
+
+[node name="OnRope" type="Node" parent="States"]
+script = ExtResource("5_py27a")
+
+[node name="CanBalance" type="Node" parent="States/OnRope"]
+script = ExtResource("14_3li5u")
+VELOCITY = 10
+
+[node name="GrabRope" type="Node" parent="States/OnRope"]
+script = ExtResource("13_otkna")

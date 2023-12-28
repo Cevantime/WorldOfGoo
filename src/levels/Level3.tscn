@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://yavwrobnthef"]
+[gd_scene load_steps=16 format=3 uid="uid://yavwrobnthef"]
 
 [ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_kni6i"]
 [ext_resource type="Script" path="res://src/levels/Level3.gd" id="2_qbhah"]
@@ -9,7 +9,12 @@
 [ext_resource type="PackedScene" uid="uid://1kwdxums3axx" path="res://src/platforms/AnimatablePathPlatform.tscn" id="7_xuqku"]
 [ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="8_xqgt5"]
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="9_hdtt8"]
-[ext_resource type="Script" path="res://src/connections/ConnectionLine.gd" id="10_14uem"]
+
+[sub_resource type="Curve2D" id="Curve2D_mkhco"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -2, -1, 0, 0, 0, 0, -3, -188)
+}
+point_count = 2
 
 [sub_resource type="Animation" id="Animation_e5bum"]
 length = 0.001
@@ -49,13 +54,16 @@ _data = {
 "animate": SubResource("Animation_t1x4m")
 }
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yksns"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pr800"]
 shader = ExtResource("9_hdtt8")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
 shader_parameter/signal_ratio = -1.3
 shader_parameter/backwards = false
 shader_parameter/display_tex = false
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
+rough = true
 
 [node name="Level3" instance=ExtResource("1_kni6i")]
 script = ExtResource("2_qbhah")
@@ -70,31 +78,35 @@ offset_top = 20.0
 offset_right = -2.0
 offset_bottom = 20.0
 
-[node name="GreyGoo" parent="Goos" index="0" instance=ExtResource("3_7f5c2")]
+[node name="RedGoo2" parent="Goos" index="0" instance=ExtResource("4_23bcy")]
+position = Vector2(672, 169)
+
+[node name="GreyGoo" parent="Goos" index="1" instance=ExtResource("3_7f5c2")]
 position = Vector2(826, 168)
 
-[node name="GreyGoo2" parent="Goos" index="1" instance=ExtResource("3_7f5c2")]
+[node name="GreyGoo2" parent="Goos" index="2" instance=ExtResource("3_7f5c2")]
 position = Vector2(756, 169)
 
-[node name="RedGoo" parent="Goos" index="2" instance=ExtResource("4_23bcy")]
+[node name="RedGoo" parent="Goos" index="3" instance=ExtResource("4_23bcy")]
 z_index = 5
-position = Vector2(584, 170)
+position = Vector2(588, 172)
 
-[node name="GreenGoo" parent="Goos" index="3" instance=ExtResource("5_5qpde")]
-position = Vector2(878, 52)
+[node name="GreenGoo" parent="Goos" index="4" instance=ExtResource("5_5qpde")]
+position = Vector2(878, 50)
 push_force = 49.767
 
-[node name="PurpleGoo" parent="Goos" index="4" instance=ExtResource("6_36ci2")]
+[node name="PurpleGoo" parent="Goos" index="5" instance=ExtResource("6_36ci2")]
 position = Vector2(942, 53)
 
 [node name="Ground" parent="Landscape" index="0"]
 position = Vector2(178, 234)
-polygon = PackedVector2Array(-417, -180, -415, -55, 67, -49, 68, 150, 290, 146, 287, -49, 664, -50, 666, -170, 741, -164, 820, -168, 825, -32, 831, 377, -504, 379, -506, -180)
+polygon = PackedVector2Array(-417, -180, -415, -55, 67, -49, 68, 150, 290, 146, 287, -49, 664, -50, 666, -170, 742, -167, 820, -168, 825, -32, 831, 377, -504, 379, -506, -180)
 
 [node name="AnimatablePathPlatform" parent="." index="7" instance=ExtResource("7_xuqku")]
-position = Vector2(362, 132)
+position = Vector2(360, 202)
+curve = SubResource("Curve2D_mkhco")
 
-[node name="Polygon2D" parent="AnimatablePathPlatform/PathFollow2D/RigidBody2D" index="1"]
+[node name="Polygon2D" parent="AnimatablePathPlatform/PathFollow2D/RigidBody2D" index="0"]
 polygon = PackedVector2Array(-99, -10, -99, 11, 97, 11, 97, -10)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="AnimatablePathPlatform" index="1"]
@@ -103,22 +115,18 @@ libraries = {
 }
 autoplay = "animate"
 
-[node name="WinArea" parent="." index="8"]
+[node name="ConnectionLine" parent="Connections" index="0" instance=ExtResource("8_xqgt5")]
+material = SubResource("ShaderMaterial_pr800")
+points = PackedVector2Array(826, 168, 756, 169)
+connectable_a_path = NodePath("../../Goos/GreyGoo/GooBody/Connectable")
+connectable_b_path = NodePath("../../Goos/GreyGoo2/GooBody/Connectable")
+metadata/_edit_lock_ = true
+
+[node name="WinArea" parent="." index="9"]
 position = Vector2(-328, 29)
 polygon = PackedVector2Array(2, -31, 5, 28, 58, 30, 58, -32)
 
-[node name="RedGoo" parent="." index="12" instance=ExtResource("4_23bcy")]
-position = Vector2(663, 171)
-
-[node name="ConnectionLine" type="Line2D" parent="." index="13" groups=["connection_lines"] instance=ExtResource("8_xqgt5")]
-process_mode = 3
-material = SubResource("ShaderMaterial_yksns")
-points = PackedVector2Array(756, 169, 826, 168)
-width = 13.0
-texture_mode = 2
-script = ExtResource("10_14uem")
-connectable_a_path = NodePath("../Goos/GreyGoo2/GooBody/Connectable")
-connectable_b_path = NodePath("../Goos/GreyGoo/GooBody/Connectable")
-metadata/_edit_lock_ = true
+[node name="PlayerRigid" parent="." index="10"]
+physics_material_override = SubResource("PhysicsMaterial_temxo")
 
 [editable path="AnimatablePathPlatform"]

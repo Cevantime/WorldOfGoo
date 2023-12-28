@@ -5,7 +5,7 @@ var connectable
 func _supports(node):
 	return node is RigidBody2D and ConnectionManager.get_connectable(node)
 	
-func _enter_state(previous, params = []):
+func _enter_state(previous, params = {}):
 	super._enter_state(previous, params)
 	connectable = ConnectionManager.get_connectable(referer)
 	

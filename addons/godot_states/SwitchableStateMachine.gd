@@ -7,12 +7,12 @@ var selected_state
 func _supports(node: Node):
 	return true
 	
-func _enter_state(previous, params = []):
+func _enter_state(previous, params = {}):
 	if selected_state == null:
 		for n in get_children():
 			if n._supports(referer):
 				if not n.disabled:
-					change_state(n.name, [null, []])
+					change_state(n.name, {})
 					break
 			else:
 				printerr("state " + n.name + " has been added to " + referer.name + " but doesn't support it!")
@@ -21,7 +21,7 @@ func _enter_state(previous, params = []):
 		selected_state.enabled = true
 		selected_state._enter_state(previous)
 
-func change_state(state_name, params = []):
+func change_state(state_name, params:Dictionary = {}):
 	var next = get_node(NodePath(state_name))
 	if selected_state != null:
 		if selected_state == next or selected_state.disabled:

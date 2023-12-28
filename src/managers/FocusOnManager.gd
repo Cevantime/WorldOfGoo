@@ -1,23 +1,24 @@
 extends StateMachine
 
 var camera
-var connected_goos_stack = []
+var focusable_stack = []
 
-@export var group_name: String
-@export var signal_name: String
 
 func _supports(node):
 	return node.is_in_group(Groups.LEVELS)
 
-func _ready():
-	for goo in get_tree().get_nodes_in_group(group_name):
-		goo.connect(signal_name, Callable(self, "_on_signal"))
-		
-func _enter_state(_previous, _params = []):
-	camera = referer.main_camera
 
+func _enter_state(_previous, _params = {}):
+	camera = referer.main_camera
+	for focusable in get_tree().get_nodes_in_group(Groups.FOCUSABLES):
+		focusable.connect("focus_requested", Callable(self, "_on_focus_requested"))
+
+func _exit_state(_previous, _params = {}):
+	for focusable in get_tree().get_nodes_in_group(Groups.FOCUSABLES):
+		focusable.disconnect("focus_requested", Callable(self, "_on_focus_requested"))
+	
 func _process(_delta):
-	if connected_goos_stack.size() == 0:
+	if focusable_stack.size() == 0:
 		return
 		
 	set_process(false)
@@ -25,33 +26,30 @@ func _process(_delta):
 	var old_cam_zoom = camera.zoom_target
 	var old_cam_pos = camera.global_position
 	
-	
-	for goo in connected_goos_stack:
+	for focusable in focusable_stack:
+		var focusable_ref = focusable.referer
 		camera.follow_player = false
-		goo.process_mode = ProcessMode.PROCESS_MODE_ALWAYS
+		focusable_ref.process_mode = ProcessMode.PROCESS_MODE_ALWAYS
 		get_tree().paused = true
-		var tw = create_tween().tween_property(camera, "global_position", goo.body.global_position, 0.2)
+		var tw = create_tween().tween_property(camera, "global_position", focusable.target.global_position, 0.2)
 		await tw.finished
 		camera.zoom_target = Vector2(2,2)
-		await _action(goo)
+		await focusable.focus_released
 		get_tree().paused = false
-		goo.process_mode = ProcessMode.PROCESS_MODE_INHERIT
+		focusable_ref.process_mode = ProcessMode.PROCESS_MODE_INHERIT
 		
 	camera.follow_player = true
 	
-	connected_goos_stack = []
+	focusable_stack = []
 	
 	camera.zoom_target = old_cam_zoom
 	create_tween().tween_property(camera, "global_position", old_cam_pos, 0.2)
 	
 	set_process(true)
 	
-func _on_signal(goo):
-	connected_goos_stack.push_back(goo)
+func _on_focus_requested(focusable):
+	focusable_stack.push_back(focusable)
 	
-
-func _action(_goo):
-	pass
 	
 	
 

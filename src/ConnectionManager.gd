@@ -56,8 +56,8 @@ func _process(_delta):
 func _ready():
 	set_process(false)
 	var _c = get_tree().connect("node_added", Callable(self, "_on_node_added"))
-	for connectable_state in get_tree().get_nodes_in_group(Groups.CONNECTABLE_STATE):
-		listen_to_connectable(connectable_state)
+	for connectable in get_tree().get_nodes_in_group(Groups.CONNECTABLE_STATE):
+		listen_to_connectable(connectable)
 	
 func get_preview_line(c1, c2):
 	return get_factory(c1, c2).get_preview_line(c1, c2)

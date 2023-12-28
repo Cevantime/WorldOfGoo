@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=3 uid="uid://cm13uxnlodgd5"]
+
+[ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_4elnt"]
+[ext_resource type="Script" path="res://src/levels/Level6.gd" id="2_j31er"]
+[ext_resource type="PackedScene" uid="uid://2fhhxlsyipqc" path="res://src/objects/doors/SwitchButton.tscn" id="2_xf35e"]
+[ext_resource type="PackedScene" uid="uid://bhqo211yrikrd" path="res://src/enemies/Canon.tscn" id="3_yfkvu"]
+[ext_resource type="Script" path="res://src/player/rigid/PlayerRigid.gd" id="5_fknld"]
+[ext_resource type="PackedScene" uid="uid://b7cw718gfqpa3" path="res://src/objects/doors/Door.tscn" id="6_wwbac"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
+rough = true
+
+[node name="Level6" instance=ExtResource("1_4elnt")]
+script = ExtResource("2_j31er")
+
+[node name="Camera2D" parent="." index="0"]
+initial_zoom = 3.0
+
+[node name="Ground" parent="Landscape" index="0"]
+polygon = PackedVector2Array(-115, -50, 63, -50, 63, 30, 398, 29, 832, -51, 839, 107, 642, 384, 247, 341, -112, 96)
+
+[node name="SwitchButton" parent="Objects" index="0" instance=ExtResource("2_xf35e")]
+position = Vector2(186, 181)
+
+[node name="Canon" parent="Objects" index="1" instance=ExtResource("3_yfkvu")]
+position = Vector2(322, 259)
+range = 265
+
+[node name="RayCast2D" parent="Objects/Canon/CanonRigidBody2D" index="0"]
+target_position = Vector2(0, 265)
+
+[node name="Door" parent="Objects" index="2" instance=ExtResource("6_wwbac")]
+position = Vector2(231, 123)
+switch_path = NodePath("../SwitchButton")
+
+[node name="WinArea" parent="." index="8"]
+position = Vector2(922, 154)
+
+[node name="PlayerRigid" parent="." index="9" groups=["players"]]
+position = Vector2(128, 155)
+collision_layer = 2
+collision_mask = 291
+mass = 2.0
+physics_material_override = SubResource("PhysicsMaterial_temxo")
+gravity_scale = 3.0
+can_sleep = false
+lock_rotation = true
+max_contacts_reported = 10
+linear_damp_mode = 1
+linear_damp = 0.2
+script = ExtResource("5_fknld")
+
+[connection signal="activated" from="Objects/SwitchButton" to="." method="_on_switch_button_activated"]
+[connection signal="deactivated" from="Objects/SwitchButton" to="." method="_on_switch_button_deactivated"]
+
+[editable path="Objects/Canon"]

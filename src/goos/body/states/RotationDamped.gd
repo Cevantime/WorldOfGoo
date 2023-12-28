@@ -9,7 +9,7 @@ func _supports(node):
 	return node is BaseGooBody and ConnectionManager.get_connectable(node) != null
 	
 	
-func _enter_state(_previous, _params = []):
+func _enter_state(_previous, _params = {}):
 	connectable = ConnectionManager.get_connectable(referer)
 	for n in connectable.neighbours:
 		var diff_pos = referer.global_position -  n.referer.global_position

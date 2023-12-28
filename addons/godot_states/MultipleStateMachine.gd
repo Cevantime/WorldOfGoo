@@ -5,7 +5,7 @@ class_name MultipleStateMachine
 func _supports(node: Node):
 	return true
 	
-func _enter_state(previous, params = []):
+func _enter_state(previous, params = {}):
 	for n in get_children():
 		if not(n._supports(referer)) :
 			printerr("state " + n.name + " has been added to " + referer.name + " but doesn't support it!")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b4w4ngo10si7y"]
+[gd_scene load_steps=12 format=3 uid="uid://b4w4ngo10si7y"]
 
 [ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_18ghb"]
 [ext_resource type="Script" path="res://src/levels/Level5.gd" id="2_c3ku3"]
@@ -7,9 +7,13 @@
 [ext_resource type="PackedScene" uid="uid://btjntkiluw2x8" path="res://src/connections/ConnectionLine.tscn" id="6_kbscy"]
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="7_bd0kc"]
 [ext_resource type="PackedScene" uid="uid://bhb8luifi2x7q" path="res://src/platforms/Balance.tscn" id="7_g2kfq"]
-[ext_resource type="PackedScene" uid="uid://1pwdejotpm34" path="res://src/bonus/PistoBoost.tscn" id="8_82vqo"]
+[ext_resource type="Script" path="res://src/player/rigid/PlayerRigid.gd" id="7_ymn54"]
+[ext_resource type="PackedScene" uid="uid://1pwdejotpm34" path="res://src/objects/bonus/PistoBoost.tscn" id="8_82vqo"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_d8ie6"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
+rough = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lflbn"]
 shader = ExtResource("7_bd0kc")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -37,20 +41,32 @@ position = Vector2(11, -74)
 
 [node name="Ground" parent="Landscape" index="0"]
 position = Vector2(177, 229)
-polygon = PackedVector2Array(-115, -50, 487, -55, 475, -406, 543, -438, 649, -438, 669, 96, 489, 96, -112, 96, -348, 92, -283, -518, -158, -521, -181, -288, -145, -288, -145, -263, -172, -219, -163, -137, -109, -139, -111, -114, -161, -114, -171, -52)
+polygon = PackedVector2Array(-115, -50, 487, -55, 481.723, -209.355, 475, -406, 543, -438, 649, -438, 669, 96, 489, 96, -112, 96, -348, 92, -282, -583, -160, -581, -181, -288, -145, -288, -145, -263, -172, -219, -163, -137, -109, -139, -111, -114, -161, -114, -171, -52)
 
 [node name="Balance" parent="." index="7" instance=ExtResource("7_g2kfq")]
 position = Vector2(396, -46)
 
-[node name="WinArea" parent="." index="8"]
-position = Vector2(-83, -321)
+[node name="WinArea" parent="." index="9"]
+position = Vector2(-69, -381)
 
-[node name="PlayerRigid" parent="." index="9"]
+[node name="PlayerRigid" parent="." index="10" groups=["players"]]
 position = Vector2(210, 155)
+collision_layer = 2
+collision_mask = 291
+mass = 2.0
+physics_material_override = SubResource("PhysicsMaterial_temxo")
+gravity_scale = 3.0
+can_sleep = false
+lock_rotation = true
+max_contacts_reported = 10
+linear_damp_mode = 1
+linear_damp = 0.2
+script = ExtResource("7_ymn54")
 
 [node name="ConnectionLine" parent="." index="12" instance=ExtResource("6_kbscy")]
-material = SubResource("ShaderMaterial_d8ie6")
+material = SubResource("ShaderMaterial_lflbn")
 points = PackedVector2Array(740, -223, 802, -223)
+width = 4.36741
 connectable_a_path = NodePath("../Goos/GreyGoo/GooBody/Connectable")
 connectable_b_path = NodePath("../Goos/GreyGoo2/GooBody/Connectable")
 metadata/_edit_lock_ = true

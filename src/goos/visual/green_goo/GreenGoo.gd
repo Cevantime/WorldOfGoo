@@ -1,10 +1,9 @@
 extends "res://src/goos/visual/ConnectableGoo.gd"
 
-@onready var connectable_state = $GooBody/Connectable
 @onready var blast = $SpritePosition/SpriteRotation/Blast
 @onready var air_arrow = $SpritePosition/SpriteRotation/AirArrow
 @onready var push_state = $GooBody/States/Started/Push
-@onready var connectable = $GooBody/Connectable
+@onready var focusable = $Focusable
 
 @export_category("Pushing")
 @export_range(0, 200.0) var push_force: float = 30.0:
@@ -23,30 +22,28 @@ func _ready():
 	blast.material = blast.material.duplicate()
 
 func _on_draggable_drag_ended():
-	connectable_state.request_connection()
+	connectable.request_connection()
 
 
-func _on_connectable_connected(other):
-	super(other)
+func _on_connect(other):
 	var other_goo = other.referer.get_parent()
 	
 	if other_goo.is_in_group(Groups.PURPLE_GOOS):
 		other_goo.connect("activated", Callable(self, "_on_activation"))
 		other_goo.connect("deactivated", Callable(self, "_on_deactivation"))
-		call_deferred("deactivate_in_inactive")
 		
-	if connectable_state.neighbours.size() >=2:
-		return
+	if states.selected_state.name == "Started":
+		call_deferred("deactivate_if_inactive")
 		
-	emit_signal("connected", self)
+	
 
-func switch_to_just_connected():
-	air_arrow.show()
-	body_states.change_state("JustConnected")
-	states.change_state("JustConnected")
+func _on_first_connect(_other):
+	focusable.request_focus()
+
 
 func _on_set_direction_direction_set():
-	emit_signal("direction_set")
+	focusable.release_focus()
+	switch_to_started()
 
 func _on_activation():
 	outline.show()
@@ -56,7 +53,7 @@ func _on_deactivation():
 	outline.hide()
 	stop()
 
-func deactivate_in_inactive():
+func deactivate_if_inactive():
 	if not check_is_active():
 		_on_deactivation()
 
@@ -73,25 +70,22 @@ func check_is_active():
 		return true
 	
 	for pc in purple_connections:
-		var g1 = pc.connectable_a.get_parent().get_parent()
-		var g2 = pc.connectable_b.get_parent().get_parent()
+		var g1 = pc.connectable_a.referer.get_parent()
+		var g2 = pc.connectable_b.referer.get_parent()
 		if (g1 == self and g2 is PurpleGoo and g2.active) or (g2 == self and g1 is PurpleGoo and g1.active):
 			return true
 			
 	return false
 
 func stop():
-	states.change_state("Stopped")
-	body_states.change_state("Stopped")
+	change_both_state("Stopped")
 	
 func start():
-	states.change_state("Started")
-	body_states.change_state("Started")
+	change_both_state("Started")
 	
 func switch_to_started():
-	air_arrow.hide()
 	var is_connected_to_purple_goo = false
-	for n in connectable_state.neighbours:
+	for n in connectable.neighbours:
 		if n.referer.get_parent().is_in_group(Groups.PURPLE_GOOS):
 			is_connected_to_purple_goo = true
 			break
@@ -101,22 +95,5 @@ func switch_to_started():
 	else:
 		start()
 
-func _on_connectable_disconnected(_other):
-	super(_other)
-	if connectable_state.neighbours.size() == 0:
-		body_states.change_state("Idle")
 
 
-
-func _on_pisto_grabbable_pisto_grabbed(p):
-	body_states.change_state("Dragged", [p.view_finder_area])
-	states.change_state("Dragged")
-
-
-func _on_pisto_grabbable_pisto_released(_p):
-	body_states.change_state("Idle")
-	states.change_state("Awake")
-
-
-func _on_pisto_releaseable_pisto_released(_p):
-	connectable_state.request_connection()

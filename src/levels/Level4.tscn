@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://dl15q7p1a36hi"]
+[gd_scene load_steps=11 format=3 uid="uid://dl15q7p1a36hi"]
 
 [ext_resource type="PackedScene" uid="uid://c5ycvrf3hmdd3" path="res://src/levels/BaseLevel.tscn" id="1_7b88p"]
 [ext_resource type="PackedScene" uid="uid://b4gtw38cowsn3" path="res://src/goos/visual/black_goo/BlackGoo.tscn" id="2_5416j"]
@@ -9,7 +9,10 @@
 [ext_resource type="Shader" path="res://assets/shaders/connection.gdshader" id="8_gavpw"]
 [ext_resource type="PackedScene" uid="uid://c0x0lcq6auxjk" path="res://src/goos/visual/purple_goo/PurpleGoo.tscn" id="8_sva3n"]
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_fy2t5"]
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_temxo"]
+rough = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gjxw"]
 shader = ExtResource("8_gavpw")
 shader_parameter/color = Color(0.254902, 0.254902, 0.254902, 1)
 shader_parameter/signal_color = Color(1, 1, 1, 1)
@@ -27,26 +30,8 @@ initial_zoom = 0.75
 [node name="BlackGoo3" parent="Goos" index="0" instance=ExtResource("2_5416j")]
 position = Vector2(228, 165)
 
-[node name="GooBody" parent="Goos/BlackGoo3" index="0"]
-connected_mask = 261
-
-[node name="Connectable" parent="Goos/BlackGoo3/GooBody" index="5"]
-visual_path = NodePath("../../SpritePosition/SpriteRotation")
-
-[node name="SpritePosition" parent="Goos/BlackGoo3" index="1"]
-position = Vector2(0, 0)
-
 [node name="BlackGoo4" parent="Goos" index="1" instance=ExtResource("2_5416j")]
 position = Vector2(152, 166)
-
-[node name="GooBody" parent="Goos/BlackGoo4" index="0"]
-connected_mask = 261
-
-[node name="Connectable" parent="Goos/BlackGoo4/GooBody" index="5"]
-visual_path = NodePath("../../SpritePosition/SpriteRotation")
-
-[node name="SpritePosition" parent="Goos/BlackGoo4" index="1"]
-position = Vector2(0, 0)
 
 [node name="RedGoo" parent="Goos" index="2" instance=ExtResource("4_w87tu")]
 position = Vector2(459, 182)
@@ -61,31 +46,29 @@ position = Vector2(493, 177)
 position = Vector2(477, 168)
 
 [node name="PurpleGoo2" parent="Goos" index="6" instance=ExtResource("8_sva3n")]
-position = Vector2(481, 159)
+position = Vector2(471, 139)
 
 [node name="BlackGoo" parent="Goos" index="7" instance=ExtResource("2_5416j")]
-position = Vector2(459, 141)
+position = Vector2(443, 121)
 
 [node name="RedGoo2" parent="Goos" index="8" instance=ExtResource("4_w87tu")]
-position = Vector2(483, 107)
+position = Vector2(497, 86)
 
 [node name="BlackGoo2" parent="Goos" index="9" instance=ExtResource("2_5416j")]
-position = Vector2(510, 137)
+position = Vector2(518, 143)
 
 [node name="Ground" parent="Landscape" index="0"]
 polygon = PackedVector2Array(-130, -51, 121, -50, 229, -76, 252, -21, 316, -18, 364, -72, 431, -196, 427, -412, 695, 15, 278, 94, -112, 96, -452, 27, -299, -404, -294, -140)
 
-[node name="WinArea" parent="." index="7"]
+[node name="WinArea" parent="." index="8"]
 position = Vector2(198, -466)
 
-[node name="ConnectionLine" parent="." index="11" instance=ExtResource("7_pjrqs")]
-material = SubResource("ShaderMaterial_fy2t5")
-points = PackedVector2Array(152, 166, 228, 165)
-connectable_a_path = NodePath("../Goos/BlackGoo4/GooBody/Connectable")
-connectable_b_path = NodePath("../Goos/BlackGoo3/GooBody/Connectable")
-metadata/_edit_lock_ = true
+[node name="PlayerRigid" parent="." index="9"]
+physics_material_override = SubResource("PhysicsMaterial_temxo")
 
-[editable path="Goos/BlackGoo3"]
-[editable path="Goos/BlackGoo3/GooBody"]
-[editable path="Goos/BlackGoo4"]
-[editable path="Goos/BlackGoo4/GooBody"]
+[node name="ConnectionLine" parent="." index="11" instance=ExtResource("7_pjrqs")]
+material = SubResource("ShaderMaterial_3gjxw")
+points = PackedVector2Array(228, 165, 152, 166)
+connectable_a_path = NodePath("../Goos/BlackGoo3/GooBody/Connectable")
+connectable_b_path = NodePath("../Goos/BlackGoo4/GooBody/Connectable")
+metadata/_edit_lock_ = true

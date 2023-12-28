@@ -10,6 +10,8 @@ const scroll_container_packed = preload("res://addons/godot_tabs/TabContent.tscn
 @onready var add_tab_tab = $"+"
 @onready var last_tab_selected = current_tab
 
+var initializing = false
+
 func _ready():
 	var objects = get_tree().get_nodes_in_group("godot_tabs_objects")
 	for object in objects:
@@ -21,6 +23,7 @@ func _on_object_edited(object):
 	TabsPluginUtils.save_tabs(self)
 
 func initialize(data: Dictionary):
+	initializing = true
 	var keys = data.keys()
 	keys.sort_custom(func(t1, t2) :
 		return data[t1].index < data[t2].index
@@ -30,7 +33,7 @@ func initialize(data: Dictionary):
 		new_tab.initialize(data[k].objects)
 		
 	current_tab = 0
-
+	initializing = false
 
 func _on_add_button_pressed():
 	error_label.text = ""
@@ -49,13 +52,14 @@ func _on_add_button_pressed():
 func add_tab(name):
 	var new_tab = scroll_container_packed.instantiate()
 	new_tab.name = name
-	var plus_tab = self.get_child(self.get_child_count() - 1)
+	var plus_tab = get_child(get_child_count() - 1)
 	TabsPluginUtils.append_before(new_tab, plus_tab)
 	new_tab.connect("object_added", Callable(self, "_on_object_added"))
 	return new_tab
 	
 func _on_object_added(object):
-	TabsPluginUtils.save_tabs(self)
+	if not initializing:
+		TabsPluginUtils.save_tabs(self)
 	object.connect("add_requested", Callable(self, "request_add"))
 
 

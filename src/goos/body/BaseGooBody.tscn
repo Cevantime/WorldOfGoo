@@ -39,5 +39,5 @@ script = ExtResource("3")
 [node name="Sleeping" type="Node" parent="States"]
 script = ExtResource("1")
 
-[node name="Idle" type="Node" parent="States"]
+[node name="Awake" type="Node" parent="States"]
 script = ExtResource("1")
